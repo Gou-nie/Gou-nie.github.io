@@ -41,20 +41,20 @@ module.exports = {
                 text: "觀點",
                 items: [
                     {
-                        text: "信仰",
-                        link: "/text/信仰"
+                        text: "faith",
+                        link: "/text/faith"
                     },
                     {
                         text: "<this is water>讀後感",
-                        link: "/text/water讀後感"
+                        link: "/text/<this is water>讀後感"
                     }
                 ]
             },  
         ],
-    //     sidebar: [//左侧列表
-    //   ['/cloud/IOS-SDK接口文档', 'ios-sdk'],
-    //   ['/cloud/TSP-DK平台接口文档', 'tsp-dk']
-    //     ]
+        sidebar: [ 
+            ['text/faith', 'faith'],
+            ['text/<this is water>讀後感', 'tsp-dk']
+        ]
                         
     }
 }
