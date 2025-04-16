@@ -1,0 +1,19 @@
+{
+    "name": "loncin-doc",
+    "version": "1.0.0",
+    "description": "GouNie",
+    "scripts": {
+        "dev": "vuepress dev md",
+        "build": "vuepress build md"
+    },
+    "main": "index.js",
+    "author": "LXS",
+    "license": "MIT",
+    "devDependencies": {
+        "@vuepress/plugin-blog": "^1.9.4",
+        "@vuepress/plugin-nprogress": "^1.9.7",
+        "chokidar": "^3.6.0",
+        "vuepress": "^1.8.2",
+        "vuepress-plugin-code-copy": "^1.0.6"
+    }
+}
