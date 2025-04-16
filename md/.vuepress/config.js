@@ -50,15 +50,15 @@ module.exports = {
                         link: "/content/this is water 读后感"
                     },
                     {
-                        text:"poem",
-                        link: "/content/poem",
+                        text:"vuepress部署",
+                        link: "/content/vuepress部署",
                     }
                 ]
             },  
         ],
         sidebar: [ 
             ['content/faith', 'faith'],
-            ['content/poem', 'poem'],
+            ['content/vuepress部署', 'vuepress部署'],
             ['content/this is water 读后感', 'this is water 读后感']
         ]
     
