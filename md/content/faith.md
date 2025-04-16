@@ -1,5 +1,5 @@
 <h1>faith</h1>
-<h2>目录</h2>
+<h2>信仰啊</h2>
 
 * 1. [birth](#birth)
 * 2. [storys](#storys)

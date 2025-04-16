@@ -43,18 +43,23 @@ module.exports = {
                 items: [
                     {
                         text: "faith",
-                        link: "/text/faith"
+                        link: "/content/faith"
                     },
                     {
-                        text: "<this is water>Afterword",
-                        link: "/text/<this is water>Afterword"
+                        text: "this is water 读后感",
+                        link: "/content/this is water 读后感"
+                    },
+                    {
+                        text:"poem",
+                        link: "/content/poem",
                     }
                 ]
             },  
         ],
         sidebar: [ 
-            ['text/faith', 'faith'],
-            ['text/<this is water>Afterword', 'tsp-dk']
+            ['content/faith', 'faith'],
+            ['content/poem', 'poem'],
+            ['content/this is water 读后感', 'this is water 读后感']
         ]
     
     }
