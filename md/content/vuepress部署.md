@@ -82,7 +82,7 @@
 ## 2.  <a name='second'></a> 项目配置
 <br>&emsp;如果第一次搞的话,前面可能会遇到各种问题.第一次学习总是这样的,都是一个坎一个坎走过来的,相信你成功之后的成就感已经给你鼓舞了,让我们进入下一步吧.
 <br>&emsp;上一节已经发一个hello页到自己的github.io上了,我们的最终目的是将我们日常记录内容放在web上去展示.首先找了一个简单的框架-vuepress:只需要在config.js中配置相关参数就能将md文件渲染到网页上,所以2.1节就说一下相关配置. 
-<br>&emsp;因为要发布到githubPages需要时打包好的静态文件,这里我们采用github上的工作流来线上node打包将静态文件推送到新的分支gh-pages上,然后给pages去转发到github.io的域名.
+<br>&emsp;因为要发布到githubPages需要的是打包好的静态文件,这里我们采用github上的工作流来线上node打包将静态文件推送到新的分支gh-pages上,然后给pages去转发到github.io的域名.
 
 ### 2.1. <a name='secondFirst'></a> 代码中配置
 vuepress官方文档: https://v1.vuepress.vuejs.org/zh/
@@ -178,7 +178,8 @@ module.exports = {
     }
 }
 ```
-<br>&emsp;仔细看的话你已经发现有点规律了,我们所有的md文件都放在md/content中,然后在config.js中的themeConfig字段的nav和sidebar中填写具体的md文件地址,让vuepress去处理的时候映射数据和页面结构的关系. 多说无益,这个需要耐心看看,切忌急躁,越急是越看不进去的.
+<br>&emsp;仔细看的话你已经发现有点规律了,我们所有的md文件都放在md/content中,然后在config.js中的themeConfig字段的nav和sidebar中填写具体的md文件地址,让vuepress去处理的时候映射数据和页面结构的关系.你看nav使用[]中括号扩起来是个列表，{}大括号括起来的是对象实体，看text为‘首页’的那个和text为‘觀點’的那个他俩是平级的，在页面上的右上角可以看到，‘觀點’里面也是一个有三个元素的列表，鼠标悬停上你可以看到下拉出来的三个菜单。sidebar这个就好理解一点，[[index1,tag1],[index2,tag2],[index3,tag3]] 但是你看到页面上侧边栏有子目录是吧，那个是md文档的目录自动识别过去的 这里sidebar只是设置文件索引就行。
+不确定这里说的清楚与否，前置理解内容：“json数据结构”。这个主要还是看themeConfig里面的配置和页面的映射来理解怎么配置。别混淆,这个需要耐心看看,切忌急躁,越急是越看不进去的.
 
 <br>&emsp;上边说的是项目内部结构,再看下githubPages的流水线脚本:
 
