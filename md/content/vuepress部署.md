@@ -19,22 +19,22 @@
 
 <br> &emsp;a.右上角的加号下选择New repo。如图1 
 
-![图1](static/图1.png "Magic Gardens")
+![图1](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE1.png "Magic Gardens")
 
 <center>图1</center>
 
 <br> &emsp;b. 仓库名称规则：username.github.io  username替换成自己的账户名字，例Aleahpeal如图2
 
-![图2](static/图2.png "Magic Gardens")
+![图2](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE2.png "Magic Gardens")
 <center>图2</center>
 
 <br> &emsp;c. 查看选择public，private是不行的，踩过坑T_T。如图3
 
-![图3](static/图3.png "Magic Gardens")
+![图3](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE3.png "Magic Gardens")
 <center>图3</center>
 <br> &emsp;d. 勾选生成readme.md。这样就不用初始化仓库了。如图4
 
-![图4](static/图4.png "Magic Gardens")
+![图4](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE4.png "Magic Gardens")
 <center>图4</center>
 <br> &emsp;e. create repo  完成！^_^
  
@@ -50,22 +50,22 @@
 
  <br> &emsp;a.在仓库的code页点击大绿按钮复制仓库地址。如图5
 
-![图5](static/图5.png "Magic Gardens")
+![图5](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE5.png "Magic Gardens")
 <center>图5</center>
  <br> &emsp;b.在装好git的环境找一个你准备放代码的位置然后点击右键出现git bash点击选择它就会出现一个黑色窗口。（呜呜呜 希望git你那里有 ）在窗口输入执行命令 git clone + https://test.com[刚复制的内容]如图6则算成功。
 
-![图6](static/图6.png "Magic Gardens")
+![图6](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE6.png "Magic Gardens")
 <center>图6</center>
  <br> &emsp;c.输入命令ls查看文件列表是不是多一个跟项目名称【username.github.io】相同的文件夹。然后呢数日命令cd + 文件夹名（这里可以输入头两个字母然后按tab【q左边】补全），进入目录之后使用echo创建文件index.html如图7
 
-![图7](static/图7.png "Magic Gardens")
+![图7](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE7.png "Magic Gardens")
 <center>图7</center>
  <br> &emsp;d.执行git add 。&& git commit -m “feat” && git push 提交推送【上传】index文件到仓库。然后在github的那个仓库里就能看到刚刚上传的文件和提交记录了。如图8 图9 完成^_^ ! 
 
-![图8](static/图8.png "Magic Gardens")
+![图8](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE8.png "Magic Gardens")
 <center>图8</center>
 
-![图9](static/图9.png "Magic Gardens")
+![图9](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE9.png "Magic Gardens")
 <center>图9</center>
  <br> &emsp;
 
@@ -74,7 +74,7 @@
 
  <br> &emsp;这个时候访问地址https://gou-nie.github.io/【htts://username.github.io】就是渲染的刚写的index.html页面，如图10. 这样我们的静态页面就发布到网上了。完成^_^ 
 
-![图10](static/图10.png "Magic Gardens")
+![图10](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE10.png "Magic Gardens")
 <center>图10</center>
 
 到这里简单了解了github pages的提供的功能，按用户划分一个域名【username.github.io】去找到【username.github.io】这个仓库并渲染代码到端口给浏览器展示，注意格式是固定的。ok，休息一下。这里可以将许多静态页面发布，比如我列表里的adForAle这个库直接放到你的这个pages仓库里。接下来来点操作了。
@@ -226,43 +226,43 @@ jobs:
 好的,如果前面的都看的差不多了,现在开始登录github,搞一下这边的配置.
 <br>&emsp;a. 创建令牌.首先点击右上方头像找到setting进入再点击最下面的DeveloperSetting如图11和图12
 
-![图11](static/图11.png "Magic Gardens")
+![图11](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE11.png "Magic Gardens")
 <center>图11</center>
 
-![图12](static/图12.png "Magic Gardens")
+![图12](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE12.png "Magic Gardens")
 <center>图12</center>
 <br>&emsp;然后按图13所示,进入令牌创建页
 
-![图13](static/图13.png "Magic Gardens")
+![图13](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE13.png "Magic Gardens")
 <center>图13</center>
 
 <br>&emsp;b. 找到repo权限设置的地方选择[username.github.io]这个仓库如图14
 
-![图14](static/图14.png "Magic Gardens")
+![图14](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE14.png "Magic Gardens")
 <center>图14</center>
 
 <br>&emsp;接着设置权限打开图15所示的下拉项,选择其中Action | Content | workflows 三个权限设置为读写都允许.
 
-![图15](static/图15.png "Magic Gardens")
+![图15](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE15.png "Magic Gardens")
 <center>图15</center>
 完成之后点击生成令牌,会展示如图16内容,这个令牌复制出来存好,待会要放到仓库里.令牌会在页面刷新之后就不可见.
 
-![图16](static/图16.png "Magic Gardens")
+![图16](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE16.png "Magic Gardens")
 <center>图16</center>
 
 <br>&emsp;c. 现在转到仓库页面,点击setting去填写action允许的安全令牌如图17所示
 
-![图17](static/图17.png "Magic Gardens")
+![图17](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE17.png "Magic Gardens")
 <center>图17</center>
 
 <br>&emsp;这里令牌名称填写"ACCESS_TOKEN"需要和工作流脚本里引用的名称一致[.github/workflows/deploy.yml]如图18所示
 
-![图18](static/图18.png "Magic Gardens")
+![图18](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE18.png "Magic Gardens")
 <center>图18</center>
 
 <br>&emsp;这时候将已经写好的md放到相应位置并配置好config.js之后就能将代码提交远程主分支,此时会触发工作流,可以去action里看下执行情况,这里你会看到一个和提交重名的执行记录.如图19
 
-![图19](static/图19.png "Magic Gardens")
+![图19](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE19.png "Magic Gardens")
 <center>图19</center>
 
 <br>&emsp;如果这时候访问https://${username}/github.io 发现还是404找不到也面是怎么回事?  回想第一节直接将静态index.html放仓库就可以了的.为什么更新过的还是原本的index页呢? 细心的你一定发现了分支不一样,我们的工作流将打包好的文件推送到了gh-pages分支上还记得么?看下仓库的这个分支是不是也有一个index.html呢?
@@ -270,7 +270,7 @@ jobs:
 <br>&emsp;那我们怎么去设置让 https://${username}/github.io 展示的是gh-pages分支下的文件呢?这里需要去到仓库的setting页的pages选项中的构建部署设置中选择按分支部署并选定gh-pages分支即可,如图20所示
 
 
-![图20](static/图20.png "Magic Gardens")
+![图20](http://aleah.oss-cn-heyuan.aliyuncs.com/static/%E5%9B%BE20.png "Magic Gardens")
 <center>图20</center>
 
 ok 这里我们就可以访问 https://${username}/github.io 我们自己的页面了,
