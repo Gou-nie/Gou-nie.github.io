@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import OSS from 'ali-oss';
+// import OSS from 'ali-oss';
 export default {
     mounted() {
         this.canvas = this.$refs.canvas;
