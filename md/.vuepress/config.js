@@ -54,12 +54,16 @@ module.exports = {
                         link: "/content/vuepress部署",
                     }
                 ]
-            },  
+            }, {
+                text: "画廊",
+                link: "/content/draw"
+            }
         ],
         sidebar: [ 
             ['content/faith', 'faith'],
             ['content/vuepress部署', 'vuepress部署'],
-            ['content/this is water 读后感', 'this is water 读后感']
+            ['content/this is water 读后感', 'this is water 读后感'],
+            ['content/draw', 'draw']
         ]
     
     }
