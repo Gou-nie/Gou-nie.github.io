@@ -4,26 +4,67 @@
         <div class="toolbar">
             <button @click="clear">清除</button>
             <button @click="saveCanvas">导出</button>
-            <button @click="uploadCanvasToOss">上传</button>
+            <!-- <button @click="uploadCanvasToOss">上传</button> -->
+            
+        </div>
+        <div class="pen-size">
+            
+            <div class="circle" :style="{ width: circleSize + 'px', height: circleSize + 'px' }"></div>
+            
+            <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                v-model="progress" 
+                @input="handleProgressChange"
+                class="progress-bar"
+            >大小
+        </input>
+            <input type="range" v-model="angle" min="0" max='1000' @input="handleAngleChange" >角度</input>
+        </div>
+        <div class="pen-shape">
+            
         </div>
     </div>
 </template>
 
 <script>
-// import OSS from 'ali-oss';
+// import OSS from 'ali-oss';∂
 export default {
+    data() {
+        return {
+            rainbowColors: ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
+            canvas: null,
+            ctx: null,
+            colorIndex: null,
+            drawing: false,
+            progress: 5,
+            circleSize: 5,
+            angle: 1000,
+        };
+    },
     mounted() {
         this.canvas = this.$refs.canvas;
         this.ctx = this.canvas.getContext('2d');
         this.resizeCanvas();
         window.addEventListener('resize', this.resizeCanvas);
- 
+
         this.drawing = false;
 
-        this.canvas.addEventListener('touchstart', () => this.drawing = true);
-        this.canvas.addEventListener('touchend', () => this.drawing = false); 
-        this.canvas.addEventListener('touchmove', this.draw);
-        
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.drawing = true;
+
+        });
+        this.canvas.addEventListener('touchend', (e)=>{
+            e.preventDefault();
+            this.drawing = false;
+        });
+        this.canvas.addEventListener('touchmove',(e)=> {
+            e.preventDefault();
+            this.draw(e)
+        });
+
         this.canvas.addEventListener('mousedown', () => this.drawing = true);
         this.canvas.addEventListener('mouseup', () => this.drawing = false);
         this.canvas.addEventListener('mouseleave', () => this.drawing = false);
@@ -39,14 +80,26 @@ export default {
             this.canvas.width = rect.width;
             this.canvas.height = rect.height;
         },
-        draw(e) {
+        draw(e) { 
             if (!this.drawing) return;
             const rect = this.canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            this.ctx.fillStyle = 'black';
+            let x, y;
+            if (e.touches) { // 判断是否为触摸事件
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+
+            if (!this.colorIndex) {
+                this.colorIndex = 0;
+            }
+            this.ctx.fillStyle = this.rainbowColors[this.colorIndex];
+            this.colorIndex = (this.colorIndex + 1) % this.rainbowColors.length;
             this.ctx.beginPath();
-            this.ctx.arc(x, y, 2, 0, Math.PI * 2);
+            console.log(this.angle);
+            this.ctx.arc(x, y, this.circleSize/2, 0 , 2*Math.PI*this.angle/1000);
             this.ctx.fill();
         },
         clear() {
@@ -57,38 +110,22 @@ export default {
             canvas.toBlob((blob) => {
                 // blob将base64编码的src 以二进制的形式存进了 Blob对象
                 const a = document.createElement("a");
-                a.download = "canvas.png";
+                a.download = `canvas_${Date.now()}.png`;
                 a.href = window.URL.createObjectURL(blob);
                 a.click();
-                // eslint-disable-next-line no-console
                 console.log(blob);
             }, "image/png");
         },
         uploadCanvasToOss() {
-            // const { canvas } = this.$refs;
-            // canvas.toBlob((blob) => {
-            //     // 创建 OSS 客户端
-            //     const client = new OSS({
-            //         region: 'oss-cn-heyuan',
-            //         accessKeyId: '',
-            //         accessKeySecret: '',
-            //         bucket: 'aleah',
-            //         secure: true,
-            //         endpoint: 'https://oss-cn-heyuan.aliyuncs.com'
-            //     });
-            //     const filename = `canvas_${Date.now()}.png`;
-            //     client.put(filename, blob).then(result => {
-            //         console.log('上传成功', result.url);
-            //     }).catch(err => {
-            //         console.log('完整错误信息:', err);
-            //         if (err.response) {
-            //             console.log('状态码:', err.response.status);
-            //             console.log('响应头:', err.response.headers);
-            //             console.log('响应数据:', err.response.data);
-            //         }
-            //     });
-
-            // }, "image/png");
+ 
+        },
+        handleProgressChange() {
+            console.log('当前进度: ', this.progress); 
+            this.circleSize = 10 + (this.progress / 100) * 90;
+        },
+        handleAngleChange() {
+            console.log('当前角度: ', this.angle);
+            this.angle = this.angle;
         }
     }
 }
@@ -115,4 +152,22 @@ export default {
     top: 10px;
     right: 10px;
 }
+.pen-size{ 
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+}
+.circle {
+    border-radius: 50%; 
+    margin-bottom: 10px; 
+    background-color: black;
+}
+.pen-shape{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 100px;
+}
+
 </style>
