@@ -84,7 +84,7 @@ export default {
             if (!this.drawing) return;
             const rect = this.canvas.getBoundingClientRect();
             let x, y;
-            if (e.touches) { // 判断是否为触摸事件
+            if (e.touches) {  
                 x = e.touches[0].clientX - rect.left;
                 y = e.touches[0].clientY - rect.top;
             } else {
@@ -97,8 +97,7 @@ export default {
             }
             this.ctx.fillStyle = this.rainbowColors[this.colorIndex];
             this.colorIndex = (this.colorIndex + 1) % this.rainbowColors.length;
-            this.ctx.beginPath();
-            console.log(this.angle);
+            this.ctx.beginPath(); 
             this.ctx.arc(x, y, this.circleSize/2, 0 , 2*Math.PI*this.angle/1000);
             this.ctx.fill();
         },

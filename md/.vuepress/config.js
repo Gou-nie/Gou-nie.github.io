@@ -17,6 +17,10 @@ module.exports = {
             href: '/favicon.ico'
         }]
     ],
+    components:[{
+        name:"CanvasBoard",
+        path:"./components/CanvasBoard.vue"
+    }],
     markdown: {
         // 开启markdown行号
         lineNumbers: true
