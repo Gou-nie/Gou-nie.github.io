@@ -16,6 +16,6 @@
         "vuepress-plugin-code-copy": "^1.0.6"
     },
     "resolutions": {
-            "chokidar": "3.5.3"
+        "chokidar": "3.5.3"
     }
 }

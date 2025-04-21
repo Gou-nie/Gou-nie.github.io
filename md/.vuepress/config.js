@@ -29,7 +29,13 @@ module.exports = {
     }],
     markdown: {
         // 开启markdown行号
-        lineNumbers: true
+        lineNumbers: true,
+        config: {
+            // 强制使用轮询
+            watchOptions: {
+              usePolling: true
+            }
+        }
     },
     plugins: [
         // 代码块点击复制插件
