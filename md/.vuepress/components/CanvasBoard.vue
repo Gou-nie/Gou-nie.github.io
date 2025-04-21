@@ -10,7 +10,7 @@
         <div class="pen-size">
             
             <div class="circle" :style="{ width: circleSize + 'px', height: circleSize + 'px' }"></div>
-            
+            <span>大小</span>
             <input 
                 type="range" 
                 min="0" 
@@ -18,9 +18,10 @@
                 v-model="progress" 
                 @input="handleProgressChange"
                 class="progress-bar"
-            >大小
-        </input>
-            <input type="range" v-model="angle" min="0" max='1000' @input="handleAngleChange" >角度</input>
+            /> 
+
+        <span>角度</span>
+        <input type="range" v-model="angle" min="0" max='1000' @input="handleAngleChange" />
         </div>
         <div class="pen-shape">
             
@@ -119,11 +120,11 @@ export default {
  
         },
         handleProgressChange() {
-            console.log('当前进度: ', this.progress); 
+            // console.log('当前进度: ', this.progress); 
             this.circleSize = 10 + (this.progress / 100) * 90;
         },
         handleAngleChange() {
-            console.log('当前角度: ', this.angle);
+            // console.log('当前角度: ', this.angle);
             this.angle = this.angle;
         }
     }

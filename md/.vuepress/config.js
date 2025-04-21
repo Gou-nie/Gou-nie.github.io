@@ -11,6 +11,12 @@ module.exports = {
     dest: "./dist",
     title: "勾捏1",
     description: "個人觀點,請勿盲從",
+    // 开启 生产环境 source map
+    // configureWebpack: (config, isServer) => {
+    //     if (!isServer) {
+    //       config.devtool = 'source-map'; 
+    //     }
+    // },
     head: [
         ['link', {
             rel: 'icon',
