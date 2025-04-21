@@ -1,38 +1,56 @@
 <template>
     <div ref="container" class="canvas-container">
-        <ColorPicker v-model="colorValue" @update:color="getChildData"/> 
-        <select v-model="colorType" >
+        <ColorPicker v-model="colorValue" @update:color="getChildData" />
+        <span>颜色:</span>
+        <select v-model="colorType">
             <option v-for="option in options" :key="option.value" :value="option.value">
                 {{ option.label }}
             </option>
-        </select> 
-
-        <div class="circle"   :style="{ width: circleSize + 'px', height: circleSize + 'px', backgroundColor: colorValue}"></div>
+        </select>
+        <span>画笔:</span>
+        <select v-model="shape" :disabled="colorType !== 'setting'">
+            <option v-for="s in shapeOptions" :key="s.value" :value="s.value">
+                {{ s.label }}
+            </option>
+        </select>
+        <div v-if="checkShape('circle')" class="circle"
+            :style="{ width: circleSize + 'px', height: circleSize + 'px', backgroundColor: colorValue }"></div>
+        <div v-if="checkShape('rectangle')" class="rectangle"
+            :style="{ width: circleSize + 'px', height: circleSize + 'px', backgroundColor: colorValue }"></div>
+        <div v-if="checkShape('triangle')" class="triangle"
+            :style="{'border-left-width': circleSize/2 + 'px',
+                'border-right-width': circleSize/2 + 'px',
+                'border-bottom-width': circleSize + 'px',
+                'border-bottom-color': colorValue
+            }"></div>
+        <star v-if="checkShape('star')" :color="colorValue" :size="circleSize"></star>
         <div class="pen-size">
             <span>大小</span>
-            <input 
-                type="range" 
-                min="0" 
-                max="100" 
-                v-model="progress" 
-                @input="handleProgressChange"
-                class="progress-bar"
-            /> 
+            <input type="range" min="0" max="100" v-model="progress" @input="handleProgressChange"
+                class="progress-bar" />
 
-        <span>角度</span>
-        <input type="range" v-model="angle" min="0" max='1000' @input="handleAngleChange" />
-        </div> 
+            <span v-if="checkShape('circle')">角度</span>
+            <input v-if="checkShape('circle')" type="range" v-model="angle" min="0" max='1000'
+                @input="handleAngleChange" />
+        </div>
+
+
+
+
+
         <div class="toolbar">
             <button @click="clear">清除</button>
             <button @click="saveCanvas">导出</button>
             <!-- <button @click="uploadCanvasToOss">上传</button> -->
-            
+
         </div>
         <canvas ref="canvas" class="flex-canvas"></canvas>
     </div>
 </template>
 
 <script>
+import Star from './star.vue';
+
 // import OSS from 'ali-oss';∂
 export default {
     data() {
@@ -46,12 +64,19 @@ export default {
             circleSize: 5,
             angle: 1000,
             colorType: 'setting',
-            selectedColor: '#aaaaaa',  
+            selectedColor: '#aaaaaa',
             colorValue: '#aaaaaa',
             options: [
                 { label: '彩虹色', value: 'rainbow' },
                 { label: '自设', value: 'setting' }
             ],
+            shape: 'circle',
+            shapeOptions: [
+                { label: '圆形', value: 'circle' },
+                { label: '矩形', value: 'rectangle' },
+                { label: '三角形', value: 'triangle' },
+                { label: '星形', value: 'star' }
+            ]
         };
     },
     mounted() {
@@ -67,11 +92,11 @@ export default {
             this.drawing = true;
 
         });
-        this.canvas.addEventListener('touchend', (e)=>{
+        this.canvas.addEventListener('touchend', (e) => {
             e.preventDefault();
             this.drawing = false;
         });
-        this.canvas.addEventListener('touchmove',(e)=> {
+        this.canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
             this.draw(e)
         });
@@ -91,11 +116,11 @@ export default {
             this.canvas.width = rect.width;
             this.canvas.height = rect.height;
         },
-        draw(e) { 
+        draw(e) {
             if (!this.drawing) return;
             const rect = this.canvas.getBoundingClientRect();
             let x, y;
-            if (e.touches) {  
+            if (e.touches) {
                 x = e.touches[0].clientX - rect.left;
                 y = e.touches[0].clientY - rect.top;
             } else {
@@ -106,16 +131,48 @@ export default {
             if (!this.colorIndex) {
                 this.colorIndex = 0;
             }
-            if(this.colorType == 'rainbow') {
+            if (this.colorType == 'rainbow') {
                 this.ctx.fillStyle = this.rainbowColors[this.colorIndex];
-                this.colorIndex = (this.colorIndex + 1) % this.rainbowColors.length; 
-            }else{
+                this.colorIndex = (this.colorIndex + 1) % this.rainbowColors.length;
+            } else {
                 this.ctx.fillStyle = this.colorValue;
             }
-            console.log("色： "+this.colorValue);
-            console.log("select"+ this.selectedColor);
-            this.ctx.beginPath(); 
-            this.ctx.arc(x, y, this.circleSize/2, 0 , 2*Math.PI*this.angle/1000);
+            this.ctx.beginPath();
+            let d = this.circleSize/2;
+            if (this.shape == 'circle') {
+                console.log('circle');
+                this.ctx.arc(x, y, this.circleSize / 2, 0, 2 * Math.PI * this.angle / 1000);
+                this.ctx.fill();
+            } else if (this.shape == 'rectangle') { 
+                console.log('rectangle');
+                this.ctx.fillRect( x - d, y - d, this.circleSize, this.circleSize );
+            } else if (this.shape == 'triangle') {
+                console.log('triangle');
+                this.ctx.beginPath();
+                this.ctx.moveTo(x-0.577*this.circleSize, y+d);
+                this.ctx.lineTo(x, y-2*this.circleSize/3);
+                this.ctx.lineTo(x+0.577*this.circleSize, y+d);
+                this.ctx.closePath();
+            } else if (this.shape == 'star') {
+                console.log('star');
+                this.ctx.beginPath();
+                this.ctx.moveTo(x, y+2*d/2);
+                this.ctx.lineTo(x + 0.577*d/2, y + d/2);
+                this.ctx.lineTo(x + 1.732*d/2, y + d/2);
+                this.ctx.lineTo(x + 1.154*d/2, y);
+                this.ctx.lineTo(x + 1.732*d/2, y - d/2);
+                this.ctx.lineTo(x + 0.577*d/2, y - d/2);
+                this.ctx.lineTo(x , y - 2*d/2);
+
+                this.ctx.lineTo(x - 0.577*d/2, y - d/2);
+                this.ctx.lineTo(x - 1.732*d/2, y - d/2);
+                this.ctx.lineTo(x - 1.154*d/2, y);
+                this.ctx.lineTo(x - 1.732*d/2, y + d/2);
+                this.ctx.lineTo(x - 0.577*d/2, y + d/2);
+
+                this.ctx.closePath();
+            }
+            
             this.ctx.fill();
         },
         clear() {
@@ -133,7 +190,7 @@ export default {
             }, "image/png");
         },
         uploadCanvasToOss() {
- 
+
         },
         handleProgressChange() {
             // console.log('当前进度: ', this.progress); 
@@ -143,8 +200,11 @@ export default {
             // console.log('当前角度: ', this.angle);
             this.angle = this.angle;
         },
-        getChildData(v){
-           this.colorValue = v
+        getChildData(v) {
+            this.colorValue = v
+        },
+        checkShape(e) {
+            return e == this.shape;
         }
     }
 }
@@ -156,7 +216,7 @@ export default {
     height: auto;
     /* 或设置为 100vh、50vh 等 */
     position: relative;
-    
+
     box-sizing: border-box;
 }
 
@@ -172,26 +232,69 @@ export default {
     top: 10px;
     right: 10px;
 }
-.pen-size{ 
+
+.pen-size {
     /* position: absolute; */
     top: 10px;
     left: 10px;
     width: 200px;
     display: flex;
 }
+
 .circle {
-    border-radius: 50%; 
-    margin-bottom: 10px; 
+    border-radius: 50%;
+    margin-bottom: 10px;
     background-color: black;
 }
-.pen-shape{
+
+.pen-shape {
     position: absolute;
     top: 10px;
     left: 10px;
     width: 100px;
 }
-.color-picker{ 
-    margin-bottom: 10px;  
+
+.color-picker {
+    margin-bottom: 10px;
 }
+
+
+.rectangle {
+    width: 0;
+    height: 0;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid #e74c3c;
+}
+
+.star{
+    width: 200px;
+  height: 200px;
+  background-color: gold; /* 设置星星颜色 */
+  
+  /* 使用 clip-path 创建六芒星形状 */
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  
+  /* 确保元素显示为块级元素 */
+  display: inline-block;
+}
+
+
 
 </style>
