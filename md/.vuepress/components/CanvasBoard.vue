@@ -234,7 +234,7 @@ export default {
 }
 
 .pen-size {
-    /* position: absolute; */
+ 
     top: 10px;
     left: 10px;
     width: 200px;
@@ -272,28 +272,7 @@ export default {
   border-bottom: 10px solid #e74c3c;
 }
 
-.star{
-    width: 200px;
-  height: 200px;
-  background-color: gold; /* 设置星星颜色 */
-  
-  /* 使用 clip-path 创建六芒星形状 */
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
-  
-  /* 确保元素显示为块级元素 */
-  display: inline-block;
-}
+ 
 
 
 
