@@ -9,7 +9,7 @@
 module.exports = {
     base: "/",
     dest: "./dist",
-    title: "勾捏1",
+    title: "勾捏",
     description: "個人觀點,請勿盲從",
     // 开启 生产环境 source map
     // configureWebpack: (config, isServer) => {

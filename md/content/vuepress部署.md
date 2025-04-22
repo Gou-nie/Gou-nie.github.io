@@ -122,7 +122,7 @@ vuepress官方文档: https://v1.vuepress.vuejs.org/zh/
 module.exports = {
     base: "/",
     dest: "./dist",
-    title: "勾捏1",
+    title: "勾捏",
     description: "個人觀點,請勿盲從",
     head: [
         ['link', { //这里是标签头的图标
