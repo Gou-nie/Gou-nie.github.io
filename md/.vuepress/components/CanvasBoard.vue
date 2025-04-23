@@ -8,7 +8,7 @@
             </option>
         </select>
         <span>画笔:</span>
-        <select v-model="shape" :disabled="colorType !== 'setting'">
+        <select v-model="shape" >
             <option v-for="s in shapeOptions" :key="s.value" :value="s.value">
                 {{ s.label }}
             </option>
