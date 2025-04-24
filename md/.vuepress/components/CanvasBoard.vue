@@ -38,7 +38,7 @@
 
 
 
-        <div class="toolbar">
+        <div style="display: flex;">
             <button @click="clear">清除</button>
             <button @click="saveCanvas">导出</button>
             <!-- <button @click="uploadCanvasToOss">上传</button> -->
