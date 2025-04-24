@@ -2,7 +2,7 @@
     <div class="color-picker">
       <input type="color" v-model="color" @input="emitColor" />
       <div class="color-preview" :style="{ backgroundColor: color }"></div>
-      <p>当前颜色值: {{ color }}</p>
+      <!-- <p>当前颜色值: {{ color }}</p> -->
     </div>
   </template>
   
