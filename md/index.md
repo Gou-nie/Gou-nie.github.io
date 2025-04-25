@@ -13,6 +13,6 @@
 <a href="https://info.flagcounter.com/tgZk"><img src="https://s01.flagcounter.com/count2/tgZk/bg_F5FFFB/txt_43694E/border_FFFFFF/columns_2/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 
 <Badge text="涂鸦板" type="warning"/>  
-<CanvasBoard ></CanvasBoard>
 
----
+<CanvasBoard ></CanvasBoard>
+ 

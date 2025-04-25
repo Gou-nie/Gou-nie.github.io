@@ -13,7 +13,7 @@
             <input type="number" class="input" v-model="latitudeInF" />′
             <input type="number" class="input" v-model="latitudeInM" />″
         </div>
-        <button :disabled="latitudeInD == 0 && longitudeInD == 0 && latitudeInF == 0 && longitudeInF == 0 && latitudeInM == 0 && longitudeInM == 0 " class="button" @click="handleCalculate">计算</button>
+        <button :disabled="latitudeInD == 0 && longitudeInD == 0 && latitudeInF == 0 && longitudeInF == 0 && latitudeInM == 0 && longitudeInM == 0 " class="calcultation" @click="handleCalculate">计算</button>
         <span v-if="direction != ''">现在我在你{{ direction +'距离'+ distance+'公里的地方' }}</span>
         <span>将指南针指向{{ directionDes + '°' }}</span>
         <font color=#aabbcc>面朝这个方向张开双手 「オラに元気を分けてくれ！」 或者抱一下🤗</font>
@@ -154,7 +154,7 @@ span {
     margin-right: 4px;
 }
 
-button {
+calcultation {
     padding: 6px 12px;
     margin-left: 10px;
     cursor: pointer;
@@ -164,12 +164,12 @@ button {
     border-radius: 4px;
 }
 /* 正常状态的悬停效果 */
-button:not(:disabled):hover {
+calcultation:not(:disabled):hover {
     background-color: #0069d9;
 }
 
 /* 禁用状态样式 */
-button:disabled {
+calcultation:disabled {
     cursor: not-allowed;
     background-color: #cccccc;
     color: #666666;
