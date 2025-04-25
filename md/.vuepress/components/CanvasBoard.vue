@@ -140,21 +140,21 @@ export default {
             this.ctx.beginPath();
             let d = this.circleSize/2;
             if (this.shape == 'circle') {
-                console.log('circle');
+                // console.log('circle');
                 this.ctx.arc(x, y, this.circleSize / 2, 0, 2 * Math.PI * this.angle / 1000);
                 this.ctx.fill();
             } else if (this.shape == 'rectangle') { 
-                console.log('rectangle');
+                // console.log('rectangle');
                 this.ctx.fillRect( x - d, y - d, this.circleSize, this.circleSize );
             } else if (this.shape == 'triangle') {
-                console.log('triangle');
+                // console.log('triangle');s
                 this.ctx.beginPath();
                 this.ctx.moveTo(x-0.577*this.circleSize, y+d);
                 this.ctx.lineTo(x, y-2*this.circleSize/3);
                 this.ctx.lineTo(x+0.577*this.circleSize, y+d);
                 this.ctx.closePath();
             } else if (this.shape == 'star') {
-                console.log('star');
+                // console.log('star');
                 this.ctx.beginPath();
                 this.ctx.moveTo(x, y+2*d/2);
                 this.ctx.lineTo(x + 0.577*d/2, y + d/2);
