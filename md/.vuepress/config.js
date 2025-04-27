@@ -80,7 +80,9 @@ module.exports = {
             ['content/vuepress部署', 'vuepress部署'],
             ['content/this is water 读后感', 'this is water 读后感'],
             ['content/draw', 'draw'],
-            ['content/hug','hug']
+            ['content/hug','hug'],
+            ['content/operationRecord','records']
+
         ]
     
     }
