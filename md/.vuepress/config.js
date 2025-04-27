@@ -50,6 +50,8 @@ module.exports = {
         // 平滑滚动
         smoothScroll: true,
         lastUpdated: '最后更新于',
+        git:{
+            timezone: 'Asia/Shanghai'},
         nav: [{
                 text: "首页",
                 link: "/"
@@ -81,8 +83,8 @@ module.exports = {
             ['content/this is water 读后感', 'this is water 读后感'],
             ['content/draw', 'draw'],
             ['content/hug','hug'],
-            ['content/operationRecord','records']
-
+            ['content/operationRecord','records'],
+            ['content/sources','sources']
         ]
     
     }
