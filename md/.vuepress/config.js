@@ -86,7 +86,8 @@ module.exports = {
             ['content/hug','hug'],
             ['content/operationRecord','records'],
             ['content/sources','sources'],
-            ['content/badMood','badMood']
+            ['content/badMood','badMood'],
+            ['content/laugh','launch']
         ]
     
     }

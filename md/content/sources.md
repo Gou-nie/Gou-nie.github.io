@@ -23,9 +23,9 @@ lastUpdated: '2025-04-27T17:16:51.155Z'
 
 [代码转图「👍」](https://carbon.now.sh)
 
-[]()
+[动画库「👍」](https://animejs.com/)
 
-[]()
+[svg工具站](https://www.svgrepo.com/)
 
 []()
 
