@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="puzzleApp">
       <h1>PUZZLE</h1>
       <Board />
     </div>
@@ -17,7 +17,7 @@
   </script>
   
   <style>
-  #app {
+  #puzzleApp {
     text-align: center;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     color: #2c3e50;
