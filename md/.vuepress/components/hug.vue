@@ -38,7 +38,7 @@ export default {
 
             latitudeHome: 31.2304,
             longitudeHome: 121.4737,
-            latitudeCompany: 30.1711,
+            latitudeCompany: 31.1711,
             longitudeCompany: 121.3864,
             directionDes: 0,
             direction: '',
@@ -60,6 +60,8 @@ export default {
             const bearing = this.calculateBearing(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
             this.directionDes = bearing.toFixed(2);
             this.direction = this.bearingToDirection(bearing);
+            console.log('lat:', this.latitudeIn);
+            console.log('lon:', this.longitudeIn);
             this.distance = this.getDistanceFromLatLonInKm(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
         },
         calculateBearing(lat1, lon1, lat2, lon2) {
