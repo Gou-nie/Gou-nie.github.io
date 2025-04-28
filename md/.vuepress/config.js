@@ -43,14 +43,8 @@ module.exports = {
             successText: '代码已复制到剪切板'
         }],
         // 进度条插件
-        '@vuepress/nprogress',
-        ['@vuepress/last-updated',{
-            transformer: (timestamp) => {
-                // 自定义时间格式，但时间源仍来自 Git
-                return new Date(timestamp).toLocaleString();
-              },
-        }
-        ]
+        '@vuepress/nprogress'
+        
     ],
     themeConfig: {
         logo: "/logo.png",
