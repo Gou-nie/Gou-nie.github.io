@@ -2,4 +2,6 @@
 
   <hug></hug>
 
+---
+
   <puzzle></puzzle>

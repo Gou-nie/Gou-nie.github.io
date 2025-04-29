@@ -16,8 +16,8 @@
         <button :disabled="latitudeInD == 0 && longitudeInD == 0 && latitudeInF == 0 && longitudeInF == 0 && latitudeInM == 0 && longitudeInM == 0 " class="calcultation" @click="handleCalculate">计算</button>
         <span v-if="direction != ''">现在我在你{{ direction +'距离'+ distance+'公里的地方' }}</span>
         <span>将指南针指向{{ directionDes + '°' }}</span>
-        <font color=#aabbcc>面朝这个方向张开双手 「オラに元気を分けてくれ！」 或者抱一下🤗</font>
-        <font color=#aabbbb>:∂ 感谢你的元气 </font>
+        <font v-if="direction != ''" color=#aabbcc>面朝这个方向张开双手 「オラに元気を分けてくれ！」 或者抱一下🤗</font>
+        <font v-if="direction != ''" color=#aabbbb>:∂ 感谢你的元气 </font>
     </div>
 </template>
 

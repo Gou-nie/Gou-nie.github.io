@@ -71,23 +71,43 @@ module.exports = {
                     {
                         text:"vuepress部署",
                         link: "/content/vuepress部署",
+                    },
+                    {
+                        text:"资源",
+                        link:"/content/sources"
+                    },
+                    {
+                        text:"haha",
+                        link:"/content/laugh"
+                    },
+                    {
+                        text:"badMood",
+                        link:"/content/badMood"
                     }
                 ]
             }, {
                 text: "画廊",
                 link: "/content/draw"
+            },{
+                text: "小工具",
+                items: [
+                    {
+                        text: "hug",
+                        link: "/content/hug"
+                    }
+                ]
             }
         ],
         sidebar: [ 
-            ['content/faith', 'faith'],
+            // ['content/faith', 'faith'],
             ['content/vuepress部署', 'vuepress部署'],
-            ['content/this is water 读后感', 'this is water 读后感'],
+            // ['content/this is water 读后感', 'this is water 读后感'],
             ['content/draw', 'draw'],
             ['content/hug','hug'],
-            ['content/operationRecord','records'],
-            ['content/sources','sources'],
-            ['content/badMood','badMood'],
-            ['content/laugh','launch']
+            // ['content/operationRecord','records'],
+            // ['content/sources','sources'],
+            // ['content/badMood','badMood'],
+            // ['content/laugh','launch']
         ]
     
     }
