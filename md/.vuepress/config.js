@@ -104,6 +104,7 @@ module.exports = {
             // ['content/this is water 读后感', 'this is water 读后感'],
             ['content/draw', 'draw'],
             ['content/hug','hug'],
+            ['content/webView','web'],
             // ['content/operationRecord','records'],
             // ['content/sources','sources'],
             // ['content/badMood','badMood'],
