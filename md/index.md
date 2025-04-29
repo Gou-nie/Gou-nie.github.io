@@ -29,17 +29,20 @@ export default {
       isMobile: false
     }
   },
-  created() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize)
+  mounted() {  
+    this.checkMobile()
+    window.addEventListener('resize', this.checkMobile)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize)
+     
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.checkMobile)
+    }
   },
   methods: {
-    handleResize() {
-       
-      this.isMobile = window.innerWidth < 768
+    checkMobile() {
+      
+      this.isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
     }
   }
 }
