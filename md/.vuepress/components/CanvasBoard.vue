@@ -224,7 +224,7 @@ export default {
     width: 100%;
     height: 100%;
     display: block;
-    border: 1px solid #85b3a7;
+    border: 1px solid #b9b9b9;
 }
 
 .toolbar {

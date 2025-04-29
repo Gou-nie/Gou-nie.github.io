@@ -2,6 +2,10 @@
 
 * 1. [第一节](#first)
     * 1.1. [喜欢吃什么样的鱼](#firstPOne)
+    * 1.2. [ins风](#firstPTwo)
+    * 1.3. [生命占比](#firstPThree)
+    * 1.4. [make up](#firstPThree)
+    * 1.5. [我是一个人](#firstPThree)
     <!-- * 1.2. [](#firstPTwo) -->
 *一起哈哈哈哈哈*
 
@@ -59,3 +63,15 @@
 <br>&emsp;&emsp;美国人回答：“不懂。”
 
 <br>&emsp;&emsp;朝鲜人说：“那你要失去百分之一百的生命了。”
+
+
+### 1.4. <a name='firstPThree'></a> make up
+
+<br>&emsp;&emsp;Why don't scientists trust atoms?
+<br>&emsp;&emsp;Because they make up everything!
+
+
+### 1.5. <a name='firstPThree'></a> 蜗牛买药
+<br>&emsp;&emsp;乌龟受伤.让蜗牛去买药。过了2个小时.蜗牛还没回来。
+<br>&emsp;&emsp;乌龟急了骂道:草你妈的再不回来老子就死了!
+<br>&emsp;&emsp;这时门外传来了蜗牛的声音:你他妈的再说老子不去了！
