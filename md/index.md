@@ -1,5 +1,5 @@
 <!-- <img src="https://aleah.oss-cn-heyuan.aliyuncs.com/images/photo/%E6%B1%9F%E5%8D%97.jpg" alt="首页图" width="900" height="400" /> -->
-<!-- <img src="https://aleah.oss-cn-heyuan.aliyuncs.com/images/photo/%E6%B1%9F%E5%8D%97%E6%94%B9.jpg" alt="首页图" width="1200" height="auto" /> -->
+<img v-if="isMobile" src="https://aleah.oss-cn-heyuan.aliyuncs.com/images/photo/%E6%B1%9F%E5%8D%97%E6%94%B9.jpg" alt="首页图" width="1200" height="auto" />
 
 *‘我慢慢明白了我为什么不快乐，因为我总是期待一个结果。
 看一本书期待它让我变深刻，吃饭游泳期待它让我一斤斤瘦下来，发一条短信期待它被回复，对人好期待它回应也好，写一个故事说一个心情期待它被关注被安慰，参加一个活动期待换来充实丰富的经历。这些预设的期待如果实现了，长舒一口气。如果没实现昵?自怨自艾。可是小时候也是同一个我，用一个下午的时间看蚂蚁搬家，等石头开花，小时候不期待结果，小时候哭笑都不打折。’——马德《允许自己虚度时光》*
@@ -22,3 +22,25 @@
 
 <CanvasBoard ></CanvasBoard>
  
+<script>
+export default {
+  data() {
+    return {
+      isMobile: false
+    }
+  },
+  created() {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+    handleResize() {
+       
+      this.isMobile = window.innerWidth < 768
+    }
+  }
+}
+</script>
