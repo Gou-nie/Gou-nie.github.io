@@ -83,6 +83,18 @@ module.exports = {
                     {
                         text:"badMood",
                         link:"/content/badMood"
+                    },
+                    {
+                        text:"operationRecord",
+                        link:"/content/operationRecord"
+                    },
+                    {
+                        text:"webView",
+                        link:"/content/webView"
+                    },
+                    {
+                        text:"peoples",
+                        link:"/content/peoples"
                     }
                 ]
             }, {
