@@ -49,19 +49,20 @@ export default {
     },
     methods: {
         handleCalculate() {
-            console.log('lat:', parseInt(this.latitudeInD), this.latitudeInF, this.latitudeInM);
-            console.log('lon:', parseInt(this.longitudeInD), parseInt(this.longitudeInF), parseInt(this.longitudeInM));
+            // console.log('lat:', parseInt(this.latitudeInD), this.latitudeInF, this.latitudeInM);
+            // console.log('lon:', parseInt(this.longitudeInD), parseInt(this.longitudeInF), parseInt(this.longitudeInM));
             this.latitudeIn = (parseInt(this.latitudeInD )+ parseInt(this.latitudeInF )/ 60 + parseInt(this.latitudeInM )/ 3600);
             this.longitudeIn = (parseInt(this.longitudeInD) + parseInt(this.longitudeInF) / 60 + parseInt(this.longitudeInM) / 3600);
             
-            console.log('lat Company:', this.latitudeIn );
-            console.log('lon Company:', this.longitudeIn );
+            // console.log('lat Company:', this.latitudeIn );
+            // console.log('lon Company:', this.longitudeIn );
 
             const bearing = this.calculateBearing(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
+            // console.log('bearing:', bearing);//116.8
             this.directionDes = bearing.toFixed(2);
+            // console.log('directionDes:', this.directionDes);
             this.direction = this.bearingToDirection(bearing);
-            console.log('lat:', this.latitudeIn);
-            console.log('lon:', this.longitudeIn);
+            // console.log('direction:', this.direction);
             this.distance = this.getDistanceFromLatLonInKm(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
         },
         calculateBearing(lat1, lon1, lat2, lon2) {
@@ -93,23 +94,21 @@ export default {
                 "南偏西", "西偏南",
                 "西偏北", "北偏西"
             ];
-            let a = (45 - (bearing % 360) % 45).toFixed(2);
-            const index = Math.floor(((bearing + 22.5) % 360) / 45);
+            const index = Math.floor((bearing  % 360) / 45);
+            // console.log('bearing%360:', (bearing % 360));
+            // console.log('bearing%360%45:', (bearing % 360)%45);
+            let a = ((bearing % 360) % 45).toFixed(2);
+            if(index%2!=0){
+                a = (45 - a).toFixed(2);
+            }
+            
             return directions[index] + '方向偏' + a + `°`;
 
-            // const directions = [
-            //     "正北", "北偏东", "东北", "东偏北",
-            //     "正东", "东偏南", "东南", "南偏东",
-            //     "正南", "南偏西", "西南", "西偏南",
-            //     "正西", "西偏北", "西北", "北偏西"
-            // ];
-            // const index = Math.floor(((bearing + 11.25) % 360) / 22.5);
-            // return directions[index] + '方向';
         },
-        getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-            const R = 6371; // 地球半径，单位为公里
-            const dLat = this.deg2rad(lat2 - lat1); // 纬度差值
-            const dLon = this.deg2rad(lon2 - lon1); // 经度差值
+        getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) { 
+            const R = 6371;  
+            const dLat = this.deg2rad(lat2 - lat1);  
+            const dLon = this.deg2rad(lon2 - lon1); 
             const a =
                 Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *

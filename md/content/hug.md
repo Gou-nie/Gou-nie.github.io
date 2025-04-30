@@ -4,4 +4,4 @@
 
 ---
 
-  <puzzle></puzzle>
+  <!-- <puzzle></puzzle>  -->
