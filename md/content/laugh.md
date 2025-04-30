@@ -7,6 +7,7 @@
     * 1.4. [make up](#firstPFour)
     * 1.5. [蜗牛买药](#firstPFive)
     * 1.6. [荔枝](#firstPSix)
+    * 1.7. [故乡](#firstPSeven)
     <!-- * 1.2. [](#firstPTwo) -->
 *一起哈哈哈哈哈*
 
@@ -87,3 +88,18 @@
 <br>&emsp;&emsp;他对当时还是小姑娘的郭芙蓉说：
 
 <br>&emsp;&emsp;柿子多饼，汝当免荔枝。
+
+### 1.7. <a name='firstPSeven'></a> 故乡
+<br>&emsp;&emsp;上帝问一个刚刚来到天堂的老男人:“你在哪里出生?”
+<br>&emsp;&emsp;老男人回答道:“奥匈帝国出生。”
+<br>&emsp;&emsp;上帝:“你在哪里上学?”
+<br>&emsp;&emsp;男人:“在捷克斯洛伐克。”
+<br>&emsp;&emsp;上帝:“你在哪里结婚?"
+<br>&emsp;&emsp;男人:“在匈牙利结婚。”
+<br>&emsp;&emsp;上帝:“你在哪里生子?”
+<br>&emsp;&emsp;男人:“在辣脆德国。”
+<br>&emsp;&emsp;上帝:“你在哪里退休?”
+<br>&emsp;&emsp;男人:“在苏联退休。”
+<br>&emsp;&emsp;上帝:“你在哪里去世?"
+<br>&emsp;&emsp;男人:“在乌克兰去世。”
+<br>&emsp;&emsp;上帝说道:“看来你喜欢周游列国。”男人摇摇头说道:“不，我这一生都没离开过家乡穆卡切沃。”
