@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {  
-    fetch("http://47.115.231.24:8686/log-ip", { method: "POST" })
+    fetch("https://47.115.231.24:8686/log-ip", { method: "POST" })
     this.checkMobile()
     window.addEventListener('resize', this.checkMobile)
   },
