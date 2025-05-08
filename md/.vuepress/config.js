@@ -89,10 +89,6 @@ module.exports = {
                         link:"/content/operationRecord"
                     },
                     {
-                        text:"webView",
-                        link:"/content/webView"
-                    },
-                    {
                         text:"peoples",
                         link:"/content/peoples"
                     }
@@ -114,11 +110,11 @@ module.exports = {
             // ['content/faith', 'faith'],
             ['content/vuepress部署', 'vuepress部署'],
             // ['content/this is water 读后感', 'this is water 读后感'],
-            ['content/draw', 'draw'],
-            ['content/hug','hug'],
-            ['content/webView','web'],
+            ['content/draw', '画画'],
+            ['content/hug','抱抱'],
+            
             // ['content/operationRecord','records'],
-            // ['content/sources','sources'],
+            ['content/sources','资源站'],
             // ['content/badMood','badMood'],
             // ['content/laugh','launch']
         ]

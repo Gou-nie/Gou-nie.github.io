@@ -1,0 +1,91 @@
+<div id="page-top">
+    <ul class="monoliths">
+        <li>
+                <img src="img/书本.png" alt="">
+                <div>
+                    <strong>Rachel Andrew</strong> CSS Grid
+                </div>
+        </li>
+        <li>
+            <a>
+
+                <img src="img/公司.png" alt="">
+                <div>
+                    <strong>Derek Featherstone</strong> Accessibility
+                </div>
+            </a>
+        </li>
+
+        <li>
+            <img src="img/设置.png" alt="">
+            <div>
+                <strong>Rachel Andrew</strong> CSS Grid
+            </div>
+        </li>
+        <li>
+        </li>
+    </ul>
+</div>
+
+<style>
+    #page-top {
+        background: #946060;
+        color: #FFF;
+        line-height: 1;
+    }
+
+    #page-top .monoliths {
+        display: flex;
+        padding-bottom: 1em;
+        overflow: hidden;
+    }
+
+    #page-top .monoliths li {
+        width: 25%;
+    }
+
+    #page-top .monoliths a {
+        color: inherit;
+        text-decoration: inherit;
+        display: block;
+        padding: 1px;
+    }
+    #page-top .monoliths img { 
+  display: block; 
+  height: 33rem; 
+  width: 100%; 
+} 
+#page-top .monoliths div { 
+  padding: 0.5em 0; 
+} 
+#page-top .monoliths strong { 
+  display: block; 
+  font-weight: 900; 
+}
+#page-top .monoliths img { 
+  display: block; 
+  height: 33rem; 
+  width: 100%; 
+  object-fit: cover; 
+  object-position: 50% 20%; 
+}
+@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) { 
+  #page-top .monoliths li { 
+    width: 37.5%; 
+  } 
+}
+@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) { 
+  #page-top .monoliths li { 
+    width: 37.5%; 
+    -webkit-clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%); 
+    clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%); 
+  } 
+}
+#page-top .monoliths li { 
+  width: 37.5%; 
+  margin-right: -7.5%; 
+  -webkit-clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%); 
+  clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%); 
+}
+
+</style>
