@@ -18,6 +18,8 @@
 <!-- <a href="https://info.flagcounter.com/Iq5W"><img src="https://s05.flagcounter.com/count/Iq5W/bg_EEECAE/txt_2578A8/border_CCCCCC/columns_2/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>  -->
 <a href="https://info.flagcounter.com/tgZk"><img src="https://s01.flagcounter.com/count2/tgZk/bg_F5FFFB/txt_43694E/border_FFFFFF/columns_2/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 
+
+
 <Badge text="涂鸦板" type="warning"/>  
 
 <CanvasBoard ></CanvasBoard>
@@ -30,7 +32,7 @@ export default {
     }
   },
   mounted() {  
-    fetch("https://47.115.231.24:8686/log-ip", { method: "POST" })
+    // fetch("https://47.115.231.24:8686/log-ip", { method: "POST" })
     this.checkMobile()
     window.addEventListener('resize', this.checkMobile)
   },
@@ -48,3 +50,13 @@ export default {
   }
 }
 </script>
+
+
+
+
+*我的树*
+| 编号 | 树种 | 地区 |
+|------|-------------|------|
+| CBX50160724175 | 侧柏 | 保定 |
+| NTC77637639510 | 柠条 | 鄂尔多斯 |
+| SPD65251722582 | 沙柳 | 鄂尔多斯 |
