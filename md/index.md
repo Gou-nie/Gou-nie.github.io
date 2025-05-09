@@ -22,7 +22,7 @@
 
 <Badge text="涂鸦板" type="warning"/>  
 
-<CanvasBoard ></CanvasBoard>
+<CanvasBoard />
  
 <script>
 export default {

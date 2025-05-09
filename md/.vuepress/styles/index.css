@@ -1,0 +1,41 @@
+/* .vuepress/styles/index.css */
+
+/* 侧边栏悬浮效果 */
+.sidebar {
+    position: fixed;
+    top: 3.6rem;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 16rem;
+    margin: 0;
+    background: #fff;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  /* 内容区域偏移，避免被侧边栏遮挡 */
+  .content:not(.custom) {
+    margin-left: 16rem;
+  }
+  
+  /* 响应式处理 - 小屏幕隐藏侧边栏 */
+  @media (max-width: 959px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+    .content:not(.custom) {
+      margin-left: 0;
+    }
+  }
+  
+  /* 侧边栏滚动条样式 */
+  .sidebar::-webkit-scrollbar {
+    width: 3px;
+  }
+  .sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #888;
+  }
