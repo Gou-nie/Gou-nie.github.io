@@ -24,11 +24,7 @@ export default hopeTheme({
                 {
                     text: "资源收集",
                     link: "sources"
-                },
-                {
-                    text: "笑话收集",
-                    link: "laugh"
-                },
+                }, 
                 {
                     text: "《This is Water》读后感",  
                     link: "this is water 读后感"
@@ -73,6 +69,9 @@ export default hopeTheme({
                 {
                     text: "抱抱", 
                     link: "hug"
+                },{
+                    text: "流体动画",
+                    link: "fluid"
                 },
                 {
                     text: "幻灯片",

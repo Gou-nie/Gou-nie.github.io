@@ -28,7 +28,8 @@ export default defineUserConfig({
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ], 
   markdown:{
-    component: true
+    component: true,
+    tabs: true
   },
   theme: themeConfig,
   plugins: [
