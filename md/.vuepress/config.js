@@ -14,7 +14,13 @@ import path from 'path'
 
 export default defineUserConfig({
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      ssr: {
+        noExternal: ['fflate']
+      }
+    }
+  }),
 
   title: 'GouNie',
   description: 'GouNie',
