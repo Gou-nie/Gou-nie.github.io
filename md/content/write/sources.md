@@ -11,14 +11,14 @@
     * 2.1. [有用](#secondPOne)
     * 2.2. [好玩](#secondPTwo)
 
-*写在前面*
+*一些网站和代码收藏*
 
 ## <!-- 1.  --><a name='first'></a> 文档
 
 ### <!-- 1.1.--> <a name='firstPOne'></a> 前端
 
 
-[css样式技巧](https://css-tricks.com/) ｜ [图形计算](https://www.desmos.com/calculator?lang=zh-CN) ｜ [动画库「👍」](https://animejs.com/) ｜ [打动朋友的24种方式](https://24ways.org/)
+[css样式技巧](https://css-tricks.com/) ｜ [图形计算](https://www.desmos.com/calculator?lang=zh-CN) ｜ [动画库「👍」](https://animejs.com/) ｜ [打动朋友的24种方式](https://24ways.org/) | [流体模拟](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation/) | [流体模拟理论](https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-38-fast-fluid-dynamics-simulation-gpu) | [流体模拟古早实现1](https://github.com/mharrys/fluids-2d) ｜ [流体mooning古早实现2](https://github.com/haxiomic/GPU-Fluid-Experiments)
 
 
 ---
