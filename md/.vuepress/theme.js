@@ -17,10 +17,7 @@ export default hopeTheme({
             text: "写写",
             prefix: "/content/write/",
             children: [
-                {
-                    text: "VuePress 部署指南", 
-                    link: "vuepress部署"
-                },
+                
                 {
                     text: "资源收集",
                     link: "sources"
@@ -84,6 +81,9 @@ export default hopeTheme({
                     ]
                 }
             ],
+        },{
+            text: "VuePress 部署指南", 
+            link: "vuepress部署"
         }
     ], 
     // navbar: [{
