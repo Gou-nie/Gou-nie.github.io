@@ -1,5 +1,5 @@
 <template>
-    <div class="div">
+    <div class="hugPare">
         <font color=#ccbbaa>*不获取权限，手动输入您的经纬度:3* </font>
         <div class="param-div">
             <span class="span">经度</span>
@@ -131,7 +131,7 @@ hub {
     flex-wrap: wrap;
 }
 
-div {
+hugPare {
     display: grid;
 }
 

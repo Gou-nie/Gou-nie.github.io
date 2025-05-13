@@ -41,8 +41,10 @@
         const emptyIndex = this.emptyIndex;
         console.log(emptyIndex);
         // 交换方块和空格的位置
-        this.$set(this.board, emptyIndex, this.board[index]);
-        this.$set(this.board, index, null);
+        //vue2: this.$set(this.board, emptyIndex, this.board[index]);
+        this.board[emptyIndex] = this.board[index];
+        //vue2: this.$set(this.board, index, null);
+        this.board[index] = null;
       },
       // 打乱棋盘
       shuffleBoard() {

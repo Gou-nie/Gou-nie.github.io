@@ -40,7 +40,8 @@ export default defineUserConfig({
       //     path: "./components/CanvasBoard.vue"
       //   }
       // }
-      componentsDir: path.resolve(__dirname, './components')
+      componentsDir: path.resolve(__dirname, './components'),
+      blog: true
     })
   ]
 })
