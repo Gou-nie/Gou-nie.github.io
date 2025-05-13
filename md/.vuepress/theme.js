@@ -83,7 +83,7 @@ export default hopeTheme({
             ],
         }, {
             text: "VuePress 部署指南",
-            link: "vuepress部署"
+            link: "/content/vuepress部署"
         }
     ],
     // navbar: [{
@@ -144,7 +144,10 @@ export default hopeTheme({
     },
     plugins: {
         blog: true,  
-    }
+    },
+    // 设置侧边栏显示位置为右侧
+    sidebarDisplay: "mobile",
+    sidebarSorter: ["readme", "order", "title"], 
 })
 
 
