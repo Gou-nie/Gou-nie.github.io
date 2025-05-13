@@ -4,7 +4,7 @@ import { hopeTheme } from "vuepress-theme-hope";
 export default hopeTheme({
     logo: "/logo.png",
     sidebar: [
-        
+
         {
             text: "首页",
             prefix: "/",
@@ -17,13 +17,13 @@ export default hopeTheme({
             text: "写写",
             prefix: "/content/write/",
             children: [
-                
+
                 {
                     text: "资源收集",
                     link: "sources"
-                }, 
+                },
                 {
-                    text: "《This is Water》读后感",  
+                    text: "《This is Water》读后感",
                     link: "this is water 读后感"
                 },
                 {
@@ -31,11 +31,11 @@ export default hopeTheme({
                     link: "operationRecord"
                 },
                 {
-                    text: "坏心情记录",  
+                    text: "坏心情记录",
                     link: "badMood"
                 },
                 {
-                    text: "信仰探讨",  
+                    text: "信仰探讨",
                     link: "faith"
                 },
                 ""
@@ -48,7 +48,7 @@ export default hopeTheme({
             prefix: "/content/draw/",
             children: [
                 {
-                    text: "小画",  
+                    text: "小画",
                     link: "draw"
                 },
                 {
@@ -64,9 +64,9 @@ export default hopeTheme({
             prefix: "/content/tool/",
             children: [
                 {
-                    text: "抱抱", 
+                    text: "抱抱",
                     link: "hug"
-                },{
+                }, {
                     text: "流体动画",
                     link: "fluid"
                 },
@@ -81,11 +81,11 @@ export default hopeTheme({
                     ]
                 }
             ],
-        },{
-            text: "VuePress 部署指南", 
+        }, {
+            text: "VuePress 部署指南",
             link: "vuepress部署"
         }
-    ], 
+    ],
     // navbar: [{
     //     text: "首页",
     //     link: "/"
@@ -141,8 +141,10 @@ export default hopeTheme({
     // ],
     markdown: {
         revealjs: true,
-      }
+    },
+    plugins: {
+        blog: true,  
+    }
 })
 
 
- 

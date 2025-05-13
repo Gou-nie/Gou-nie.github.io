@@ -10,10 +10,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import path from 'path'
 
-
-
 export default defineUserConfig({
-
   bundler: viteBundler({
     viteOptions: {
       ssr: {
@@ -35,13 +32,7 @@ export default defineUserConfig({
   theme: themeConfig,
   plugins: [
     registerComponentsPlugin({
-      // components:{
-      //   CanvasBoard: {
-      //     path: "./components/CanvasBoard.vue"
-      //   }
-      // }
-      componentsDir: path.resolve(__dirname, './components'),
-      blog: true
-    })
+      componentsDir: path.resolve(__dirname, './components')
+    }),
   ]
 })
