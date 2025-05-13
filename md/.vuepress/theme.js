@@ -37,8 +37,7 @@ export default hopeTheme({
                 {
                     text: "信仰探讨",
                     link: "faith"
-                },
-                ""
+                }
             ],
         },
         {
@@ -144,6 +143,7 @@ export default hopeTheme({
     },
     plugins: {
         blog: true,  
+        search: true,
     },
     // 设置侧边栏显示位置为右侧
     sidebarDisplay: "mobile",

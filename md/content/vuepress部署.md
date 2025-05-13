@@ -1,5 +1,5 @@
 <h1>vuepress部署</h1>
-<h2>目录</h2>
+<h2>vuepress部署</h2>
 
 * 1. [githubPages](#first)
    * 1.1. [创建仓库](#firstFist)

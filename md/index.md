@@ -1,3 +1,16 @@
+---
+ name: gouNie
+ title: 勾捏
+ description: Lost spirituality
+ avatar: /logo.png
+ home: true 
+ layout: Blog 
+ projects:
+   - name: 关于信仰
+     link: content/write/faith
+     desc: 我对宗教的感触
+---
+<!-- <Fluid /> -->
 <!-- <img src="https://aleah.oss-cn-heyuan.aliyuncs.com/images/photo/%E6%B1%9F%E5%8D%97.jpg" alt="首页图" width="900" height="400" /> -->
 <img v-if="isMobile" src="https://aleah.oss-cn-heyuan.aliyuncs.com/images/photo/%E6%B1%9F%E5%8D%97%E6%94%B9.jpg" alt="首页图" width="1200" height="auto" />
 
