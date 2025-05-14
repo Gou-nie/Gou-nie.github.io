@@ -8,7 +8,7 @@
    * 1.1. [使用方法](#firstPOne)
    * 1.2. [初始化](#firstPTwo)
    * 1.3. [扫描&连接](#firstPThree)
-* 2. [指令发送](#second)
+* 2. [数据传输](#second)
    * 2.1. [数据报文](#secondPOne)
 
 ## 1.  <a name='first'></a> 连接
@@ -221,3 +221,9 @@ UQDKCentralManager.m
 }
 
 ```
+
+
+## 2. <a name='second'></a> 数据传输
+### 2.1. <a name='secondPOne'></a> 数据报文
+
+<br>&emsp;&emsp;
