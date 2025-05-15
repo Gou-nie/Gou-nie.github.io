@@ -16,6 +16,9 @@
    - name: 关于信仰
      link: content/write/faith
      desc: 我对宗教的感触
+   - name: 俺的大作
+     link: content/draw/bigDraw
+     desc: 我画的一些东西
 
   
 ---

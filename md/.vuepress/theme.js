@@ -51,7 +51,7 @@ export default hopeTheme({
                     link: "draw"
                 },
                 {
-                    text: "大画",
+                    text: "画",
                     link: "bigDraw"
                 }
             ],
