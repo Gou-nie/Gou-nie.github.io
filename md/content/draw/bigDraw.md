@@ -1,42 +1,27 @@
-# 画画
+---
+layout: Slides
+---
 
-* 1. [2020年](#first)
-    * 1.1. [蓝波](#firstPOne)
-    * 1.2. [八恶人](#firstPTwo)
-    * 1.3. [飞坦](#firstPThree)
-    * 1.4. [小麦](#firstPFour)
-    * 1.5. [ob](#firstPFive)
-* 2. [2021年](#second)
-    * 2.1. [画](#secondPOne)
-    * 2.2. [画](#secondPTwo)
-    * 2.3. [画](#secondPThree)
-    * 2.4. [画](#secondPFour)
-    * 2.5. [画](#secondPFive)
-    * 2.6. [画](#secondPSix)
-* 3. [2022年](#third)
-    * 3.1. [画](#thirdPOne)
-    * 3.2. [画](#thirdPTwo)
-    * 3.3. [画](#thirdPThree)
-    * 3.4. [画](#thirdPFour)
-    * 3.5. [画](#thirdPFive)
-    * 3.6. [画](#thirdPSix)
-    * 3.7. [画](#thirdPSeven)
-    * 3.8. [画](#thirdPEight)
-* 4. [2023年](#fourth)
-    * 4.1. [画](#fourthPOne)
-    * 4.2. [画](#fourthPTwo)
-    * 4.3. [画](#fourthPThree)
-    * 4.4. [画](#fourthPFour)
-    * 4.5. [画](#fourthPFive)
-    * 4.6. [画](#fourthPSix)
-    * 4.7. [画](#fourthPSeven)
-* 5. [2024年](#fifth)
-    * 5.1. [蓝波](#fifthPOne)
-    * 5.2. [八恶人](#fifthPTwo)
-    * 5.3. [飞坦](#fifthPThree)
-    * 5.4. [小麦](#fifthPFour)
-    * 5.5. [ob](#fifthPFive)
-* 6. [2025年](#sixth)
-    * 6.1. [画](#sixthPOne)
-    * 6.2. [画](#sixthPTwo)
-    * 6.3. [画](#sixthPThree)
+@slidestart
+
+<!-- 此处是幻灯片内容 -->
+
+## 幻灯片标题
+
+[!八恶人](/images/draw/1717238759072.jpg)
+
+---
+
+## 代码高亮
+
+```js [2-4|1-5]
+const add = (a, b) => {
+  if (typeof b === "undefined") return a + 1;
+
+  return a + b;
+};
+```
+
+
+
+@slideend
