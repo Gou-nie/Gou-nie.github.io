@@ -7,18 +7,22 @@
  layout: Blog 
  backImage: /logo.png
  projects:
-   - name: 歌词分享
-     link: content/write/songs
-     desc: 一些歌词分享
+   - name: 小工具
+     link: content/tool/hug
+     desc: 抱抱我
+     icon: /images/icon/hug.png
    - name: 网站收集
      link: content/write/sources
      desc: 一些网站资源
+     icon: /images/icon/collect.png
    - name: 关于信仰
      link: content/write/faith
      desc: 我对宗教的感触
+     icon: /images/icon/faith.png
    - name: 俺的大作
      link: content/draw/bigDraw
      desc: 我画的一些东西
+     icon: /images/icon/draw.png
 
   
 ---
