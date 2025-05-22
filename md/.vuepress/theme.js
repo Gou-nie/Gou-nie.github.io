@@ -3,88 +3,89 @@ import { hopeTheme } from "vuepress-theme-hope";
 
 export default hopeTheme({
     logo: "/logo.png",
-    sidebar: [
+    sidebar: false,
+    // sidebar: [
 
-        {
-            text: "首页",
-            prefix: "/",
-            collapsible: true, // 启用折叠功能
-            collapsed: true, // 默认折叠
-        },
-        {
-            collapsible: true, // 启用折叠功能
-            collapsed: true, // 默认折叠
-            text: "写写",
-            prefix: "/content/write/",
-            children: [
+    //     {
+    //         text: "首页",
+    //         prefix: "/",
+    //         collapsible: true, // 启用折叠功能
+    //         collapsed: true, // 默认折叠
+    //     },
+    //     {
+    //         collapsible: true, // 启用折叠功能
+    //         collapsed: true, // 默认折叠
+    //         text: "写写",
+    //         prefix: "/content/write/",
+    //         children: [
 
-                {
-                    text: "资源收集",
-                    link: "sources"
-                },
-                {
-                    text: "《This is Water》读后感",
-                    link: "this is water 读后感"
-                },
-                {
-                    text: "踩坑记录",
-                    link: "operationRecord"
-                },
-                {
-                    text: "坏心情记录",
-                    link: "badMood"
-                },
-                {
-                    text: "信仰探讨",
-                    link: "faith"
-                }
-            ],
-        },
-        {
-            collapsible: true, // 启用折叠功能
-            collapsed: true, // 默认折叠
-            text: "烂糟画",
-            prefix: "/content/draw/",
-            children: [
-                {
-                    text: "小画",
-                    link: "draw"
-                },
-                {
-                    text: "画",
-                    link: "bigDraw"
-                }
-            ],
-        },
-        {
-            collapsible: true, // 启用折叠功能
-            collapsed: true, // 默认折叠
-            text: "小工具",
-            prefix: "/content/tool/",
-            children: [
-                {
-                    text: "抱抱",
-                    link: "hug"
-                }, {
-                    text: "流体动画",
-                    link: "fluid"
-                },
-                {
-                    text: "幻灯片",
-                    prefix: "slide/",
-                    children: [
-                        {
-                            text: "幻灯片",
-                            link: "hdp1"
-                        }
-                    ]
-                }
-            ],
-        }, {
-            text: "VuePress 部署指南",
-            link: "/content/vuepress部署"
-        }
-    ],
+    //             {
+    //                 text: "资源收集",
+    //                 link: "sources"
+    //             },
+    //             {
+    //                 text: "《This is Water》读后感",
+    //                 link: "this is water 读后感"
+    //             },
+    //             {
+    //                 text: "踩坑记录",
+    //                 link: "operationRecord"
+    //             },
+    //             {
+    //                 text: "坏心情记录",
+    //                 link: "badMood"
+    //             },
+    //             {
+    //                 text: "信仰探讨",
+    //                 link: "faith"
+    //             }
+    //         ],
+    //     },
+    //     {
+    //         collapsible: true, // 启用折叠功能
+    //         collapsed: true, // 默认折叠
+    //         text: "烂糟画",
+    //         prefix: "/content/draw/",
+    //         children: [
+    //             {
+    //                 text: "小画",
+    //                 link: "draw"
+    //             },
+    //             {
+    //                 text: "画",
+    //                 link: "bigDraw"
+    //             }
+    //         ],
+    //     },
+    //     {
+    //         collapsible: true, // 启用折叠功能
+    //         collapsed: true, // 默认折叠
+    //         text: "小工具",
+    //         prefix: "/content/tool/",
+    //         children: [
+    //             {
+    //                 text: "抱抱",
+    //                 link: "hug"
+    //             }, {
+    //                 text: "流体动画",
+    //                 link: "fluid"
+    //             },
+    //             {
+    //                 text: "幻灯片",
+    //                 prefix: "slide/",
+    //                 children: [
+    //                     {
+    //                         text: "幻灯片",
+    //                         link: "hdp1"
+    //                     }
+    //                 ]
+    //             }
+    //         ],
+    //     }, {
+    //         text: "VuePress 部署指南",
+    //         link: "/content/vuepress部署"
+    //     }
+    // ],
     // navbar: [{
     //     text: "首页",
     //     link: "/"
@@ -146,8 +147,8 @@ export default hopeTheme({
         search: true,
     },
     // 设置侧边栏显示位置为右侧
-    sidebarDisplay: "mobile",
-    sidebarSorter: ["readme", "order", "title"], 
+    // sidebarDisplay: "mobile",
+    // sidebarSorter: ["readme", "order", "title"], 
 })
 
 
