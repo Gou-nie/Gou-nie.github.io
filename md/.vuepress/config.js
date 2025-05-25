@@ -32,7 +32,10 @@ export default defineUserConfig({
   theme: themeConfig,
   plugins: [
     registerComponentsPlugin({
-      componentsDir: path.resolve(__dirname, './components')
+      componentsDir: path.resolve(__dirname, './components'),
+      componentsPatterns: ['**/*.vue', '!**/3D/**'],
+      
     }),
+    
   ]
 })

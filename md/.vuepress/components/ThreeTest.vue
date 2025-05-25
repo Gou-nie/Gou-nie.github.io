@@ -120,13 +120,12 @@ aleahpeal
 
 <style scoped>
 .threeCanvas {
-  /* 修改ID选择器为class选择器 */
-  width: 100%;
-  height: 400px;
-  /* 设置固定高度 */
-  display: block;
-  margin: 20px auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: 999;
 }
 </style>
