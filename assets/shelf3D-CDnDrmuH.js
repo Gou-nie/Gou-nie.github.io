@@ -1,0 +1,1 @@
+import{_ as t}from"./plugin-vue_export-helper-DlAUqK2U.js";const e={data(){return{threeCanvas:null}},mounted(){},methods:{}};function n(r,s,o,a,c,_){return null}const d=t(e,[["render",n]]);export{d as default};
