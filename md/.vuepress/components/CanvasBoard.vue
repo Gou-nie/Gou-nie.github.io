@@ -82,7 +82,9 @@ export default {
     mounted() {
         this.canvas = this.$refs.canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.resizeCanvas();
+        this.$nextTick(() => { // 确保DOM更新完成
+            this.resizeCanvas();
+        });
         window.addEventListener('resize', this.resizeCanvas);
 
         this.drawing = false;
@@ -112,6 +114,7 @@ export default {
     methods: {
         resizeCanvas() {
             const container = this.$refs.container;
+            if (!container) return; // 如果容器不存在，直接返回
             const rect = container.getBoundingClientRect();
             this.canvas.width = rect.width;
             this.canvas.height = rect.height;

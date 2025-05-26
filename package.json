@@ -10,18 +10,21 @@
     "author": "LXS",
     "license": "MIT",
     "devDependencies": {
-        "vuepress": "2.0.0-rc.22",  
-        "vuepress-theme-hope": "2.0.0-rc.87",  
-        "@vuepress/theme-default": "2.0.0-rc.102",  
-        "@vuepress/bundler-vite": "2.0.0-rc.22",  
-        "@vuepress/plugin-register-components": "2.0.0-rc.98",  
-        "@vuepress/plugin-revealjs":"2.0.0-rc.102",
-        "@vuepress/plugin-blog":"2.0.0-rc.102",
-        "@vuepress/plugin-search":"2.0.0-rc.102",
+        "@vuepress/bundler-vite": "2.0.0-rc.22",
+        "@vuepress/plugin-blog": "2.0.0-rc.102",
+        "@vuepress/plugin-register-components": "2.0.0-rc.98",
+        "@vuepress/plugin-revealjs": "2.0.0-rc.102",
+        "@vuepress/plugin-search": "2.0.0-rc.102",
+        "@vuepress/theme-default": "2.0.0-rc.102",
         "sass-embedded": "1.87.0",
-        "three": "0.176.0"
+        "three": "0.176.0",
+        "vuepress": "2.0.0-rc.22",
+        "vuepress-theme-hope": "2.0.0-rc.87"
     },
     "resolutions": {
         "chokidar": "3.5.3"
+    },
+    "dependencies": {
+        "gsap": "^3.13.0"
     }
 }

@@ -1,4 +1,5 @@
 # 3D演示
 
 
-<ThreeTest />
+<!-- <ThreeTest /> -->
+<ThreeTestCamera />
