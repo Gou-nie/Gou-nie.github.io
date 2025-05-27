@@ -7,6 +7,9 @@
   import * as THREE from "three";
   import { GUI } from "three/addons/libs/lil-gui.module.min.js";
   import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+  import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
+  import { RectAreaLightHelper } from "three/addons/helpers/RectAreaLightHelper.js";
+  import { DegRadHelper } from "../public/html&js/three3D/DegRedHelper";
   import { ColorGUIHelper } from "../public/html&js/three3D/ColorGuiHelper";
   export default {
     mounted() {
@@ -18,16 +21,18 @@
         const canvas = this.$refs.threeCanvas;
         this.renderer = this.createRenderer(canvas);
         this.camera = this.createCamera();
-
+        RectAreaLightUniformsLib.init();
         // 视角控制器
         this.controls = new OrbitControls(this.camera, canvas);
         this.controls.target.set(1, 5, 10);
         this.controls.update();
 
-        // const light = this.createHemisphereLight();
-        const light = this.createDicLight();
-        this.scene.add(light);
-
+        // 光源
+        //this.createHemisphereLight();
+        // this.createDicLight();
+        // this.createPointLight();
+        // this.createSpotLight();
+        this.createRectAreaLight();
         const planeSize = 40;
         // 纹理
         this.texture = this.createTexture(planeSize);
@@ -59,6 +64,14 @@
         renderer.setSize(window.innerWidth, window.innerHeight, false); // 设定canvas画布尺寸
         return renderer;
       },
+      // gui 设置坐标
+      makeXYZGUI(gui, vector3, name, onChangeFn) {
+        const folder = gui.addFolder(name);
+        folder.add(vector3, "x", -10, 10).onChange(onChangeFn);
+        folder.add(vector3, "y", 0, 10).onChange(onChangeFn);
+        folder.add(vector3, "z", -10, 10).onChange(onChangeFn);
+        folder.open();
+      },
 
       createCamera() {
         const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 100);
@@ -68,6 +81,7 @@
         return camera;
       },
 
+      // 半球光
       createHemisphereLight() {
         const skyColor = 0xb1e1ff;
         const groundColor = 0xb97a20;
@@ -79,8 +93,15 @@
         gui
           .addColor(new ColorGUIHelper(light, "groundColor"), "value")
           .name("groundColor");
-        return new THREE.HemisphereLight(skyColor, groundColor, intensity);
+        const light = new THREE.HemisphereLight(
+          skyColor,
+          groundColor,
+          intensity
+        );
+
+        this.scene.add(light);
       },
+      // 方向光
       createDicLight() {
         const light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(0, 10, 0);
@@ -90,16 +111,104 @@
         const gui = new GUI();
         gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
         gui.add(light, "intensity", 0, 5, 0.01);
-        gui.add(light.target.position, "x", -10, 10);
-        gui.add(light.target.position, "z", -10, 10);
-        gui.add(light.target.position, "y", 0, 10);
-
+        // 光的辅助线
         const helper = new THREE.DirectionalLightHelper(light);
         this.scene.add(helper);
 
-        return light;
+        function updateLight() {
+          light.target.updateMatrixWorld();
+          helper.update();
+        }
+        updateLight();
+
+        this.makeXYZGUI(gui, light.position, "position", updateLight);
+        this.makeXYZGUI(gui, light.target.position, "target", updateLight);
+
+        this.scene.add(light);
       },
 
+      // 点光源
+      createPointLight() {
+        const color = 0xffffff;
+        const intensity = 150;
+        const light = new THREE.PointLight(color, intensity);
+        light.position.set(0, 10, 0);
+        this.scene.add(light);
+        // 点光源的辅助线
+        const helper = new THREE.PointLightHelper(light);
+        this.scene.add(helper);
+
+        function updateLight() {
+          helper.update();
+        }
+        updateLight();
+        const gui = new GUI();
+        gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+        gui.add(light, "intensity", 0, 250, 1);
+        gui.add(light, "distance", 0, 40).onChange(updateLight);
+        this.makeXYZGUI(gui, light.position, "position", updateLight);
+      },
+      // 聚光灯
+      createSpotLight() {
+        const color = 0xffffff;
+        const intensity = 150;
+        const light = new THREE.SpotLight(color, intensity);
+        light.position.set(0, 10, 0);
+        light.target.position.set(-5, 0, 0);
+        this.scene.add(light);
+
+        const helper = new THREE.SpotLightHelper(light);
+        this.scene.add(helper);
+
+        function updateLight() {
+          light.target.updateMatrixWorld();
+          helper.update();
+        }
+        updateLight();
+        const gui = new GUI();
+        gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+        gui.add(light, "intensity", 0, 250, 1);
+        gui.add(light, "distance", 0, 40).onChange(updateLight);
+        this.makeXYZGUI(gui, light.position, "position", updateLight);
+        gui
+          .add(new DegRadHelper(light, "angle"), "value", 0, 90)
+          .name("angle") // 控制角度
+          .onChange(updateLight);
+        gui.add(light, "penumbra", 0, 1, 0.01); // 控制半影
+        this.makeXYZGUI(gui, light.target.position, "target", updateLight);
+      },
+
+      // 矩形区域光 只能作用于 MeshStandardMaterial   MeshPhysicalMaterial 材质
+      createRectAreaLight() {
+        const color = 0xffffff;
+        const intensity = 5;
+        const width = 12;
+        const height = 4;
+        const light = new THREE.RectAreaLight(color, intensity, width, height);
+        light.position.set(0, 10, 0);
+        light.rotation.x = THREE.MathUtils.degToRad(-90);
+        this.scene.add(light);
+
+        const helper = new RectAreaLightHelper(light);
+        light.add(helper);
+
+        const gui = new GUI();
+        gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+        gui.add(light, "intensity", 0, 10, 0.01);
+        gui.add(light, "width", 0, 20);
+        gui.add(light, "height", 0, 20);
+        gui
+          .add(new DegRadHelper(light.rotation, "x"), "value", -180, 180)
+          .name("x rotation");
+        gui
+          .add(new DegRadHelper(light.rotation, "y"), "value", -180, 180)
+          .name("y rotation");
+        gui
+          .add(new DegRadHelper(light.rotation, "z"), "value", -180, 180)
+          .name("z rotation");
+
+        this.makeXYZGUI(gui, light.position, "position");
+      },
       createTexture(planeSize) {
         const loader = new THREE.TextureLoader();
         const texture = loader.load("/images/checker.png");
@@ -114,7 +223,7 @@
       },
       createPalnMesh(texture, planeSize) {
         const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
-        const planeMat = new THREE.MeshPhongMaterial({
+        const planeMat = new THREE.MeshStandardMaterial({
           map: texture,
           side: THREE.DoubleSide,
         });
@@ -125,7 +234,7 @@
       createBoxMesh() {
         const cubeSize = 4;
         const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-        const cubeMat = new THREE.MeshPhongMaterial({ color: "#8AC" });
+        const cubeMat = new THREE.MeshStandardMaterial({ color: "#8AC" });
         const mesh = new THREE.Mesh(cubeGeo, cubeMat);
         mesh.position.set(cubeSize + 1, cubeSize / 2, 0);
         return mesh;
@@ -139,7 +248,7 @@
           sphereWidthDivisions,
           sphereHeightDivisions
         );
-        const sphereMat = new THREE.MeshPhongMaterial({ color: "#CA8" });
+        const sphereMat = new THREE.MeshStandardMaterial({ color: "#CA8" });
         const mesh = new THREE.Mesh(sphereGeo, sphereMat);
         mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
         return mesh;
