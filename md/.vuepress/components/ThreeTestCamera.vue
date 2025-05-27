@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <canvas id="c" class="threeCanvas" ref="threeCanvas"></canvas>
     <div class="split">
@@ -272,4 +272,4 @@
     width: 100%;
     height: 100%;
   }
-</style>
+</style> -->
