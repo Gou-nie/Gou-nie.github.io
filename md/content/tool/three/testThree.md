@@ -1,5 +1,5 @@
-# 3D演示
-
+# 3D 演示
 
 <!-- <ThreeTest /> -->
-<ThreeTestCamera />
+<!-- <ThreeTestCamera /> -->
+<ThreeTestLight />
