@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div>
     <canvas id="c" class="threeCanvas" ref="threeCanvas"></canvas>
     <div class="split">
@@ -12,7 +12,7 @@
   import { GUI } from "three/addons/libs/lil-gui.module.min.js";
   import { OrbitControls } from "three/addons/controls/OrbitControls.js";
   import { ColorGUIHelper } from "../public/html&js/three3D/ColorGuiHelper";
-  import { MinMaxGUIHelper } from "../public/html&js/three3D/MinMaxGuiHelper";
+  // import { MinMaxGUIHelper } from "../public/html&js/three3D/MinMaxGuiHelper";
   export default {
     mounted() {
       this.initThree();
@@ -57,23 +57,23 @@
         camera.position.set(0, 10, 20);
         // camera.up.set(0, 0, 1);
         // camera.lookAt(0, 0, 0);
-        function updateCamera() {
-          camera.updateProjectionMatrix();
-        }
+        // function updateCamera() {
+        //   camera.updateProjectionMatrix();
+        // }
         // 相机辅助线
         const cameraHelper = new THREE.CameraHelper(camera);
         this.scene.add(cameraHelper);
 
-        this.gui.add(camera, "fov", 1, 180).onChange(updateCamera);
-        const minMaxGUIHelper = new MinMaxGUIHelper(camera, "near", "far", 0.1);
-        this.gui
-          .add(minMaxGUIHelper, "min", 0.1, 50, 0.1)
-          .name("near")
-          .onChange(updateCamera);
-        this.gui
-          .add(minMaxGUIHelper, "max", 0.1, 50, 0.1)
-          .name("far")
-          .onChange(updateCamera);
+        // this.gui.add(camera, "fov", 1, 180).onChange(updateCamera);
+        // const minMaxGUIHelper = new MinMaxGUIHelper(camera, "near", "far", 0.1);
+        // this.gui
+        //   .add(minMaxGUIHelper, "min", 0.1, 50, 0.1)
+        //   .name("near")
+        //   .onChange(updateCamera);
+        // this.gui
+        //   .add(minMaxGUIHelper, "max", 0.1, 50, 0.1)
+        //   .name("far")
+        //   .onChange(updateCamera);
         return camera;
       },
       createCamera2() {
@@ -272,4 +272,4 @@
     width: 100%;
     height: 100%;
   }
-</style> -->
+</style>
