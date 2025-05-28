@@ -4,4 +4,5 @@
 <!-- <ThreeTestScene /> -->
 <!-- <ThreeTestLight /> -->
 <!-- <ThreeTestCamera /> -->
-<ThreeTestShadow />
+<!-- <ThreeTestShadow /> -->
+<ThreeTestFog />
