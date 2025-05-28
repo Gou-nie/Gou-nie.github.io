@@ -1,0 +1,89 @@
+
+import * as THREE from "three";
+export class DegRadHelper {
+    constructor(obj, prop) {
+      this.obj = obj;
+      this.prop = prop;
+    }
+    get value() {
+      return THREE.MathUtils.radToDeg(this.obj[this.prop]);
+    }
+    set value(v) {
+      this.obj[this.prop] = THREE.MathUtils.degToRad(v);
+    }
+  }
+
+export class MinMaxGUIHelper {
+    constructor(obj, minProp, maxProp, minDif) {
+      this.obj = obj;
+      this.minProp = minProp;
+      this.maxProp = maxProp;
+      this.minDif = minDif;
+    }
+    get min() {
+      return this.obj[this.minProp];
+    }
+    set min(v) {
+      this.obj[this.minProp] = v;
+      this.obj[this.maxProp] = Math.max(this.obj[this.maxProp], v + this.minDif);
+    }
+    get max() {
+      return this.obj[this.maxProp];
+    }
+    set max(v) {
+      this.obj[this.maxProp] = v;
+      this.min = this.min;  // 这将调用min的setter
+    }
+  }
+
+export class DimensionGUIHelper {
+    constructor(obj, minProp, maxProp) {
+      this.obj = obj;
+      this.minProp = minProp;
+      this.maxProp = maxProp;
+    }
+    get value() {
+      return this.obj[this.maxProp] * 2;
+    }
+    set value(v) {
+      this.obj[this.maxProp] = v / 2;
+      this.obj[this.minProp] = v / -2;
+    }
+  }
+  export class ColorGUIHelper {
+    constructor(object, prop) {
+      this.object = object;
+      this.prop = prop;
+    }
+    get value() {
+      return `#${this.object[this.prop].getHexString()}`; // 修复模板字符串
+    }
+    set value(hexString) {
+      this.object[this.prop].set(hexString);
+    }
+  }
+  export class AxisGridHelper {
+    constructor(node, units = 10) {
+      const axes = new THREE.AxesHelper();
+      axes.material.depthTest = false;
+      axes.renderOrder = 2; // 在网格渲染之后再渲染
+      node.add(axes);
+   
+      const grid = new THREE.GridHelper(units, units);
+      grid.material.depthTest = false;
+      grid.renderOrder = 1;
+      node.add(grid);
+   
+      this.grid = grid;
+      this.axes = axes;
+      this.visible = false;
+    }
+    get visible() {
+      return this._visible;
+    }
+    set visible(v) {
+      this._visible = v;
+      this.grid.visible = v;
+      this.axes.visible = v;
+    }
+  }

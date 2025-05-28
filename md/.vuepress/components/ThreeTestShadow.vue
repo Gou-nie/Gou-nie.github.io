@@ -12,6 +12,8 @@
   import {
     ColorGUIHelper,
     DegRadHelper,
+    DimensionGUIHelper,
+    MinMaxGUIHelper,
   } from "../public/html&js/three3D/ThreeGUIHelper";
   export default {
     mounted() {
@@ -23,6 +25,7 @@
         const canvas = this.$refs.threeCanvas;
         this.renderer = this.createRenderer(canvas);
         this.camera = this.createCamera();
+
         RectAreaLightUniformsLib.init();
         // 视角控制器
         this.controls = new OrbitControls(this.camera, canvas);
@@ -32,9 +35,9 @@
         // 光源
         //this.createHemisphereLight();
         // this.createDicLight();
-        // this.createPointLight();
+        this.createPointLight();
         // this.createSpotLight();
-        this.createRectAreaLight();
+        // this.createRectAreaLight();
         const planeSize = 40;
         // 纹理
         this.texture = this.createTexture(planeSize);
@@ -45,7 +48,7 @@
         this.scene.add(box);
         const sphere = this.createSphere();
         this.scene.add(sphere);
-
+        this.createWall();
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.animate);
       },
@@ -59,7 +62,8 @@
       createRenderer(canvas) {
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
         renderer.outputColorSpace = THREE.SRGBColorSpace;
-
+        // 开启阴影
+        renderer.shadowMap.enabled = true;
         // 设置像素比和尺寸
         const pixelRatio = window.devicePixelRatio;
         renderer.setPixelRatio(pixelRatio); // 关键
@@ -106,13 +110,13 @@
       // 方向光
       createDicLight() {
         const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.castShadow = true;
         light.position.set(0, 10, 0);
         light.target.position.set(-5, 0, 0);
         this.scene.add(light.target);
-
-        const gui = new GUI();
-        gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
-        gui.add(light, "intensity", 0, 5, 0.01);
+        // 阴影相机
+        const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+        this.scene.add(cameraHelper);
         // 光的辅助线
         const helper = new THREE.DirectionalLightHelper(light);
         this.scene.add(helper);
@@ -122,6 +126,59 @@
           helper.update();
         }
         updateLight();
+        // gui
+        function updateCamera() {
+          // update the light target's matrixWorld because it's needed by the helper
+          light.target.updateMatrixWorld();
+          helper.update();
+          // update the light's shadow camera's projection matrix
+          light.shadow.camera.updateProjectionMatrix();
+          // and now update the camera helper we're using to show the light's shadow camera
+          cameraHelper.update();
+        }
+        updateCamera();
+        const gui = new GUI();
+        gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+        gui.add(light, "intensity", 0, 5, 0.01);
+        {
+          const folder = gui.addFolder("Shadow Camera");
+          folder.open();
+          folder
+            .add(
+              new DimensionGUIHelper(light.shadow.camera, "left", "right"),
+              "value",
+              1,
+              100
+            )
+            .name("width")
+            .onChange(updateCamera);
+          folder
+            .add(
+              new DimensionGUIHelper(light.shadow.camera, "bottom", "top"),
+              "value",
+              1,
+              100
+            )
+            .name("height")
+            .onChange(updateCamera);
+          const minMaxGUIHelper = new MinMaxGUIHelper(
+            light.shadow.camera,
+            "near",
+            "far",
+            0.1
+          );
+          folder
+            .add(minMaxGUIHelper, "min", 0.1, 50, 0.1)
+            .name("near")
+            .onChange(updateCamera);
+          folder
+            .add(minMaxGUIHelper, "max", 0.1, 50, 0.1)
+            .name("far")
+            .onChange(updateCamera);
+          folder
+            .add(light.shadow.camera, "zoom", 0.01, 1.5, 0.01)
+            .onChange(updateCamera);
+        }
 
         this.makeXYZGUI(gui, light.position, "position", updateLight);
         this.makeXYZGUI(gui, light.target.position, "target", updateLight);
@@ -135,6 +192,7 @@
         const intensity = 150;
         const light = new THREE.PointLight(color, intensity);
         light.position.set(0, 10, 0);
+        light.castShadow = true;
         this.scene.add(light);
         // 点光源的辅助线
         const helper = new THREE.PointLightHelper(light);
@@ -155,6 +213,7 @@
         const color = 0xffffff;
         const intensity = 150;
         const light = new THREE.SpotLight(color, intensity);
+        light.castShadow = true;
         light.position.set(0, 10, 0);
         light.target.position.set(-5, 0, 0);
         this.scene.add(light);
@@ -167,6 +226,7 @@
           helper.update();
         }
         updateLight();
+
         const gui = new GUI();
         gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
         gui.add(light, "intensity", 0, 250, 1);
@@ -187,6 +247,7 @@
         const width = 12;
         const height = 4;
         const light = new THREE.RectAreaLight(color, intensity, width, height);
+        light.castShadow = true;
         light.position.set(0, 10, 0);
         light.rotation.x = THREE.MathUtils.degToRad(-90);
         this.scene.add(light);
@@ -230,6 +291,8 @@
           side: THREE.DoubleSide,
         });
         const mesh = new THREE.Mesh(planeGeo, planeMat);
+        // 投影在这个板子上
+        mesh.receiveShadow = true;
         mesh.rotation.x = Math.PI * -0.5;
         return mesh;
       },
@@ -238,6 +301,8 @@
         const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
         const cubeMat = new THREE.MeshStandardMaterial({ color: "#8AC" });
         const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         mesh.position.set(cubeSize + 1, cubeSize / 2, 0);
         return mesh;
       },
@@ -252,8 +317,24 @@
         );
         const sphereMat = new THREE.MeshStandardMaterial({ color: "#CA8" });
         const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
         return mesh;
+      },
+      createWall() {
+        {
+          const cubeSize = 30;
+          const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+          const cubeMat = new THREE.MeshPhongMaterial({
+            color: "#CCC",
+            side: THREE.BackSide,
+          });
+          const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+          mesh.receiveShadow = true;
+          mesh.position.set(0, cubeSize / 2 - 0.1, 0);
+          this.scene.add(mesh);
+        }
       },
       animate() {
         requestAnimationFrame(this.animate);
