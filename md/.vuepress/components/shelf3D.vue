@@ -13,7 +13,7 @@
     name: "BookShelf",
     mounted() {
       this.init();
-      
+
       this.animate();
     },
     beforeUnmount() {
@@ -59,7 +59,7 @@
     },
     methods: {
       init() {
-        this.books=[];
+        this.books = [];
         this.canvas = this.$refs.canvas;
         const width = this.canvas.clientWidth;
         const height = this.canvas.clientHeight;
@@ -166,16 +166,92 @@
         const loader = new GLTFLoader();
         const bookContentArr = [
           {
-            fileUrl: "/models/book1.glb",
+            fileUrl: "/models/book.glb",
             name: "book1",
-            url: "content/write/this is water 读后感",
+            url: "content/draw/bigDraw",
           },
           {
-            fileUrl: "/models/book1.glb",
+            fileUrl: "/models/book.glb",
             name: "book2",
+            url: "content/draw/draw",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book3",
+            url: "content/tool/fluid",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book4",
+            url: "content/tool/hug",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book5",
+            url: "content/tool/three/shelf3D",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book6",
+            url: "content/tool/three/testThree",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book7",
+            url: "content/vuepress部署",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book8",
+            url: "content/write/badMood",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book9",
+            url: "content/write/disenchantment",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book10",
+            url: "content/write/faith",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book11",
+            url: "content/write/iosPriBlue",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book12",
+            url: "content/write/love",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book13",
+            url: "content/write/operationRecord",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book14",
+            url: "content/write/peoples",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book15",
+            url: "content/write/songs",
+          },
+          {
+            fileUrl: "/models/book.glb",
+            name: "book16",
             url: "content/write/sources",
           },
-        ]; // 替换为你的书籍模型路径
+          {
+            fileUrl: "/models/book.glb",
+            name: "book17",
+            url: "content/write/this is water 读后感",
+          },
+        ];
+
         const shelfWidth = 10;
         const bookWidth = 1;
         let currentX = -shelfWidth / 2 + bookWidth;
@@ -192,7 +268,7 @@
                 url: bookConfig.url,
               };
               book.scale.set(1, 1, 0.8); // 调整书籍大小
-              book.position.set(currentX, shelfLevel * 3.2 + 1.2, 0);
+              book.position.set(currentX, shelfLevel * 2.2 + 1.2, 0);
 
               book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
               book.rotation.z = -Math.PI / 2;
