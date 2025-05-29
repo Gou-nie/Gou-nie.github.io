@@ -87,8 +87,8 @@
           antialias: true,
         });
         this.renderer.setSize(width, height);
-        this.renderer.shadowMap.enabled = true; // 启用阴影
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 尝试不同的阴影类型
+        // this.renderer.shadowMap.enabled = true; // 启用阴影
+        // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 尝试不同的阴影类型
         this.renderer.setPixelRatio(window.devicePixelRatio); // 解决模糊问题
 
         // 4. 添加灯光
@@ -135,9 +135,9 @@
 
         const shadowLight = new THREE.DirectionalLight(0xffffff, 0.5);
         shadowLight.position.set(5, 5, 5);
-        shadowLight.castShadow = true;
-        shadowLight.shadow.mapSize.width = 512;
-        shadowLight.shadow.mapSize.height = 512;
+        // shadowLight.castShadow = true;
+        // shadowLight.shadow.mapSize.width = 512;
+        // shadowLight.shadow.mapSize.height = 512;
         this.scene.add(shadowLight);
       },
       createBookShelf() {
@@ -158,11 +158,11 @@
           }); // 棕色
           const shelf = new THREE.Mesh(shelfGeometry, shelfMaterial);
           shelf.position.set(0, i * (shelfHeight + shelfSpacing), 0);
-          shelf.receiveShadow = true;
+          // shelf.receiveShadow = true;
           this.scene.add(shelf);
         }
       },
-      loadBooks() {
+      async loadBooks() {
         const loader = new GLTFLoader();
         const bookContentArr = [
           {
@@ -254,59 +254,125 @@
 
         const shelfWidth = 10;
         const bookWidth = 1;
-        let currentX = -shelfWidth / 2 + bookWidth;
-        let shelfLevel = 0;
-        let bookIndex = 0;
+        const black = new THREE.Color(0x000000); // 黑色
+        let bookState = {
+          currentX: -shelfWidth / 2 + bookWidth,
+          shelfLevel: 0,
+          bookIndex: 0,
+        };
+        let gltfCache = {};
 
-        bookContentArr.forEach((bookConfig, index) => {
-          loader.load(
-            bookConfig.fileUrl,
-            (gltf) => {
-              const book = gltf.scene;
-              book.userData = {
-                name: bookConfig.name,
-                url: bookConfig.url,
-              };
-              book.scale.set(1, 1, 0.8); // 调整书籍大小
-              book.position.set(currentX, shelfLevel * 2.2 + 1.2, 0);
+        await this.loadBooksSequentially(
+          bookContentArr,
+          gltfCache,
+          loader,
+          bookState,
+          bookWidth,
+          shelfWidth,
+          black
+        );
+      },
+      // 使用 async 函数同步执行加载
+      async loadBooksSequentially(
+        bookContentArr,
+        gltfCache,
+        loader,
+        bookState,
+        bookWidth,
+        shelfWidth,
+        black
+      ) {
+        for (let index = 0; index < bookContentArr.length; index++) {
+          const bookConfig = bookContentArr[index];
 
-              book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
-              book.rotation.z = -Math.PI / 2;
-              book.castShadow = true;
-              book.receiveShadow = true;
+          if (gltfCache[bookConfig.fileUrl]) {
+            const originalScene = gltfCache[bookConfig.fileUrl].scene;
 
-              book.traverse((child) => {
-                if (child.isObject3D) {
-                  child.userData.book = book;
-                }
-                if (child instanceof THREE.Mesh) {
-                  child.material.emissive = new THREE.Color(0x000000); // 黑色
-                  child.material.emissiveIntensity = 0;
-                }
-              });
-
-              this.scene.add(book);
-              this.books.push(book); // 将书籍添加到数组中
-
-              // 更新位置
-              currentX += bookWidth * 1.2; // 调整书籍之间的间距
-              bookIndex++;
-
-              if (currentX > shelfWidth / 2 - bookWidth) {
-                // 换到下一层书架
-                shelfLevel++;
-                currentX = -shelfWidth / 2 + bookWidth;
+            // 清空所有 userData 再 clone，避免循环引用
+            originalScene.traverse((child) => {
+              if (child.userData) {
+                delete child.userData.book;
               }
-            },
+            });
+
+            const book = originalScene.clone();
+            this.setUpBook(
+              book,
+              bookConfig,
+              bookState,
+              bookWidth,
+              shelfWidth,
+              black
+            );
+          } else {
+            try {
+              const gltf = await this.loadGLTFAsync(loader, bookConfig.fileUrl);
+              gltfCache[bookConfig.fileUrl] = gltf;
+              this.setUpBook(
+                gltf.scene,
+                bookConfig,
+                bookState,
+                bookWidth,
+                shelfWidth,
+                black
+              );
+            } catch (error) {
+              console.error("加载失败", error);
+            }
+          }
+        }
+      },
+      // 用 Promise 封装 loader.load 方法
+      loadGLTFAsync(loader, url) {
+        return new Promise((resolve, reject) => {
+          loader.load(
+            url,
+            (gltf) => resolve(gltf),
             (xhr) => {
               console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
             },
-            (error) => {
-              console.error("An error happened", error);
-            }
+            (error) => reject(error)
           );
         });
       },
+
+      setUpBook(book, bookConfig, state, bookWidth, shelfWidth, black) {
+        book.userData = {
+          name: bookConfig.name,
+          url: bookConfig.url,
+        };
+        book.scale.set(1, 1, 0.8); // 调整书籍大小
+        book.position.set(state.currentX, state.shelfLevel * 2.2 + 1.2, 0);
+
+        book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
+        book.rotation.z = -Math.PI / 2;
+        // book.castShadow = true;
+        // book.receiveShadow = true;
+
+        book.traverse((child) => {
+          if (child.isObject3D) {
+            child.userData.book = book;
+          }
+          if (child instanceof THREE.Mesh) {
+            child.material.emissive = black; // 黑色
+            child.material.emissiveIntensity = 0;
+          }
+        });
+
+        this.scene.add(book);
+        this.books.push(book); // 将书籍添加到数组中
+
+        // 更新位置
+        state.currentX += bookWidth * 1.2; // 调整书籍之间的间距
+        state.bookIndex++;
+
+        if (state.currentX > shelfWidth / 2 - bookWidth) {
+          // 换到下一层书架
+          state.shelfLevel++;
+          state.currentX = -shelfWidth / 2 + bookWidth;
+        }
+      },
+
       addEventListeners() {
         this.canvas.addEventListener("mousemove", this.onMouseMove);
         this.canvas.addEventListener("click", this.onMouseClick);
@@ -354,7 +420,6 @@
         // 对选中的书籍进行高亮显示 (例如，改变颜色)
         this.selectedBook.traverse((child) => {
           if (child instanceof THREE.Mesh) {
-            // console.log("材质：", child.material);
             if (child.material) {
               // 克隆材质，避免修改原始材质
               child.material = child.material.clone();
@@ -387,8 +452,6 @@
           ease: "power2.out",
           onComplete: () => {
             // Navigate after animation
-            console.log("book name is ", book.userData.name);
-            console.log("book url is ", book.userData.url);
             if (book.userData.url) {
               //路由跳转
               window.open(book.userData.url, "_blank");
