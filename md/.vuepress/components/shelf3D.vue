@@ -256,7 +256,8 @@
         ];
 
         const shelfWidth = 10;
-        const bookWidth = 1;
+        // const bookWidth = 1;
+        const bookWidth = 0.2;
         const black = new THREE.Color(0x000000); // 黑色
         let bookState = {
           currentX: -shelfWidth / 2 + bookWidth,
