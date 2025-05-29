@@ -14,7 +14,7 @@
     mounted() {
       this.init();
 
-      this.animate();
+      this.threeJsAnimate();
     },
     beforeUnmount() {
       // 取消动画循环
@@ -48,6 +48,9 @@
       this.renderer.dispose();
       this.renderer.forceContextLoss(); // 强制释放 WebGL 上下文 (谨慎使用)
 
+      this.canvas.removeEventListener("mousemove", this.onMouseMove);
+      this.canvas.removeEventListener("click", this.onMouseClick);
+      window.removeEventListener("resize", this.onWindowResize);
       // 设置为 null，防止后续访问
       this.scene = null;
       this.camera = null;
@@ -120,8 +123,8 @@
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.05;
       },
-      animate() {
-        this.animationFrameId = requestAnimationFrame(this.animate);
+      threeJsAnimate() {
+        this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
       },
@@ -341,7 +344,8 @@
           name: bookConfig.name,
           url: bookConfig.url,
         };
-        book.scale.set(1, 1, 0.8); // 调整书籍大小
+        // book.scale.set(1, 1, 0.8); // 调整书籍大小
+        book.scale.set(2, 2, 1.6); // 调整书籍大小
         book.position.set(state.currentX, state.shelfLevel * 2.2 + 1.2, 0);
 
         book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
