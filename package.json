@@ -25,6 +25,7 @@
         "chokidar": "3.5.3"
     },
     "dependencies": {
+        "@tweenjs/tween.js": "^25.0.0",
         "gsap": "^3.13.0"
     }
 }

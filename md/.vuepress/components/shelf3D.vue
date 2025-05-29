@@ -1,279 +1,350 @@
 <template>
-  <div>
-    <canvas ref="bjsCanvas" style="width: 100%; height: 600px"></canvas>
-    <div v-if="loadingMessage" class="loading-overlay">
-      {{ loadingMessage }}
-    </div>
+  <div class="book-shelf-container">
+    <canvas ref="canvas" class="book-shelf-canvas"></canvas>
   </div>
 </template>
 
-<script setup>
-  import { ref, onMounted, onUnmounted } from "vue";
-  import * as BABYLON from "@babylonjs/core";
-  // 必须导入加载器才能使用 SceneLoader 加载 GLB/GLTF 文件
-  import "@babylonjs/loaders/glTF"; // For GLTF and GLB files
-  // import '@babylonjs/loaders/OBJ'; // If you were to use OBJ files
+<script>
+  import * as THREE from "three";
+  import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+  import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+  import gsap from "gsap";
+  export default {
+    name: "BookShelf",
+    mounted() {
+      this.init();
+      
+      this.animate();
+    },
+    beforeUnmount() {
+      // 取消动画循环
+      cancelAnimationFrame(this.animationFrameId);
 
-  const bjsCanvas = ref(null);
-  const loadingMessage = ref("Loading 3D Scene...");
-  let engine = null;
-  let scene = null;
-  let bookTemplateMesh = null; // 用于存储加载的书籍模型模板
+      // 释放控制器资源
+      this.controls.dispose();
 
-  // 初始化Babylon引擎和场景
-  const createScene = async (canvas) => {
-    engine = new BABYLON.Engine(canvas, true);
-    scene = new BABYLON.Scene(engine);
+      // 释放场景中的几何体和材质
+      this.scene.traverse((object) => {
+        if (!object.isMesh) return; // 只处理网格对象
 
-    // 1. 设置相机
-    const camera = new BABYLON.ArcRotateCamera(
-      "camera",
-      -Math.PI / 2,
-      Math.PI / 2.5,
-      10,
-      new BABYLON.Vector3(0, 2, 0),
-      scene
-    );
-    camera.attachControl(canvas, true);
-    camera.lowerRadiusLimit = 5;
-    camera.upperRadiusLimit = 20;
+        object.geometry.dispose(); // 释放几何体
 
-    // 2. 设置灯光
-    const light = new BABYLON.HemisphericLight(
-      "light",
-      new BABYLON.Vector3(0, 1, 0),
-      scene
-    );
-    light.intensity = 0.7;
-    const light2 = new BABYLON.PointLight(
-      "pointLight",
-      new BABYLON.Vector3(0, 3, -3),
-      scene
-    );
-    light2.intensity = 0.5;
-
-    // 3. 创建一个简单的地面/架子
-    const shelf = BABYLON.MeshBuilder.CreateBox(
-      "shelf",
-      { width: 5, height: 0.2, depth: 1.5 },
-      scene
-    );
-    shelf.position.y = 0;
-    const shelfMaterial = new BABYLON.StandardMaterial("shelfMat", scene);
-    shelfMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.4, 0.2); // 木头棕色
-    shelf.material = shelfMaterial;
-
-    // 4. 异步加载书籍模型
-    loadingMessage.value = "Loading Book Model...";
-    try {
-      // 假设你的模型在 public/models/book.glb
-      // 第一个参数 "" 表示加载文件中的所有网格
-      // 第二个参数是模型的根URL (相对于 public 目录)
-      // 第三个参数是模型文件名
-      const result = await BABYLON.SceneLoader.ImportMeshAsync(
-        "", // meshNames (string[]), empty string for all
-        "./models/", // rootUrl
-        "book.glb", // sceneFilename
-        scene
-      );
-
-      if (result.meshes && result.meshes.length > 0) {
-        // 获取加载的第一个网格作为模板 (通常是模型的根节点)
-        // 如果你的模型有多个部分，你可能需要处理 result.meshes[0] 的子节点
-        bookTemplateMesh = result.meshes[0];
-        bookTemplateMesh.name = "bookTemplate";
-
-        // --- 非常重要：根据你的模型调整 ---
-        // 模型加载后可能非常大或非常小，或者朝向不对，需要调整
-        // bookTemplateMesh.scaling.setAll(0.05); // 例如，缩小到原来的5%
-        // bookTemplateMesh.rotation.y = Math.PI / 2; // 例如，旋转90度
-
-        // 将模板设置为不可见，我们只会显示它的克隆体
-        bookTemplateMesh.setEnabled(false); // 或者 bookTemplateMesh.isVisible = false;
-
-        loadingMessage.value = "Placing books...";
-        populateShelfWithModels(shelf, scene); // 使用加载的模型填充书架
-      } else {
-        console.error("Book model loaded, but no meshes found.");
-        loadingMessage.value =
-          "Error loading book model. Using fallback boxes.";
-        populateShelfWithBoxes(shelf, scene); // 模型加载失败，使用Box作为后备
-      }
-    } catch (error) {
-      console.error("Error loading book model:", error);
-      loadingMessage.value = "Error loading book model. Using fallback boxes.";
-      populateShelfWithBoxes(shelf, scene); // 模型加载失败，使用Box作为后备
-    } finally {
-      // 即使模型加载失败，也可能需要一段时间才显示后备方案
-      // 可以设置一个短暂的延迟或者直接清除
-      setTimeout(() => {
-        loadingMessage.value = "";
-      }, 1000);
-    }
-
-    return scene;
-  };
-
-  // 使用加载的3D模型填充书架
-  const populateShelfWithModels = (shelf, scene) => {
-    if (!bookTemplateMesh) {
-      console.warn("Book template not loaded. Cannot place models.");
-      return;
-    }
-
-    const numBooks = 8;
-    const bookBaseWidth = 0.2; // 假设书本的基础宽度，用于间隔
-    const shelfWidth = 5; // 和上面创建的shelf的width一致
-    const startX = -shelfWidth / 2 + bookBaseWidth * 1.5; // 起始位置
-
-    for (let i = 0; i < numBooks; i++) {
-      // 克隆模板模型来创建新的书本实例
-      const bookInstance = bookTemplateMesh.clone(`book_${i}`);
-      bookInstance.setEnabled(true); // 使克隆体可见
-
-      // --- 定位和旋转克隆体 ---
-      // 这部分非常依赖你的模型原始的尺寸、朝向和中心点
-      // 你需要反复试验来找到正确的值
-
-      // 获取模型边界，以便更精确地定位 (可选，但推荐)
-      // 注意：如果模型有复杂的层级，getHierarchyBoundingVectors 可能更准确
-      const bounds = bookInstance.getHierarchyBoundingVectors(true);
-      const modelHeight =
-        (bounds.max.y - bounds.min.y) * bookInstance.scaling.y; // 乘以当前的缩放
-      // const modelWidth = (bounds.max.x - bounds.min.x) * bookInstance.scaling.x;
-      const modelDepth = (bounds.max.z - bounds.min.z) * bookInstance.scaling.z;
-
-      bookInstance.position.x = startX + i * (bookBaseWidth * 1.2); // X轴排列，带一点间隔
-      // Y轴位置：架子高度 + 模型高度的一半 (确保书的底部在架子上)
-      bookInstance.position.y =
-        shelf.position.y +
-        (shelf.scaling.y * 0.2) / 2 /*架子厚度一半*/ +
-        modelHeight / 2;
-      bookInstance.position.z =
-        shelf.position.z + (Math.random() - 0.5) * (1.5 - modelDepth) * 0.4; // Z轴上轻微随机偏移
-
-      // 旋转 (示例：让书本稍微倾斜)
-      bookInstance.rotation.y = (Math.random() - 0.5) * 0.1; // 轻微的Y轴旋转
-      bookInstance.rotation.z = (Math.random() - 0.5) * 0.3; // 轻微的Z轴倾斜
-
-      // (可选) 给每本书不同的材质或颜色变体
-      // 如果模型有多个子网格且共享材质，克隆材质可能更复杂
-      // 如果模型本身就有材质，通常克隆后也会有
-      // 若要修改，例如：
-      // const newMaterial = bookInstance.material.clone("bookMat_" + i);
-      // newMaterial.diffuseColor = new BABYLON.Color3(Math.random(), Math.random(), Math.random());
-      // bookInstance.material = newMaterial;
-      // 如果模型是多部分的，可能需要遍历子网格并应用材质：
-      // bookInstance.getChildMeshes().forEach(childMesh => {
-      //   if (childMesh.material) {
-      //     const childMat = childMesh.material.clone(`${childMesh.name}_mat_${i}`);
-      //     childMat.diffuseColor = new BABYLON.Color3(Math.random() * 0.8, Math.random() * 0.8, Math.random() * 0.8);
-      //     childMesh.material = childMat;
-      //   }
-      // });
-    }
-  };
-
-  // 后备函数：如果模型加载失败，则创建立方体书本
-  const populateShelfWithBoxes = (shelf, scene) => {
-    const numBooks = 8;
-    const bookWidth = 0.25,
-      bookHeight = 1,
-      bookDepth = 0.8;
-    const shelfWidth = 5;
-    const startX = -shelfWidth / 2 + bookWidth * 1.5;
-
-    for (let i = 0; i < numBooks; i++) {
-      const book = BABYLON.MeshBuilder.CreateBox(
-        `fallback_book_${i}`,
-        {
-          width: bookWidth,
-          height: bookHeight,
-          depth: bookDepth,
-        },
-        scene
-      );
-
-      book.position.x = startX + i * (bookWidth * 1.2);
-      book.position.y =
-        shelf.position.y + (shelf.scaling.y * 0.2) / 2 + bookHeight / 2;
-      book.position.z =
-        shelf.position.z + (Math.random() - 0.5) * (1.5 - bookDepth) * 0.4;
-
-      book.rotation.z = (Math.random() - 0.5) * 0.3;
-
-      const bookMaterial = new BABYLON.StandardMaterial(
-        `fallback_bookMat_${i}`,
-        scene
-      );
-      bookMaterial.diffuseColor = new BABYLON.Color3(
-        Math.random() * 0.7,
-        Math.random() * 0.7,
-        Math.random() * 0.7
-      );
-      book.material = bookMaterial;
-    }
-  };
-
-  onMounted(() => {
-    if (bjsCanvas.value) {
-      createScene(bjsCanvas.value)
-        .then((createdScene) => {
-          scene = createdScene;
-          if (!scene) {
-            console.error("Scene not created!");
-            loadingMessage.value = "Failed to initialize 3D scene.";
-            return;
+        if (object.material.isMaterial) {
+          object.material.dispose(); // 释放材质
+        } else {
+          // 如果材质是材质数组 (例如，MultiMaterial)
+          for (const material of object.material) {
+            material.dispose();
           }
-          engine.runRenderLoop(() => {
-            if (scene && scene.activeCamera) {
-              // 确保相机和场景都准备好了
-              scene.render();
+        }
+      });
+
+      // 清空场景
+      while (this.scene.children.length > 0) {
+        this.scene.remove(this.scene.children[0]);
+      }
+
+      // 释放渲染器资源
+      this.renderer.dispose();
+      this.renderer.forceContextLoss(); // 强制释放 WebGL 上下文 (谨慎使用)
+
+      // 设置为 null，防止后续访问
+      this.scene = null;
+      this.camera = null;
+      this.renderer = null;
+      this.controls = null;
+      this.books = [];
+      this.selectedBook = null;
+      this.animationFrameId = null;
+    },
+    methods: {
+      init() {
+        this.books=[];
+        this.canvas = this.$refs.canvas;
+        const width = this.canvas.clientWidth;
+        const height = this.canvas.clientHeight;
+
+        // 1. 创建场景
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0xf0f0f0);
+
+        // 2. 创建相机
+        this.camera = new THREE.PerspectiveCamera(
+          45,
+          width / height,
+          0.1,
+          1000
+        );
+        this.camera.position.set(0, 5, 15);
+
+        // 鼠标 和射线
+        this.mouse = new THREE.Vector2();
+        this.raycaster = new THREE.Raycaster();
+
+        // 3. 创建渲染器
+        this.renderer = new THREE.WebGLRenderer({
+          canvas: this.canvas,
+          antialias: true,
+        });
+        this.renderer.setSize(width, height);
+        this.renderer.shadowMap.enabled = true; // 启用阴影
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 尝试不同的阴影类型
+        this.renderer.setPixelRatio(window.devicePixelRatio); // 解决模糊问题
+
+        // 4. 添加灯光
+        this.addLights();
+
+        // 5. 创建书架
+        this.createBookShelf();
+
+        // 6. 加载书籍
+        this.loadBooks();
+
+        // 7. 添加事件监听器
+        this.addEventListeners();
+
+        /**参数是坐标轴的长度，单位是 Three.js 的单位 (默认为 1)
+         * 坐标轴颜色
+          红色 (Red): X 轴
+          绿色 (Green): Y 轴
+          蓝色 (Blue): Z 轴
+         */
+        const axesHelper = new THREE.AxesHelper(9);
+        this.scene.add(axesHelper);
+
+        // 8. 添加控制器
+        this.controls = new OrbitControls(
+          this.camera,
+          this.renderer.domElement
+        );
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
+      },
+      animate() {
+        this.animationFrameId = requestAnimationFrame(this.animate);
+        this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+      },
+      addLights() {
+        const ambientLight = new THREE.AmbientLight(0x404040); // 柔和的环境光
+        this.scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // 平行光
+        directionalLight.position.set(1, 1, 1).normalize();
+        this.scene.add(directionalLight);
+
+        const shadowLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        shadowLight.position.set(5, 5, 5);
+        shadowLight.castShadow = true;
+        shadowLight.shadow.mapSize.width = 512;
+        shadowLight.shadow.mapSize.height = 512;
+        this.scene.add(shadowLight);
+      },
+      createBookShelf() {
+        const shelfWidth = 10;
+        const shelfHeight = 0.2;
+        const shelfDepth = 3;
+        const shelfSpacing = 2; // 书架层之间的间距
+        const numShelves = 3;
+
+        for (let i = 0; i < numShelves; i++) {
+          const shelfGeometry = new THREE.BoxGeometry(
+            shelfWidth,
+            shelfHeight,
+            shelfDepth
+          );
+          const shelfMaterial = new THREE.MeshLambertMaterial({
+            color: 0x8b4513,
+          }); // 棕色
+          const shelf = new THREE.Mesh(shelfGeometry, shelfMaterial);
+          shelf.position.set(0, i * (shelfHeight + shelfSpacing), 0);
+          shelf.receiveShadow = true;
+          this.scene.add(shelf);
+        }
+      },
+      loadBooks() {
+        const loader = new GLTFLoader();
+        const bookContentArr = [
+          {
+            fileUrl: "/models/book1.glb",
+            name: "book1",
+            url: "content/write/this is water 读后感",
+          },
+          {
+            fileUrl: "/models/book1.glb",
+            name: "book2",
+            url: "content/write/sources",
+          },
+        ]; // 替换为你的书籍模型路径
+        const shelfWidth = 10;
+        const bookWidth = 1;
+        let currentX = -shelfWidth / 2 + bookWidth;
+        let shelfLevel = 0;
+        let bookIndex = 0;
+
+        bookContentArr.forEach((bookConfig, index) => {
+          loader.load(
+            bookConfig.fileUrl,
+            (gltf) => {
+              const book = gltf.scene;
+              book.userData = {
+                name: bookConfig.name,
+                url: bookConfig.url,
+              };
+              book.scale.set(1, 1, 0.8); // 调整书籍大小
+              book.position.set(currentX, shelfLevel * 3.2 + 1.2, 0);
+
+              book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
+              book.rotation.z = -Math.PI / 2;
+              book.castShadow = true;
+              book.receiveShadow = true;
+
+              book.traverse((child) => {
+                if (child.isObject3D) {
+                  child.userData.book = book;
+                }
+                if (child instanceof THREE.Mesh) {
+                  child.material.emissive = new THREE.Color(0x000000); // 黑色
+                  child.material.emissiveIntensity = 0;
+                }
+              });
+
+              this.scene.add(book);
+              this.books.push(book); // 将书籍添加到数组中
+
+              // 更新位置
+              currentX += bookWidth * 1.2; // 调整书籍之间的间距
+              bookIndex++;
+
+              if (currentX > shelfWidth / 2 - bookWidth) {
+                // 换到下一层书架
+                shelfLevel++;
+                currentX = -shelfWidth / 2 + bookWidth;
+              }
+            },
+            (xhr) => {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            (error) => {
+              console.error("An error happened", error);
+            }
+          );
+        });
+      },
+      addEventListeners() {
+        this.canvas.addEventListener("mousemove", this.onMouseMove);
+        this.canvas.addEventListener("click", this.onMouseClick);
+        window.addEventListener("resize", this.onWindowResize);
+      },
+      onMouseMove(event) {
+        // 计算鼠标位置
+        this.mouse.x = (event.offsetX / this.canvas.clientWidth) * 2 - 1;
+        this.mouse.y = -(event.offsetY / this.canvas.clientHeight) * 2 + 1;
+
+        // 更新射线
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        // 检测射线与书籍的相交
+        const intersects = this.raycaster.intersectObjects(this.books, true);
+        if (intersects.length > 0) {
+          const intersectedObject = intersects[0].object.parent; // 获取书籍对象 (假设模型根节点是 parent)
+          const intersectedBook = intersectedObject.userData.book; // 获取书籍对象
+          if (intersectedBook && intersectedBook !== this.selectedBook) {
+            // 如果选中了新的书籍
+            this.highlightBook(intersectedBook);
+          }
+        } else {
+          // 没有选中书籍，取消高亮
+          this.unhighlightBook();
+        }
+      },
+      onMouseClick() {
+        if (this.selectedBook) {
+          this.extractBook(this.selectedBook);
+        }
+      },
+      onWindowResize() {
+        const width = this.canvas.clientWidth;
+        const height = this.canvas.clientHeight;
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
+      },
+      highlightBook(book) {
+        // 取消之前选中书籍的高亮
+        this.unhighlightBook();
+
+        this.selectedBook = book;
+        // 对选中的书籍进行高亮显示 (例如，改变颜色)
+        this.selectedBook.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            // console.log("材质：", child.material);
+            if (child.material) {
+              // 克隆材质，避免修改原始材质
+              child.material = child.material.clone();
+              child.material.emissive = new THREE.Color(0xffff00);
+              child.material.emissiveIntensity = 0.5;
+              child.material.needsUpdate = true; // 重要：通知 Three.js 更新
+            }
+          }
+        });
+      },
+      unhighlightBook() {
+        if (this.selectedBook) {
+          // 恢复之前选中书籍的颜色
+          this.selectedBook.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+              child.material.emissive = new THREE.Color(0x000000); // 黑色
+              child.material.emissiveIntensity = 0;
             }
           });
-        })
-        .catch((error) => {
-          console.error("Error in onMounted scene creation:", error);
-          loadingMessage.value = "Error initializing 3D scene.";
+          this.selectedBook = null;
+        }
+      },
+      extractBook(book) {
+        // Store the original z position for later restoration
+        const originalZ = book.position.z;
+
+        gsap.to(book.position, {
+          z: book.position.z + 1,
+          duration: 0.5,
+          ease: "power2.out",
+          onComplete: () => {
+            // Navigate after animation
+            console.log("book name is ", book.userData.name);
+            console.log("book url is ", book.userData.url);
+            if (book.userData.url) {
+              //路由跳转
+              window.open(book.userData.url, "_blank");
+            }
+
+            //  Animate back to the original position after navigating
+            gsap.to(book.position, {
+              z: originalZ, // Animate back to the stored original z position
+              duration: 0.5, // Use the same duration as the original animation
+              ease: "power2.out",
+            });
+            this.unhighlightBook();
+          },
         });
-    }
-    window.addEventListener("resize", handleResize);
-  });
-
-  onUnmounted(() => {
-    window.removeEventListener("resize", handleResize);
-    if (engine) {
-      engine.dispose();
-      engine = null;
-      scene = null;
-      bookTemplateMesh = null;
-    }
-  });
-
-  const handleResize = () => {
-    if (engine) {
-      engine.resize();
-    }
+      },
+    },
   };
 </script>
 
 <style scoped>
-  .loading-overlay {
-    position: absolute;
+  .book-shelf-container {
+    width: 100%;
+    height: 500px; /* 调整高度 */
+  }
+
+  .book-shelf-canvas {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    z-index: 10;
-  }
-  canvas {
-    display: block; /* 避免底部出现小间隙 */
-    touch-action: none; /* 避免在触摸设备上滚动页面 */
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    z-index: 999;
   }
 </style>
