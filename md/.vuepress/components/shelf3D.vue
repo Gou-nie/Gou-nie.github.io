@@ -96,10 +96,27 @@
 
         // 4. 添加灯光
         this.addLights();
+        
+        let shelfBoardDepth = 3;
+        // 4.5 添加墙
+        const planeSize = 10;
+        let texture  = this.createTexture("/images/brickWall.jpg",planeSize);
+        const plan = this.createWallMesh(texture, planeSize,shelfBoardDepth);
+        this.scene.add(plan);
 
+        let textures = [
+            texture,
+            texture,
+            texture,
+            texture,
+            texture,
+            texture,
+        ];
         // 5. 创建书架
-        this.createBookShelf();
-
+        this.createBookShelf(10,0.2,shelfBoardDepth,textures);
+        // let texture2 = this.createTexture("/images/checker.png",50);
+        // let floor = this.createFloorMesh(texture2, 50);
+        // this.scene.add(floor);
         // 6. 加载书籍
         this.loadBooks();
 
@@ -112,8 +129,8 @@
           绿色 (Green): Y 轴
           蓝色 (Blue): Z 轴
          */
-        const axesHelper = new THREE.AxesHelper(9);
-        this.scene.add(axesHelper);
+        // const axesHelper = new THREE.AxesHelper(9);
+        // this.scene.add(axesHelper);
 
         // 8. 添加控制器
         this.controls = new OrbitControls(
@@ -143,12 +160,50 @@
         // shadowLight.shadow.mapSize.height = 512;
         this.scene.add(shadowLight);
       },
-      createBookShelf() {
-        const shelfWidth = 10;
-        const shelfHeight = 0.2;
-        const shelfDepth = 3;
+
+
+      createTexture(url,planeSize) {
+        const loader = new THREE.TextureLoader();
+        const texture = loader.load(url);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.magFilter = THREE.NearestFilter;
+        texture.colorSpace = THREE.SRGBColorSpace;
+        // 计算需要重复多少次才能让纹理保持原始大小
+        // 假设你的砖墙纹理是1m×1m的实际尺寸
+        const textureSize = 5; // 根据你的纹理实际尺寸调整这个值
+        const repeats = planeSize / textureSize;
+        texture.repeat.set(repeats, repeats);
+        return texture;
+      },
+      createWallMesh(texture, planeSize,shelfBoardDepth) {
+        const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+        const planeMat = new THREE.MeshStandardMaterial({
+          roughness: 0.5, 
+          map: texture,
+          side: THREE.DoubleSide,
+        });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        mesh.rotation.x = Math.PI;
+        mesh.position.z = -shelfBoardDepth/2;
+        mesh.position.y = planeSize/2;
+        return mesh;
+      },
+      createFloorMesh(texture, planeSize) {
+        const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+        const planeMat = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+        });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        mesh.rotation.x = Math.PI * -0.5;
+        mesh.userData.isPlane = true; // 添加标识
+        return mesh;
+      },
+
+      createBookShelf(shelfWidth = 10, shelfHeight = 0.2, shelfDepth = 3,textures) {
         const shelfSpacing = 2; // 书架层之间的间距
-        const numShelves = 3;
+        const numShelves = 4;
 
         for (let i = 0; i < numShelves; i++) {
           const shelfGeometry = new THREE.BoxGeometry(
@@ -156,9 +211,19 @@
             shelfHeight,
             shelfDepth
           );
-          const shelfMaterial = new THREE.MeshLambertMaterial({
-            color: 0x8b4513,
-          }); // 棕色
+          let shelfMaterial;
+          if(textures){
+            shelfMaterial = textures.map(texture => new THREE.MeshStandardMaterial({ 
+              map: texture,
+              side: THREE.FrontSide, // 只渲染正面（可选）
+            }));
+          }else{
+            shelfMaterial = new THREE.MeshLambertMaterial({
+            color: 0xd4c17f
+            }); // 棕色
+          }
+
+
           const shelf = new THREE.Mesh(shelfGeometry, shelfMaterial);
           shelf.position.set(0, i * (shelfHeight + shelfSpacing), 0);
           // shelf.receiveShadow = true;
@@ -392,10 +457,9 @@
         this.mouse.y = -(event.offsetY / this.canvas.clientHeight) * 2 + 1;
 
         // 更新射线
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-
+        this.raycaster.setFromCamera(this.mouse, this.camera, 0.1, 100);
         // 检测射线与书籍的相交
-        const intersects = this.raycaster.intersectObjects(this.books, true);
+        const intersects = this.raycaster.intersectObjects(this.scene.children, true);
         if (intersects.length > 0) {
           const intersectedObject = intersects[0].object.parent; // 获取书籍对象 (假设模型根节点是 parent)
           const intersectedBook = intersectedObject.userData.book; // 获取书籍对象
