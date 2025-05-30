@@ -169,87 +169,87 @@
         const loader = new GLTFLoader();
         const bookContentArr = [
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book1",
             url: "content/draw/bigDraw",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book2",
             url: "content/draw/draw",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book3",
             url: "content/tool/fluid",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book4",
             url: "content/tool/hug",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book5",
             url: "content/tool/three/shelf3D",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book6",
             url: "content/tool/three/testThree",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book7",
             url: "content/vuepress部署",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book8",
             url: "content/write/badMood",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book9",
             url: "content/write/disenchantment",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book10",
             url: "content/write/faith",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book11",
             url: "content/write/iosPriBlue",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book12",
             url: "content/write/love",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book13",
             url: "content/write/operationRecord",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book14",
             url: "content/write/peoples",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book15",
             url: "content/write/songs",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book16",
             url: "content/write/sources",
           },
           {
-            fileUrl: "/models/book.glb",
+            fileUrl: "/models/spellbook.glb",
             name: "book17",
             url: "content/write/this is water 读后感",
           },
@@ -346,8 +346,10 @@
           url: bookConfig.url,
         };
         // book.scale.set(1, 1, 0.8); // 调整书籍大小
-        book.scale.set(2, 2, 1.6); // 调整书籍大小
-        book.position.set(state.currentX, state.shelfLevel * 2.2 + 1.2, 0);
+        // book.scale.set(2, 2, 1.6); // 调整书籍大小
+        book.scale.set(0.01, 0.01,0.01); // 调整书籍大小
+        // book.position.set(state.currentX, state.shelfLevel * 2.2 + 1.2, 0);
+        book.position.set(state.currentX, state.shelfLevel * 2.2 + 0.8, 0);
 
         book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
         book.rotation.z = -Math.PI / 2;
@@ -368,7 +370,8 @@
         this.books.push(book); // 将书籍添加到数组中
 
         // 更新位置
-        state.currentX += bookWidth * 1.2; // 调整书籍之间的间距
+        // state.currentX += bookWidth * 1.2; // 调整书籍之间的间距
+        state.currentX += bookWidth * 2; // 调整书籍之间的间距
         state.bookIndex++;
 
         if (state.currentX > shelfWidth / 2 - bookWidth) {
