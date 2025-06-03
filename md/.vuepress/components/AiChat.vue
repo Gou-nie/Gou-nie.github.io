@@ -20,7 +20,7 @@
         userInput: '',
         reply: '',
         loading: false,
-        apiUrl: 'http://192.168.3.15:9898/aaa'  // 本地 Flask 接口
+        apiUrl: 'https://47.115.231.24:9898/aaa'  // 本地 Flask 接口
       };
     },
     methods: {
@@ -32,8 +32,8 @@
     await axios.post(this.apiUrl, {
       prompt: this.userInput
     }).then(response => {
-        console.log("@@@@#######");
-        console.log(response);
+        // console.log("@@@@#######");
+        // console.log(response);
       this.reply = response.data;
       this.loading = false;
     }).catch(error => {

@@ -19,4 +19,6 @@ def aaa():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9898)
+    # app.run(host='0.0.0.0', port=9898)
+    app.run(host='0.0.0.0', port=9898, ssl_context=('cert.pem', 'key.pem'))
+ 
