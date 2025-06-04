@@ -554,14 +554,14 @@
             }
           }
         });
-        const controller = new AbortController();
-        createTextMesh(book.userData.title, 0.2, 1, 3,  controller.signal)
-          .then(mesh =>{
-            console.log("回掉成功");
-            this.text3D = mesh;
-            this.scene.add(this.text3D);
-          } )
-          .catch(err => console.warn(err.message));
+        // const controller = new AbortController();
+        // createTextMesh(book.userData.title, 0.2, 1, 3,  controller.signal)
+        //   .then(mesh =>{
+        //     console.log("回掉成功");
+        //     this.text3D = mesh;
+        //     this.scene.add(this.text3D);
+        //   } )
+        //   .catch(err => console.warn(err.message));
 
 
       },
@@ -575,8 +575,8 @@
             }
           });
           this.selectedBook = null;
-          this.scene.remove(this.text3D);
-          this.controller.abort();
+          // this.scene.remove(this.text3D);
+          // this.controller.abort();
         }
       },
       extractBook(book) {
