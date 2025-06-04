@@ -9,6 +9,7 @@
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import gsap from "gsap";
+  import {createTextPlane, createTextMesh} from "../public/html&js/three3D/ThreeStrFunc.js";
   export default {
     name: "BookShelf",
     mounted() {
@@ -62,6 +63,7 @@
     },
     methods: {
       init() {
+        this.text3D = null;
         this.books = [];
         this.canvas = this.$refs.canvas;
         const width = this.canvas.clientWidth;
@@ -79,7 +81,6 @@
           1000
         );
         this.camera.position.set(0, 5, 15);
-
         // 鼠标 和射线
         this.mouse = new THREE.Vector2();
         this.raycaster = new THREE.Raycaster();
@@ -112,12 +113,12 @@
             texture,
             texture,
         ];
-        // 5. 创建书架
+        // // 5. 创建书架
         this.createBookShelf(10,0.2,shelfBoardDepth,textures);
-        // let texture2 = this.createTexture("/images/checker.png",50);
-        // let floor = this.createFloorMesh(texture2, 50);
-        // this.scene.add(floor);
-        // 6. 加载书籍
+        // // let texture2 = this.createTexture("/images/checker.png",50);
+        // // let floor = this.createFloorMesh(texture2, 50);
+        // // this.scene.add(floor);
+        // // 6. 加载书籍
         this.loadBooks();
 
         // 7. 添加事件监听器
@@ -129,8 +130,8 @@
           绿色 (Green): Y 轴
           蓝色 (Blue): Z 轴
          */
-        // const axesHelper = new THREE.AxesHelper(9);
-        // this.scene.add(axesHelper);
+        const axesHelper = new THREE.AxesHelper(9);
+        this.scene.add(axesHelper);
 
         // 8. 添加控制器
         this.controls = new OrbitControls(
@@ -143,6 +144,7 @@
       threeJsAnimate() {
         this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
         this.controls.update();
+        
         this.renderer.render(this.scene, this.camera);
       },
       addLights() {
@@ -237,86 +239,103 @@
             fileUrl: "/models/spellbook.glb",
             name: "book1",
             url: "content/draw/bigDraw",
+            title: "大图"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book2",
             url: "content/draw/draw",
+            title: "画画"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book3",
             url: "content/tool/fluid",
+            title: "流体"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book4",
             url: "content/tool/hug",
+            title: "拥抱"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book5",
             url: "content/tool/three/shelf3D",
+            title: "书架"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book6",
             url: "content/tool/three/testThree",
+            title: "3D测试"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book7",
             url: "content/vuepress部署",
+            title: "vuepress部署"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book8",
             url: "content/write/badMood",
+            title: "坏心情"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book9",
             url: "content/write/disenchantment",
+            title: "祛魅"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book10",
             url: "content/write/faith",
+            title: "信仰"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book11",
             url: "content/write/iosPriBlue",
+            title: "ios私有蓝牙协议"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book12",
             url: "content/write/love",
+            title: "爱"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book13",
             url: "content/write/operationRecord",
+            title: "操作记录"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book14",
             url: "content/write/peoples",
+            title: "人物"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book15",
             url: "content/write/songs",
+            title: "歌曲"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book16",
             url: "content/write/sources",
+            title: "推荐"
           },
           {
             fileUrl: "/models/spellbook.glb",
             name: "book17",
             url: "content/write/this is water 读后感",
+            title: "读后感"
           },
         ];
 
@@ -409,21 +428,40 @@
         book.userData = {
           name: bookConfig.name,
           url: bookConfig.url,
+          title: bookConfig.title
         };
         // book.scale.set(1, 1, 0.8); // 调整书籍大小
         // book.scale.set(2, 2, 1.6); // 调整书籍大小
         book.scale.set(0.01, 0.01,0.01); // 调整书籍大小
         // book.position.set(state.currentX, state.shelfLevel * 2.2 + 1.2, 0);
-        book.position.set(state.currentX, state.shelfLevel * 2.2 + 0.8, 0);
+        // book.position.set(state.currentX, state.shelfLevel * 2.2 + 0.8, 0);
 
         book.rotation.x = Math.PI / 2; // 旋转书籍使其面对相机
         book.rotation.z = -Math.PI / 2;
         // book.castShadow = true;
         // book.receiveShadow = true;
+        let text = createTextPlane(book.userData.title,0.2,1);
+        
+        // 设置 text 和 book 的相对位置（保持你原来的位移）
+        text.position.set(0, 0.8, 0.66);  // 相对位置
+        book.position.set(0, 0.8, 0);       // 相对位置
+
+        // 创建组合容器
+        const bookGroup = new THREE.Group();
+        
+        // 添加到 group 中
+        bookGroup.add(book);
+        bookGroup.add(text);
+        bookGroup.userData = {
+          name: bookConfig.name,
+          url: bookConfig.url,
+          title: bookConfig.title
+        };
+        bookGroup.position.set(state.currentX, state.shelfLevel * 2.2, 0);
 
         book.traverse((child) => {
           if (child.isObject3D) {
-            child.userData.book = book;
+            child.userData.book = bookGroup;
           }
           if (child instanceof THREE.Mesh) {
             child.material.emissive = black; // 黑色
@@ -431,8 +469,17 @@
           }
         });
 
-        this.scene.add(book);
-        this.books.push(book); // 将书籍添加到数组中
+        // this.applyTextTexture(bookConfig.name);
+        // text.position.set(state.currentX, state.shelfLevel * 2.2 + 0.8, 0.66);
+        // this.scene.add(text);
+
+        // this.scene.add(book);
+
+
+
+
+        this.scene.add(bookGroup);
+        this.books.push(bookGroup); // 将书籍添加到数组中
 
         // 更新位置
         // state.currentX += bookWidth * 1.2; // 调整书籍之间的间距
@@ -444,6 +491,12 @@
           state.shelfLevel++;
           state.currentX = -shelfWidth / 2 + bookWidth;
         }
+      },
+      applyTextTexture(name,x,y,z) {
+
+ 
+        
+ 
       },
 
       addEventListeners() {
@@ -474,7 +527,7 @@
       },
       onMouseClick() {
         if (this.selectedBook) {
-          this.extractBook(this.selectedBook);
+          // this.extractBook(this.selectedBook);
         }
       },
       onWindowResize() {
@@ -487,10 +540,10 @@
       highlightBook(book) {
         // 取消之前选中书籍的高亮
         this.unhighlightBook();
-
         this.selectedBook = book;
+
         // 对选中的书籍进行高亮显示 (例如，改变颜色)
-        this.selectedBook.traverse((child) => {
+        this.selectedBook.children[0].traverse((child) => {
           if (child instanceof THREE.Mesh) {
             if (child.material) {
               // 克隆材质，避免修改原始材质
@@ -501,17 +554,29 @@
             }
           }
         });
+        const controller = new AbortController();
+        createTextMesh(book.userData.title, 0.2, 1, 3,  controller.signal)
+          .then(mesh =>{
+            console.log("回掉成功");
+            this.text3D = mesh;
+            this.scene.add(this.text3D);
+          } )
+          .catch(err => console.warn(err.message));
+
+
       },
       unhighlightBook() {
         if (this.selectedBook) {
           // 恢复之前选中书籍的颜色
-          this.selectedBook.traverse((child) => {
+          this.selectedBook.children[0].traverse((child) => {
             if (child instanceof THREE.Mesh) {
               child.material.emissive = new THREE.Color(0x000000); // 黑色
               child.material.emissiveIntensity = 0;
             }
           });
           this.selectedBook = null;
+          this.scene.remove(this.text3D);
+          this.controller.abort();
         }
       },
       extractBook(book) {
