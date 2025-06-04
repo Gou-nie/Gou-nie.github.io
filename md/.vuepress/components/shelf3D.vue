@@ -527,7 +527,7 @@
       },
       onMouseClick() {
         if (this.selectedBook) {
-          // this.extractBook(this.selectedBook);
+          this.extractBook(this.selectedBook);
         }
       },
       onWindowResize() {
