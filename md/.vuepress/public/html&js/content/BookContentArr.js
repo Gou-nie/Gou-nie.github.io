@@ -7,6 +7,12 @@ const bookArr = [
     },
     {
       fileUrl: "/models/spellbook.glb",
+      name: "book1.1",
+      url: "content/index_old",
+      title: "主页"
+    },
+    {
+      fileUrl: "/models/spellbook.glb",
       name: "book2",
       url: "content/draw/draw",
       title: "画画"
