@@ -107,6 +107,12 @@ const bookArr = [
       url: "content/write/this is water 读后感",
       title: "《这是水》读后感"
     },
+    {
+      fileUrl: "/models/spellbook.glb",
+      name: "book17",
+      url: "https://quagef.github.io/",
+      title: "AdForAle"
+    },
   ];
 
 export default bookArr;
