@@ -55,9 +55,15 @@ const bookArr = [
     },
     {
       fileUrl: "/models/spellbook.glb",
-      name: "book10",
+      name: "book10.1",
       url: "content/write/faith",
       title: "信仰"
+    },
+    {
+      fileUrl: "/models/spellbook.glb",
+      name: "book10.2",
+      url: "content/write/faith2",
+      title: "信仰2"
     },
     {
       fileUrl: "/models/spellbook.glb",
@@ -99,7 +105,7 @@ const bookArr = [
       fileUrl: "/models/spellbook.glb",
       name: "book17",
       url: "content/write/this is water 读后感",
-      title: "读后感"
+      title: "《这是水》读后感"
     },
   ];
 
