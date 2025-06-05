@@ -140,8 +140,8 @@
           绿色 (Green): Y 轴
           蓝色 (Blue): Z 轴
          */
-        const axesHelper = new THREE.AxesHelper(9);
-        this.scene.add(axesHelper);
+        // const axesHelper = new THREE.AxesHelper(9);
+        // this.scene.add(axesHelper);
 
 
         // 这里渲染测试 搞个固定在镜头前面的文字
