@@ -1,6 +1,9 @@
 <template>
   <div class="book-shelf-container">
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
+    <div class="overlay-text">
+      {{ dynamicText }}
+    </div>
   </div>
 </template>
 
@@ -9,9 +12,15 @@
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import gsap from "gsap";
-  import {createTextPlane, createTextMesh} from "../public/html&js/three3D/ThreeStrFunc.js";
+  import {createVerticalTextPlane, createHorizontalTextPlane,  createTextMesh} from "../public/html&js/three3D/ThreeStrFunc.js";
+  import bookArr from "../public/html&js/content/BookContentArr.js";
   export default {
     name: "BookShelf",
+    data() {
+      return {
+        dynamicText: "",
+      };
+    },
     mounted() {
       this.init();
 
@@ -63,6 +72,7 @@
     },
     methods: {
       init() {
+        this.isExtract = false;
         this.text3D = null;
         this.books = [];
         this.canvas = this.$refs.canvas;
@@ -133,6 +143,11 @@
         const axesHelper = new THREE.AxesHelper(9);
         this.scene.add(axesHelper);
 
+
+        // 这里渲染测试 搞个固定在镜头前面的文字
+        // let tt = createVerticalTextPlane("eeee",4,8);
+        // tt.position.set(0,0,5);
+        // this.scene.add(tt);
         // 8. 添加控制器
         this.controls = new OrbitControls(
           this.camera,
@@ -234,110 +249,7 @@
       },
       async loadBooks() {
         const loader = new GLTFLoader();
-        const bookContentArr = [
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book1",
-            url: "content/draw/bigDraw",
-            title: "大图"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book2",
-            url: "content/draw/draw",
-            title: "画画"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book3",
-            url: "content/tool/fluid",
-            title: "流体"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book4",
-            url: "content/tool/hug",
-            title: "拥抱"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book5",
-            url: "content/tool/three/shelf3D",
-            title: "书架"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book6",
-            url: "content/tool/three/testThree",
-            title: "3D测试"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book7",
-            url: "content/vuepress部署",
-            title: "vuepress部署"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book8",
-            url: "content/write/badMood",
-            title: "坏心情"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book9",
-            url: "content/write/disenchantment",
-            title: "祛魅"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book10",
-            url: "content/write/faith",
-            title: "信仰"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book11",
-            url: "content/write/iosPriBlue",
-            title: "ios私有蓝牙协议"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book12",
-            url: "content/write/love",
-            title: "爱"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book13",
-            url: "content/write/operationRecord",
-            title: "操作记录"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book14",
-            url: "content/write/peoples",
-            title: "人物"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book15",
-            url: "content/write/songs",
-            title: "歌曲"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book16",
-            url: "content/write/sources",
-            title: "推荐"
-          },
-          {
-            fileUrl: "/models/spellbook.glb",
-            name: "book17",
-            url: "content/write/this is water 读后感",
-            title: "读后感"
-          },
-        ];
+        const bookContentArr =  bookArr;
 
         const shelfWidth = 10;
         // const bookWidth = 1;
@@ -440,7 +352,7 @@
         book.rotation.z = -Math.PI / 2;
         // book.castShadow = true;
         // book.receiveShadow = true;
-        let text = createTextPlane(book.userData.title,0.2,1);
+        let text = createVerticalTextPlane(book.userData.title,0.2,1);
         
         // 设置 text 和 book 的相对位置（保持你原来的位移）
         text.position.set(0, 0.8, 0.66);  // 相对位置
@@ -527,7 +439,14 @@
       },
       onMouseClick() {
         if (this.selectedBook) {
-          this.extractBook(this.selectedBook);
+          if(this.isExtract){
+            this.isExtract = false;
+            this.openBook(this.selectedBook);
+          }else{
+            this.isExtract = true;
+            this.extractBook(this.selectedBook);
+          }
+
         }
       },
       onWindowResize() {
@@ -574,35 +493,39 @@
               child.material.emissiveIntensity = 0;
             }
           });
+          if(this.isExtract){
+            gsap.to(this.selectedBook.position, {
+              z: 0, //初始Z
+              duration: 0.5, 
+              ease: "power2.out",
+            });
+            this.isExtract = false;
+          }
+          this.dynamicText = "";
           this.selectedBook = null;
           // this.scene.remove(this.text3D);
           // this.controller.abort();
+
         }
       },
       extractBook(book) {
-        // Store the original z position for later restoration
-        const originalZ = book.position.z;
-
+        this.dynamicText = book.userData.title;
         gsap.to(book.position, {
           z: book.position.z + 1,
           duration: 0.5,
           ease: "power2.out",
           onComplete: () => {
-            // Navigate after animation
-            if (book.userData.url) {
-              //路由跳转
-              window.open(book.userData.url, "_blank");
-            }
-
-            //  Animate back to the original position after navigating
-            gsap.to(book.position, {
-              z: originalZ, // Animate back to the stored original z position
-              duration: 0.5, // Use the same duration as the original animation
-              ease: "power2.out",
-            });
-            this.unhighlightBook();
+            // console.log("Animation completed");
           },
         });
+      },
+      openBook(book) {
+        // 实现打开书籍的逻辑
+        console.log(`Opening book: ${book.userData.name}`);
+        if (book.userData.url) {
+          window.open(book.userData.url, "_self");
+        }
+        this.unhighlightBook();
       },
     },
   };
@@ -611,7 +534,7 @@
 <style scoped>
   .book-shelf-container {
     width: 100%;
-    height: 500px; /* 调整高度 */
+    height: 500px;  
   }
 
   .book-shelf-canvas {
@@ -623,4 +546,17 @@
     margin: 0;
     z-index: 999;
   }
+
+  .overlay-text {
+  position: absolute;
+  top: 20px; /* Adjust top position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white; /* Or any color you prefer */
+  font-size: 24px; /* Adjust font size as needed */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #000000; /* Add shadow for better readability */
+  z-index: 1000; /* Ensure it's above the canvas */
+  pointer-events: none; /*  So the text doesn't prevent interacting with the canvas */
+}
 </style>
