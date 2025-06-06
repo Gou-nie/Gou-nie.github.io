@@ -12,8 +12,9 @@
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import gsap from "gsap";
-  import {createVerticalTextPlane, createHorizontalTextPlane,  createTextMesh} from "../public/html&js/three3D/ThreeStrFunc.js";
+  import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
   import bookArr from "../public/html&js/content/BookContentArr.js";
+  import {createMaterial } from "../public/html&js/three3D/ThreeCommon.js";
   export default {
     name: "BookShelf",
     data() {
@@ -125,9 +126,7 @@
         ];
         // // 5. 创建书架
         this.createBookShelf(10,0.2,shelfBoardDepth,textures);
-        // // let texture2 = this.createTexture("/images/checker.png",50);
-        // // let floor = this.createFloorMesh(texture2, 50);
-        // // this.scene.add(floor);
+
         // // 6. 加载书籍
         this.loadBooks();
 
@@ -142,12 +141,11 @@
          */
         // const axesHelper = new THREE.AxesHelper(9);
         // this.scene.add(axesHelper);
-
-
-        // 这里渲染测试 搞个固定在镜头前面的文字
-        // let tt = createVerticalTextPlane("eeee",4,8);
-        // tt.position.set(0,0,5);
-        // this.scene.add(tt);
+        //环形节
+        this.torus = this.createTorusKnotGeometry();
+        this.torus .position.set(0, 8, 0);
+        this.scene.add(this.torus);
+        
         // 8. 添加控制器
         this.controls = new OrbitControls(
           this.camera,
@@ -156,7 +154,18 @@
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.05;
       },
-      threeJsAnimate() {
+      threeJsAnimate(time) {
+        
+        time*=0.001;
+        
+        this.torus.rotation.x = time;
+        this.torus.rotation.y = time;
+        this.torus.rotation.z = time+1;
+        if(time%10==0){
+          console.log(time,"--------------- time is ");
+          this.torus.color = createMaterial();
+        }
+        
         this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
         this.controls.update();
         
@@ -172,9 +181,6 @@
 
         const shadowLight = new THREE.DirectionalLight(0xffffff, 0.5);
         shadowLight.position.set(5, 5, 5);
-        // shadowLight.castShadow = true;
-        // shadowLight.shadow.mapSize.width = 512;
-        // shadowLight.shadow.mapSize.height = 512;
         this.scene.add(shadowLight);
       },
 
@@ -527,6 +533,21 @@
         }
         this.unhighlightBook();
       },
+      createTorusKnotGeometry(){
+        const radius =  0.5;  
+        const tubeRadius =  0.2;  
+        const radialSegments = 30;  
+        const tubularSegments = 100;  
+        const p =  2;  
+        const q =  3;  
+        const geometry = new THREE.TorusKnotGeometry(radius, tubeRadius, tubularSegments, radialSegments, p, q ); 
+
+        const mesh = new THREE.Mesh(geometry, createMaterial());
+        geometry.computeBoundingBox();
+        geometry.boundingBox.getCenter(mesh.position).multiplyScalar(-1);
+
+        return mesh;
+      }
     },
   };
 </script>
