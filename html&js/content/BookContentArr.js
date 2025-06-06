@@ -58,6 +58,12 @@ const bookArr = [
       name: "book9",
       url: "content/write/disenchantment",
       title: "祛魅"
+    },    
+    {
+      fileUrl: "/models/spellbook.glb",
+      name: "book10.2",
+      url: "content/write/faith2",
+      title: "信仰2"
     },
     {
       fileUrl: "/models/spellbook.glb",
@@ -65,12 +71,7 @@ const bookArr = [
       url: "content/write/faith",
       title: "信仰"
     },
-    {
-      fileUrl: "/models/spellbook.glb",
-      name: "book10.2",
-      url: "content/write/faith2",
-      title: "信仰2"
-    },
+
     {
       fileUrl: "/models/spellbook.glb",
       name: "book11",
