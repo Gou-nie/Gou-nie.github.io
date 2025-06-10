@@ -8,6 +8,8 @@ import { defineUserConfig } from 'vuepress'
 import  themeConfig  from './theme.js'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+
 import path from 'path'
 
 export default defineUserConfig({
@@ -36,6 +38,9 @@ export default defineUserConfig({
       componentsPatterns: ['**/*.vue', '!**/3D/**'],
       
     }),
+    googleAnalyticsPlugin({
+      id: 'G-YZQGD3PJJ9',
+    })
     
   ]
 })
