@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vue_export-helper-DlAUqK2U.js";import{c as o,o as t}from"./app-M-zqDV-R.js";const r={name:"Fluid",mounted(){}},s={src:"/html&js/fluid/index.html",frameborder:"0",class:"custom-iframe"};function c(a,n,m,i,d,f){return t(),o("iframe",s)}const p=e(r,[["render",c]]);export{p as default};
