@@ -14,7 +14,7 @@
   import gsap from "gsap";
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
   import bookArr from "../public/html&js/content/BookContentArr.js";
-  import {createMaterial } from "../public/html&js/three3D/ThreeCommon.js";
+  import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
   export default {
     name: "BookShelf",
     data() {
@@ -156,20 +156,30 @@
       },
       threeJsAnimate(time) {
         
-        time*=0.001;
+        time*=0.0008;
         
-        this.torus.rotation.x = time;
-        this.torus.rotation.y = time;
-        this.torus.rotation.z = time+1;
+        // this.torus.rotation.x = time;
+        // this.torus.rotation.y = time;
+        this.torus.rotation.z = time;
         if(time%10==0){
           console.log(time,"--------------- time is ");
           this.torus.color = createMaterial();
         }
         
-        this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
-        this.controls.update();
+        const canvas = this.renderer.domElement;
+        this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        this.camera.updateProjectionMatrix();
+
+        if (resizeRendererToDisplaySize(this.renderer)) {
+          console.log("resizeRendererToDisplaySize")
+          const canvas = this.renderer.domElement;
+          this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+          this.camera.updateProjectionMatrix();
+        }
         
+        this.controls.update();
         this.renderer.render(this.scene, this.camera);
+        this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
       },
       addLights() {
         const ambientLight = new THREE.AmbientLight(0x404040); // 柔和的环境光
@@ -461,6 +471,8 @@
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.render(this.scene, this.camera);
       },
       highlightBook(book) {
         // 取消之前选中书籍的高亮
