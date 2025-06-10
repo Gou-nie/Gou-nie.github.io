@@ -40,6 +40,7 @@ export default defineUserConfig({
     }),
     googleAnalyticsPlugin({
       id: 'G-YZQGD3PJJ9',
+      debug: true
     })
     
   ]

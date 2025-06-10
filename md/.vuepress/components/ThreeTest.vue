@@ -10,6 +10,9 @@ export default {
   mounted() {
     this.initThree()
   },
+  beforeUnmount() {
+    this.$refs.threeCanvas.remove()
+  },
   methods: {
     initThree() {
       const scene = new THREE.Scene()

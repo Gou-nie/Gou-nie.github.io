@@ -12,6 +12,10 @@
     mounted() {
       this.initThree();
     },
+    beforeUnmount() {
+      this.$refs.threeCanvas.remove();
+      this.gui.destroy();
+    },
     methods: {
       initThree() {
         const scene = new THREE.Scene();
