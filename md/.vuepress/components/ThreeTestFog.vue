@@ -32,16 +32,16 @@
         camera.position.x = 1;
         // 雾
         {
-          const gui = new GUI();
+          this.gui = new GUI();
           const near = 3;
           const far = 5;
           const color = "lightblue";
           scene.fog = new THREE.Fog(color, near, far);
           scene.background = new THREE.Color(color);
           const fogGUIHelper = new FogGUIHelper(scene.fog, scene.background);
-          gui.add(fogGUIHelper, "near", near, far).listen();
-          gui.add(fogGUIHelper, "far", near, far).listen();
-          gui.addColor(fogGUIHelper, "color");
+          this.gui.add(fogGUIHelper, "near", near, far).listen();
+          this.gui.add(fogGUIHelper, "far", near, far).listen();
+          this.gui.addColor(fogGUIHelper, "color");
         }
         //光照
         const color = 0xffffff;
