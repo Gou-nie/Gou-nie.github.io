@@ -18,7 +18,7 @@ export default {
       const scene = new THREE.Scene()
       scene.background = new THREE.Color('#aaa')
       const canvas = this.$refs.threeCanvas
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true ,alpha:true})
       const camera = new THREE.PerspectiveCamera(
         25, // fov 视野范围(field of view)的缩写 垂直方向角度
         2, // 画布宽高比
@@ -130,5 +130,7 @@ aleahpeal
   height: 100vh;
   margin: 0;
   z-index: 999;
+  /* background: url(../public/images/gif/heythatme-cloud.gif) no-repeat center center;
+  background-size: cover; */
 }
 </style>

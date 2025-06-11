@@ -1,5 +1,6 @@
 <template>
   <div class="book-shelf-container">
+    <starrySky :stars-count="1000" :distance="1000"/>
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
@@ -8,6 +9,7 @@
 </template>
 
 <script>
+  import starrySky from "./starry-sky.vue";
   import * as THREE from "three";
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -15,8 +17,12 @@
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
   import bookArr from "../public/html&js/content/BookContentArr.js";
   import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
+import StarrySky from "./starry-sky.vue";
   export default {
     name: "BookShelf",
+    components: {
+      starrySky,
+    },
     data() {
       return {
         dynamicText: "",
@@ -82,16 +88,16 @@
 
         // 1. 创建场景
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xf0f0f0);
+        // this.scene.background = new THREE.Color(0xf0f0f0);
 
         // 2. 创建相机
         this.camera = new THREE.PerspectiveCamera(
-          45,
+          100,
           width / height,
           0.1,
           1000
         );
-        this.camera.position.set(0, 5, 15);
+        this.camera.position.set(5, 8, 15);
         // 鼠标 和射线
         this.mouse = new THREE.Vector2();
         this.raycaster = new THREE.Raycaster();
@@ -100,6 +106,7 @@
         this.renderer = new THREE.WebGLRenderer({
           canvas: this.canvas,
           antialias: true,
+          alpha: true,
         });
         this.renderer.setSize(width, height);
         // this.renderer.shadowMap.enabled = true; // 启用阴影
@@ -212,7 +219,9 @@
       createWallMesh(texture, planeSize,shelfBoardDepth) {
         const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
         const planeMat = new THREE.MeshStandardMaterial({
-          roughness: 0.5, 
+          roughness: 0.9, 
+          metalness:0.2,
+          // clearCoatRoughness:0.3,
           map: texture,
           side: THREE.DoubleSide,
         });
@@ -577,12 +586,14 @@
     width: 100vw;
     height: 100vh;
     margin: 0;
-    z-index: 999;
+    z-index: 101;
+    /* background: url(../public/images/gif/heythatme-cloud.gif) no-repeat center center;
+    background-size: cover; */
   }
 
   .overlay-text {
   position: absolute;
-  top: 20px; /* Adjust top position as needed */
+  top: 50px; /* Adjust top position as needed */
   left: 50%;
   transform: translateX(-50%);
   color: white; /* Or any color you prefer */
