@@ -95,7 +95,7 @@ const bookArr = [
     fileUrl: "/models/spellbook.glb",
     name: "book13",
     url: "content/write/love",
-    title: "爱",
+    title: "521",
     isShow: true
   },
   {
@@ -116,7 +116,7 @@ const bookArr = [
     fileUrl: "/models/spellbook.glb",
     name: "book16",
     url: "content/write/songs",
-    title: "歌曲",
+    title: "歌词",
     isShow: true
   },
   {
@@ -139,14 +139,7 @@ const bookArr = [
     url: "content/write/aboutWrite",
     title: "作文",
     isShow: true
-  },
-  {
-    fileUrl: "/models/spellbook.glb",
-    name: "book20",
-    url: "content/write/excerpt",
-    title: "摘抄",
-    isShow: true
-  },
+  }, 
   {
     fileUrl: "/models/spellbook.glb",
     name: "booklast",
