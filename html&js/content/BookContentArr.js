@@ -1,83 +1,95 @@
 const bookArr = [
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book0",
     url: "content/draw/bigDraw",
     title: "大图",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book1",
     url: "content/index_old",
     title: "主页",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book2",
     url: "content/draw/draw",
     title: "画画",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book3",
     url: "content/tool/fluid",
     title: "流体",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book4",
     url: "content/tool/hug",
     title: "拥抱",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book5",
     url: "content/tool/three/shelf3D",
     title: "书架",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book6",
     url: "content/tool/three/testThree",
     title: "3D测试",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book7",
     url: "content/vuepress部署",
     title: "vuepress部署",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book8",
     url: "content/write/badMood",
     title: "坏心情",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book9",
     url: "content/write/disenchantment",
     title: "祛魅",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book10",
     url: "content/write/faith2",
     title: "信仰2",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book11",
     url: "content/write/faith",
     title: "信仰",
@@ -85,63 +97,72 @@ const bookArr = [
   },
 
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book12",
     url: "content/write/iosPriBlue",
     title: "ios私有蓝牙协议",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book13",
     url: "content/write/love",
     title: "521",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book14",
     url: "content/write/operationRecord",
     title: "操作记录",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book15",
     url: "content/write/peoples",
     title: "人物",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book16",
     url: "content/write/songs",
     title: "歌词",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book17",
     url: "content/write/sources",
     title: "推荐",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book18",
     url: "content/write/this is water 读后感",
     title: "《这是水》读后感",
     isShow: true
   },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "book19",
     url: "content/write/aboutWrite",
     title: "作文",
     isShow: true
-  }, 
+  },
   {
-    fileUrl: "/models/spellbook.glb",
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "booklast",
     url: "https://quagef.github.io/",
     title: "AdForAle",
