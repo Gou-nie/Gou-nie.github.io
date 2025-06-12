@@ -49,10 +49,14 @@
 </template>
 
 <script>
-import Star from './star.vue';
-
+import Star from './subComponents/star.vue';
+import ColorPicker from './subComponents/ColorPicker.vue';
 // import OSS from 'ali-oss';∂
 export default {
+    components: {
+        Star,
+        ColorPicker
+    },
     data() {
         return {
             rainbowColors: ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],

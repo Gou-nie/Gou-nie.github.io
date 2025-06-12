@@ -6,7 +6,7 @@
   </template>
   
   <script>
-  import Board from './Board.vue';
+  import Board from './subComponents/Board.vue';
   
   export default {
     name: 'App',

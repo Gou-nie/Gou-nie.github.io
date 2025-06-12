@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import starrySky from "./starry-sky.vue";
+  import starrySky from "./subComponents/starry-sky.vue";
   import * as THREE from "three";
   import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -17,7 +17,6 @@
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
   import bookArr from "../public/html&js/content/BookContentArr.js";
   import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
-import StarrySky from "./starry-sky.vue";
   export default {
     name: "BookShelf",
     components: {
