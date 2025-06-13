@@ -17,6 +17,7 @@
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
   import bookArr from "../public/html&js/content/BookContentArr.js";
   import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
+  import {createStarMesh, createSharpStarMesh, createPetalStarMesh} from "../public/html&js/three3D/starMesh.js"
   export default {
     name: "BookShelf",
     components: {
@@ -134,7 +135,7 @@
         this.createBookShelf(10,0.2,shelfBoardDepth,textures);
 
         // // 6. 加载书籍
-        this.loadBooks();
+        // this.loadBooks();
 
         // 7. 添加事件监听器
         this.addEventListeners();
@@ -151,6 +152,14 @@
         this.torus = this.createTorusKnotGeometry();
         this.torus .position.set(0, 8, 0);
         this.scene.add(this.torus);
+
+        //星星
+        this.starMesh = createSharpStarMesh();
+        this.starMesh.position.set(0,0,3);
+        this.starMesh.rotation.x = 2;
+        this.scene.add(this.starMesh);
+
+
         
         // 8. 添加控制器
         this.controls = new OrbitControls(
@@ -171,7 +180,10 @@
           console.log(time,"--------------- time is ");
           this.torus.color = createMaterial();
         }
-        
+        let scaleValue = Math.abs(time%10-5);
+
+        this.starMesh.scale.set(scaleValue,scaleValue,scaleValue);
+
         const canvas = this.renderer.domElement;
         this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
         this.camera.updateProjectionMatrix();
