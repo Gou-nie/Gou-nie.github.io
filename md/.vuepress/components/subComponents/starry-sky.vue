@@ -46,12 +46,39 @@ onMounted(() => {
 	top: 0;
 	left: 0;
 	z-index: 99;
-	background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947);
-	background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
+	/* background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947); */
+	/* background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6); */
 	
 	background-attachment: fixed;
-}
 
+	/* 美学优化后的渐变背景 + 动态光感 */
+background: 
+  radial-gradient(
+    220% 105% at top center,
+    rgba(27, 41, 71, 1) 10%,       /* 深蓝 */
+    rgba(117, 81, 125, 0.85) 40%,  /* 紫灰 */
+    rgba(233, 111, 146, 0.6) 65%,  /* 粉红 */
+    rgba(247, 247, 182, 0.4)       /* 浅黄 */
+  ),
+  radial-gradient(
+    200% 100% at bottom center,
+    rgba(247, 247, 182, 0.2),
+    rgba(233, 111, 146, 0.3),
+    rgba(117, 81, 125, 0.4),
+    rgba(27, 41, 71, 0.5)
+  );
+background-size: 200% 200%;
+background-repeat: no-repeat;
+animation: glowBackground 15s ease-in-out infinite;
+
+
+}
+/* 动态背景动画定义 */
+@keyframes glowBackground {
+  0%   { background-position: 0% 100%; }
+  50%  { background-position: 100% 0%; }
+  100% { background-position: 0% 100%; }
+}
 @keyframes rotate {
 	0% {
 		transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
