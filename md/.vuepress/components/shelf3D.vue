@@ -15,14 +15,9 @@
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import gsap from "gsap";
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
-  // import bookArr from "../public/html&js/content/BookContentArr.js";
+  import bookArr from "../public/html&js/content/BookContentArr.js";
   import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
-  import {createStarMesh, createSharpStarMesh, createPetalStarMesh} from "../public/html&js/three3D/starMesh.js"
-  import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-  import {
-    ColorGUIHelper,
-    DegRadHelper,
-  } from "../public/html&js/three3D/ThreeGUIHelper";
+  import {createSharpStarMesh} from "../public/html&js/three3D/starMesh.js"
   export default {
     name: "BookShelf",
     components: {
