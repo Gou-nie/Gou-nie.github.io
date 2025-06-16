@@ -105,7 +105,7 @@ export function createSharpStarMesh(radius = 1, topHeight = 0.3, bottomHeight = 
   geometry.setIndex(indices);
   geometry.computeVertexNormals();
 
-  const material = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.3 });
+  const material = new THREE.MeshStandardMaterial({ color: 0xde3618, metalness: 0.5, roughness: 0.1 });
   return new THREE.Mesh(geometry, material);
 }
 

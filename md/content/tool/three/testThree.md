@@ -1,8 +1,8 @@
 # 3D 演示
 
-<ThreeTest />
+<!-- <ThreeTest /> -->
 <!-- <ThreeTestScene /> -->
-<!-- <ThreeTestLight /> -->
+<ThreeTestLight />
 <!-- <ThreeTestCamera /> -->
 <!-- <ThreeTestShadow /> -->
 <!-- <ThreeTestFog /> -->

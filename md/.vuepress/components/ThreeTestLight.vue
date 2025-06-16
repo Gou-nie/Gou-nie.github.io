@@ -13,6 +13,7 @@
     ColorGUIHelper,
     DegRadHelper,
   } from "../public/html&js/three3D/ThreeGUIHelper";
+    import {createSharpStarMesh} from "../public/html&js/three3D/starMesh.js"
   export default {
     mounted() {
       this.initThree();
@@ -31,10 +32,10 @@
 
         // 光源
         //this.createHemisphereLight();
-        // this.createDicLight();
-        // this.createPointLight();
+        this.createDicLight();
+        this.createPointLight();
         // this.createSpotLight();
-        this.createRectAreaLight();
+        // this.createRectAreaLight();
         const planeSize = 40;
         // 纹理
         this.texture = this.createTexture(planeSize);
@@ -45,6 +46,12 @@
         this.scene.add(box);
         const sphere = this.createSphere();
         this.scene.add(sphere);
+
+
+        const star = createSharpStarMesh();
+        star.position.set(0,5,0);
+        star.rotation.set(Math.PI,0,0);
+        this.scene.add(star);
 
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.animate);

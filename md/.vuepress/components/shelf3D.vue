@@ -15,9 +15,14 @@
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import gsap from "gsap";
   import {createVerticalTextPlane } from "../public/html&js/three3D/ThreeStrFunc.js";
-  import bookArr from "../public/html&js/content/BookContentArr.js";
+  // import bookArr from "../public/html&js/content/BookContentArr.js";
   import {createMaterial,resizeRendererToDisplaySize  } from "../public/html&js/three3D/ThreeCommon.js";
   import {createStarMesh, createSharpStarMesh, createPetalStarMesh} from "../public/html&js/three3D/starMesh.js"
+  import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+  import {
+    ColorGUIHelper,
+    DegRadHelper,
+  } from "../public/html&js/three3D/ThreeGUIHelper";
   export default {
     name: "BookShelf",
     components: {
@@ -88,7 +93,7 @@
 
         // 1. 创建场景
         this.scene = new THREE.Scene();
-        // this.scene.background = new THREE.Color(0xf0f0f0);
+        // this.scene.background = new THREE.Color(0x000000);
 
         // 2. 创建相机
         this.camera = new THREE.PerspectiveCamera(
@@ -115,7 +120,7 @@
 
         // 4. 添加灯光
         this.addLights();
-        
+        this.addPointLight();
         let shelfBoardDepth = 3;
         // 4.5 添加墙
         const planeSize = 10;
@@ -135,7 +140,7 @@
         this.createBookShelf(10,0.2,shelfBoardDepth,textures);
 
         // // 6. 加载书籍
-        // this.loadBooks();
+        this.loadBooks();
 
         // 7. 添加事件监听器
         this.addEventListeners();
@@ -149,14 +154,16 @@
         // const axesHelper = new THREE.AxesHelper(9);
         // this.scene.add(axesHelper);
         //环形节
-        this.torus = this.createTorusKnotGeometry();
-        this.torus .position.set(0, 8, 0);
-        this.scene.add(this.torus);
-
+        // this.torus1 = this.createTorusKnotGeometry();
+        // this.torus1 .position.set(-4, 8, 0);
+        // this.scene.add(this.torus1);
+        // this.torus2 = this.createTorusKnotGeometry();
+        // this.torus2 .position.set(4, 8, 0);
+        // this.scene.add(this.torus2);
         //星星
         this.starMesh = createSharpStarMesh();
-        this.starMesh.position.set(0,0,3);
-        this.starMesh.rotation.x = 2;
+        this.starMesh.position.set(0,8,0);
+        this.starMesh.rotation.set(Math.PI,0,0);
         this.scene.add(this.starMesh);
 
 
@@ -173,17 +180,18 @@
         
         time*=0.0008;
         
-        // this.torus.rotation.x = time;
-        // this.torus.rotation.y = time;
-        this.torus.rotation.z = time;
-        if(time%10==0){
-          console.log(time,"--------------- time is ");
-          this.torus.color = createMaterial();
-        }
-        let scaleValue = Math.abs(time%10-5);
-
-        this.starMesh.scale.set(scaleValue,scaleValue,scaleValue);
-
+        // this.torus1.rotation.z = time;
+        // this.torus2.rotation.z = -time;
+        // if(time%10==0){
+        //   console.log(time,"--------------- time is ");
+        //   this.torus1.color = createMaterial();
+        // }
+        
+        //呼吸值
+        let frequency = 5;
+        let scaleValue = Math.abs(time%frequency-frequency/2)+1;
+        // this.starMesh.scale.set(scaleValue,scaleValue,scaleValue);
+        this.starlight.distance=scaleValue;
         const canvas = this.renderer.domElement;
         this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
         this.camera.updateProjectionMatrix();
@@ -204,14 +212,40 @@
         this.scene.add(ambientLight);
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // 平行光
-        directionalLight.position.set(1, 1, 1).normalize();
+        directionalLight.position.set(1, 8, 10).normalize();
         this.scene.add(directionalLight);
 
-        const shadowLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        const shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
         shadowLight.position.set(5, 5, 5);
         this.scene.add(shadowLight);
       },
+      // 点光源
+      addPointLight() {
+        // 照亮红星
+        const color = 0xffffff;
+        const intensity = 60;
+        const lightF = new THREE.PointLight(color, intensity);
+        lightF.position.set(1.4, 9.02, 0.9);
+        
 
+        const lightB = new THREE.PointLight(0xc40a00, 10);
+        lightB.position.set(1.4, 9.02, -0.9);
+        this.scene.add(lightF);
+        this.scene.add(lightB);
+
+        this.starlight = new THREE.PointLight(0xffca0a,30);
+        this.starlight.position.set(0,8,0);
+        this.starlight.distance=1;
+        this.scene.add(this.starlight);
+      },
+      // gui 设置坐标
+      makeXYZGUI(gui, vector3, name, onChangeFn) {
+        const folder = gui.addFolder(name);
+        folder.add(vector3, "x", -10, 10).onChange(onChangeFn);
+        folder.add(vector3, "y", 0, 10).onChange(onChangeFn);
+        folder.add(vector3, "z", -10, 10).onChange(onChangeFn);
+        folder.open();
+      },
 
       createTexture(url,planeSize) {
         const loader = new THREE.TextureLoader();
