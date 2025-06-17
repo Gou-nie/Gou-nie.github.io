@@ -163,6 +163,14 @@ const bookArr = [
   {
     // fileUrl: "/models/spellbook.glb",
     fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
+    name: "book20",
+    url: "content/write/roles",
+    title: "标准&规则思考",
+    isShow: true
+  },
+  {
+    // fileUrl: "/models/spellbook.glb",
+    fileUrl: "https://aleah.oss-cn-heyuan.aliyuncs.com/models/spellbook.glb",
     name: "booklast",
     url: "https://quagef.github.io/",
     title: "AdForAle",
