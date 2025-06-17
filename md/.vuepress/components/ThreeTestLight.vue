@@ -14,6 +14,7 @@
     DegRadHelper,
   } from "../public/html&js/three3D/ThreeGUIHelper";
     import {createSharpStarMesh} from "../public/html&js/three3D/starMesh.js"
+    import {getLogBySvg} from "../public/html&js/three3D/somelogosMesh.js"
   export default {
     mounted() {
       this.initThree();
@@ -32,7 +33,7 @@
 
         // 光源
         //this.createHemisphereLight();
-        this.createDicLight();
+        // this.createDicLight();
         this.createPointLight();
         // this.createSpotLight();
         // this.createRectAreaLight();
@@ -52,6 +53,16 @@
         star.position.set(0,5,0);
         star.rotation.set(Math.PI,0,0);
         this.scene.add(star);
+
+        getLogBySvg("https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",1).then(meshes => {
+          if (!meshes || meshes.length === 0) {
+            console.error('未生成任何mesh，请检查SVG路径和内容');
+            return;
+          }
+          meshes.forEach(mesh => {
+            this.scene.add(mesh);  
+          });
+        });
 
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.animate);

@@ -24,7 +24,7 @@
 [代码转图「👍」](https://carbon.now.sh) ｜ [svg工具站](https://www.svgrepo.com/)
 
 @tab 玩具
-[大模型比较](https://beta.lmarena.ai/) ｜ [浏览器性能1](https://browserbench.org/) ｜ [浏览器性能2 养鱼](https://eucscore.com/demos/HTML5-Fishbowl/index.html) ｜ [字符地图](https://asciicker.com/x13/) ｜  [宝可梦-宠物小精灵 卡](https://poke-holo.simey.me/ )
+[大模型比较](https://beta.lmarena.ai/) ｜ [浏览器性能1](https://browserbench.org/) ｜ [浏览器性能2 养鱼](https://eucscore.com/demos/HTML5-Fishbowl/index.html) ｜ [字符地图](https://asciicker.com/x13/) ｜  [宝可梦-宠物小精灵 卡](https://poke-holo.simey.me/ ) ｜ [Escape Road](https://www.escaperoad.art/)
 
 
 :::

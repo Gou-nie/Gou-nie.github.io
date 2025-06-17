@@ -170,8 +170,13 @@
         );
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.05;
+        this.controls.mouseButtons = {
+          LEFT: THREE.MOUSE.ROTATE,
+          MIDDLE: THREE.MOUSE.PAN
+        };
       },
       threeJsAnimate(time) {
+        this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
         
         time*=0.0008;
         
@@ -200,7 +205,6 @@
         
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
-        this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
       },
       addLights() {
         const ambientLight = new THREE.AmbientLight(0x404040); // 柔和的环境光
@@ -540,14 +544,7 @@
             }
           }
         });
-        // const controller = new AbortController();
-        // createTextMesh(book.userData.title, 0.2, 1, 3,  controller.signal)
-        //   .then(mesh =>{
-        //     console.log("回掉成功");
-        //     this.text3D = mesh;
-        //     this.scene.add(this.text3D);
-        //   } )
-        //   .catch(err => console.warn(err.message));
+ 
 
 
       },
