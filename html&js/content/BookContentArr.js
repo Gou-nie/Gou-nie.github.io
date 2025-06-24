@@ -77,9 +77,9 @@ const bookArr = [
   {
     
     fileUrl: commonFileUrl,
-    name: "book9",
-    url: "content/write/disenchantment",
-    title: "祛魅",
+    name: "book11",
+    url: "content/write/faith",
+    title: "信仰",
     isShow: true
   },
   {
@@ -90,15 +90,15 @@ const bookArr = [
     title: "信仰2",
     isShow: true
   },
+
   {
     
     fileUrl: commonFileUrl,
-    name: "book11",
-    url: "content/write/faith",
-    title: "信仰",
+    name: "book9",
+    url: "content/write/disenchantment",
+    title: "祛魅",
     isShow: true
   },
-
   {
     
     fileUrl: commonFileUrl,
