@@ -167,7 +167,7 @@ export default {
         this.blackHoleMesh = createBlackHoleMesh({
           radius: 3,
           segments: 2560,
-          waveHeight: 0.02,
+          waveHeight: 0.06,
           waveFrequency: 10,
           waveSpeed: 8.0
         });
