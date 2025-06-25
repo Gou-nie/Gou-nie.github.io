@@ -31,3 +31,12 @@
     --妖猴
 ```
 
+```
+你感觉不到就没必要强行感受了.
+```
+
+```
+You can hang back or fight your best on the front line 
+Sing a little bit of these workingman's blues
+    --Bob Dylan
+```
