@@ -15,7 +15,7 @@
 [死磕java](https://www.skjava.com/sike-java) ｜ [bash手册](https://chegva.com/ueditor/php/upload/file/20180103/1514968607814189.pdf) | [rust教程「第n次学习rust」](https://kaisery.github.io/trpl-zh-cn/) ｜ [Nginx源码级解读](https://www.kancloud.cn/digest/understandingnginx/202587) ｜ [globalplatform加密包](https://pinpasjc.win.tue.nl/docs/apis/gp211/org/globalplatform/)
 
 @tab 文章
-[Always On, Always Connected, Always Searching, Always Distracted](https://leejo.github.io/2025/06/10/always_on/) | 
+[Always On, Always Connected, Always Searching, Always Distracted](https://leejo.github.io/2025/06/10/always_on/) | [有人在写非技术类的博客吗？来连结 --lawrenxe 2025.6.24  ](https://v2ex.com/t/1140518#reply37)
 
 @tab 站点
 [中国植物志](https://ppbc.iplant.cn) | [鸟站-To see and understand.](https://yihanphotos.eth.sucks/) 

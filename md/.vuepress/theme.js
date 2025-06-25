@@ -4,6 +4,7 @@ import { hopeTheme } from "vuepress-theme-hope";
 export default hopeTheme({
     logo: "/logo.png",
     sidebar: false,
+    navbar: false,
     // sidebar: [
 
     //     {
