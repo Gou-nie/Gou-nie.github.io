@@ -21,7 +21,7 @@
 [中国植物志](https://ppbc.iplant.cn) | [鸟站-To see and understand.](https://yihanphotos.eth.sucks/) 
 
 @tab 工具
-[代码转图「👍」](https://carbon.now.sh) ｜ [svg工具站](https://www.svgrepo.com/) ｜ [临时文件中转](https://dlload.cn/)
+[代码转图「👍」](https://carbon.now.sh) ｜ [svg工具站](https://www.svgrepo.com/) ｜ [临时文件中转](https://dlload.cn/) | [贝塞尔曲线动画](https://cubic-bezier.com/) ｜ [科研参考图库](https://plottie.art/)
 
 @tab 玩具
 [大模型比较](https://beta.lmarena.ai/) ｜ [浏览器性能1](https://browserbench.org/) ｜ [浏览器性能2 养鱼](https://eucscore.com/demos/HTML5-Fishbowl/index.html) ｜ [字符地图](https://asciicker.com/x13/) ｜  [宝可梦-宠物小精灵 卡](https://poke-holo.simey.me/ ) ｜ [Escape Road](https://www.escaperoad.art/)
