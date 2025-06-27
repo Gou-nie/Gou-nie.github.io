@@ -54,7 +54,7 @@ export default {
         init() {
             // 生成随机位置
             // 生成随机位置，限制在屏幕上半部分
-            const maxWidth = window.innerWidth;
+            const maxWidth = window.innerWidth/2;
             const maxHeight = window.innerHeight / 2; // 只用上半部分
             const canvasW = 80, canvasH = 60;
             this.positions = this.canvases.map(() => ({
@@ -335,7 +335,7 @@ export default {
 
 .vortex {
     position: absolute;
-    left: 100px;
+    left: 50px;
     transform: translateX(-50%);
     top: 100px;
     /* 距离顶部100px，可根据需要调整 */
