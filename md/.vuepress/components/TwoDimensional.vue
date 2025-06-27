@@ -199,7 +199,7 @@ export default {
             }
             this.drawPlayButton(); // 切换按钮图标
         },
-        drawVortex() {
+        drawVortex(fillData) {
             const canvas = document.getElementById('vortex');
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -212,7 +212,7 @@ export default {
             ctx.translate(-450, -450); // 原始路径中心点大约在(450,450)
 
             const rc = rough.canvas(canvas);
-            rc.path(this.vortex, {
+            rc.path(this.vortex,fillData || {
                 fill: 'black',
                 fillStyle: 'zigzag',
                 stroke: 'black',
@@ -252,6 +252,7 @@ export default {
                     roughness: 1.2
                 };
                 this.drawTapePlayer("tapePlayer", fillData);
+                // this.drawVortex(fillData);
             }
 
         },
