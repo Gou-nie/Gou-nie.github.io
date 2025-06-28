@@ -8,6 +8,9 @@ const tapeArr=[
         name: "tape2",
         // url:"https://dn721908.ca.archive.org/0/items/youtube-yl3TsqL0ZPw/yl3TsqL0ZPw.mp4"
         url:"/music/BohemianRhapsody.mp4"
+    },{
+        name: "tape3",
+        url:"/music/LongingIsAKindOfDisease.mp3"
     }
 ]
 
