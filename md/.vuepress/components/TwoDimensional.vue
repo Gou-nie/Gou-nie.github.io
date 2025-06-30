@@ -2,8 +2,11 @@
     <div>{{ count }}
         <div class="twoParent" v-if="positions.length === canvases.length">
             <div v-for="(i, idx) in canvases" :key="i.name" class="canvas-wrapper"
-                :style="{ top: positions[idx].top + 'px', left: positions[idx].left + 'px', boxShadow: positions[idx].highlight ? '0 0 10px 3px #eecd98' : '' }"
-                @mouseenter="highlightIndex = idx" @mouseleave="highlightIndex = null" @click="clickTape(i)">
+                :style="{   top: positions[idx].top + 'px', left: positions[idx].left + 'px', 
+                            boxShadow: positions[idx].highlight & canvases[idx].type == 'tape' ? '0 0 10px 3px #eecd98' : '',
+                            zIndex: canvases[idx].type == 'tape' ? 101 : 100 }"
+                @mouseenter="highlightIndex = idx" @mouseleave="highlightIndex = null"
+                @click="i.type == 'tape'?clickTape(i):null">
                 <canvas :id="i.name" width="64" height="54"></canvas>
             </div>
             <canvas class="tapePlayer" id="tapePlayer"></canvas>
@@ -54,7 +57,7 @@ export default {
         init() {
             // 生成随机位置
             // 生成随机位置，限制在屏幕上半部分
-            const maxWidth = window.innerWidth/2;
+            const maxWidth = window.innerWidth / 2;
             const maxHeight = window.innerHeight / 2; // 只用上半部分
             const canvasW = 80, canvasH = 60;
             this.positions = this.canvases.map(() => ({
@@ -212,13 +215,13 @@ export default {
             ctx.translate(-450, -450); // 原始路径中心点大约在(450,450)
 
             const rc = rough.canvas(canvas);
-            rc.path(this.vortex,fillData || {
+            rc.path(this.vortex, fillData || {
                 fill: 'black',
                 fillStyle: 'cross-hatch',
                 stroke: 'none',
                 strokeWidth: 15,
                 roughness: 9,
-                bowing:10
+                bowing: 10
             });
 
             ctx.restore();
@@ -294,9 +297,12 @@ export default {
 <style>
 .twoParent {
     background-color: antiquewhite;
-    position: relative;
-    width: 100vw;
+    position: fixed;
+    width: 100%;
     height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 99;
 }
 
 .canvas-wrapper {
