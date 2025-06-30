@@ -15,38 +15,46 @@ const tapeArr=[
     {
         name: "tape1",
         path:tapePath,
-        url:"/music/LetItBe.mp3"
+        url:"/music/LetItBe.mp3",
+        type:"tape"
         // url: "https://ia803105.us.archive.org/33/items/LetItBe1/Let%20it%20be%20%281%29.mp3"
     },{
         name: "tape2",
         path:tapePath,
         // url:"https://dn721908.ca.archive.org/0/items/youtube-yl3TsqL0ZPw/yl3TsqL0ZPw.mp4"
-        url:"/music/BohemianRhapsody.mp4"
+        url:"/music/BohemianRhapsody.mp4",
+        type:"tape"
     },{
         name: "tape3",
         path:tapePath,
         // url:"https://dn721908.ca.archive.org/0/items/youtube-yl3TsqL0ZPw/yl3TsqL0ZPw.mp4"
-        url:"/music/LongingIsAKindOfDisease.mp4"
+        url:"/music/LongingIsAKindOfDisease.mp4",
+        type:"tape"
     },{
         name: "note1",
         path:note1Path,
-        url:"xxxx"
+        url:"xxxx",
+        type:"note"
     },{
         name: "note2",
         path:note2Path,
-        url:"xxxx"
+        url:"xxxx",
+        type:"note"
     },{
         name: "note3",
         path:note3Path,
-        url:"xxxx"
+        url:"xxxx",
+        type:"note"
     },{
         name: "note4",
         path:note4Path,
-        url:"xxxx"
+        url:"xxxx",
+        type:"note"
     },{
         name: "note5",
         path:note5Path,
-        url:"xxxx"
+        url:"xxxx",
+        type:"note"
     },
 ]
 
