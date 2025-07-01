@@ -4,7 +4,12 @@
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
-      <select   ></select>
+      <select v-model="shelfBoard.width" @change="init">
+        <option disabled value="">修改书架宽度</option>
+        <option value="2">二</option>
+        <option value="5">五</option>
+        <option value="10">十</option>
+      </select>
     </div>
   </div>
 </template>
@@ -30,7 +35,7 @@ export default {
       dynamicText: "",
       topZ: 8, // 最上层坐标
       numShelves: 4, // 书架层数
-      shelfBoard:{
+      shelfBoard: {
         width: 10, // todo 做组件绑定变化重绘
         height: 0.2,
         depth: 3,
@@ -42,7 +47,6 @@ export default {
   },
   mounted() {
 
-    this.initParam();
     this.init();
 
     this.threeJsAnimate();
@@ -92,14 +96,15 @@ export default {
     this.animationFrameId = null;
   },
   methods: {
-    initParam(){
-    let numEachShelf = this.shelfBoard.width* 12/5; // 一层能放的书的数目
-    this.numShelves = bookArr.length / numEachShelf +1;
-    this.totalheight = this.numShelves*this.shelfBoard.height + (this.numShelves-1) * this.shelfBoard.spacing -this.shelfBoard.height/2 +this.shelfBoard.spacing;
-    
+    initParam() {
+      let numEachShelf = this.shelfBoard.width * 12 / 5; // 一层能放的书的数目
+      this.numShelves = bookArr.length / numEachShelf + 1;
+      this.totalheight = this.numShelves * this.shelfBoard.height + (this.numShelves - 1) * this.shelfBoard.spacing - this.shelfBoard.height / 2 + this.shelfBoard.spacing;
+
 
     },
     init() {
+      this.initParam();
       this.isExtract = false;
       this.text3D = null;
       this.books = [];
@@ -153,7 +158,7 @@ export default {
         texture,
       ];
       // // 5. 创建书架
-      this.createBookShelf(this.shelfBoard.width, this.shelfBoard.height, this.shelfBoard.depth, this.shelfBoard.spacing,  textures);
+      this.createBookShelf(this.shelfBoard.width, this.shelfBoard.height, this.shelfBoard.depth, this.shelfBoard.spacing, textures);
 
       // // 6. 加载书籍
       this.loadBooks();
@@ -182,8 +187,9 @@ export default {
       // this.starMesh.rotation.set(Math.PI, 0, 0);
       // this.scene.add(this.starMesh);
 
-      // 黑洞
-      setTimeout(() => { // 再次延迟创建黑洞，确保其他资源加载完毕
+      // 延时创建
+      setTimeout(() => { 
+        // 创建黑洞
         this.blackHoleMesh = createBlackHoleMesh({
           radius: 3,
           segments: 2560,
@@ -191,9 +197,12 @@ export default {
           waveFrequency: 10,
           waveSpeed: 8.0
         });
-        this.blackHoleMesh.mesh.position.set(this.shelfBoard.width/2 + 4, this.topZ, 0);
+        this.blackHoleMesh.mesh.position.set(this.shelfBoard.width / 2 + 4, this.topZ, 0);
         this.blackHoleMesh.mesh.rotation.set(0, Math.PI / 2, 0);
         this.scene.add(this.blackHoleMesh.mesh);
+        // 创建卡比兽
+        this.loadSnorlax();
+
       }, 50);
       // 8. 添加控制器
       this.controls = new OrbitControls(
@@ -206,7 +215,7 @@ export default {
         LEFT: THREE.MOUSE.ROTATE,
         MIDDLE: THREE.MOUSE.PAN
       };
-      this.loadSnorlax();
+
 
 
     },
@@ -328,7 +337,7 @@ export default {
       return mesh;
     },
 
-    createBookShelf(shelfWidth = 10, shelfHeight = 0.2, shelfDepth = 3,shelfSpacing = 2, textures) {
+    createBookShelf(shelfWidth = 10, shelfHeight = 0.2, shelfDepth = 3, shelfSpacing = 2, textures) {
 
       for (let i = 0; i < this.numShelves; i++) {
         const shelfGeometry = new THREE.BoxGeometry(
@@ -523,7 +532,7 @@ export default {
       // 
       let KBloader = new GLTFLoader();
       const Snorlax = await this.loadGLTFAsync(KBloader, "/models/Snorlax.glb");
-      Snorlax.scene.position.set(0, this.totalheight-this.shelfBoard.spacing , 0);
+      Snorlax.scene.position.set(0, this.totalheight - this.shelfBoard.spacing, 0);
       Snorlax.scene.rotation.set(0, 0, 0);
 
       this.scene.add(Snorlax.scene);
@@ -708,7 +717,7 @@ export default {
   /* Add shadow for better readability */
   z-index: 1000;
   /* Ensure it's above the canvas */
-  pointer-events: none;
+  pointer-events: auto;
   /*  So the text doesn't prevent interacting with the canvas */
 }
 </style>
