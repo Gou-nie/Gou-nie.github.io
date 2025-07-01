@@ -18,10 +18,10 @@
 [Always On, Always Connected, Always Searching, Always Distracted](https://leejo.github.io/2025/06/10/always_on/) | [有人在写非技术类的博客吗？来连结 --lawrenxe 2025.6.24  ](https://v2ex.com/t/1140518#reply37)
 
 @tab 站点
-[中国植物志](https://ppbc.iplant.cn) | [鸟站-To see and understand.](https://yihanphotos.eth.sucks/) 
+[中国植物志](https://ppbc.iplant.cn) | [鸟站-To see and understand.](https://yihanphotos.eth.sucks/) | [数字花园-前端知识](https://garden.bradwoods.io/)
 
 @tab 工具
-[代码转图「👍」](https://carbon.now.sh) ｜ [svg工具站](https://www.svgrepo.com/) ｜ [临时文件中转](https://dlload.cn/) | [贝塞尔曲线动画](https://cubic-bezier.com/) ｜ [科研参考图库](https://plottie.art/)
+[代码转图「👍」](https://carbon.now.sh) ｜ [svg工具站](https://www.svgrepo.com/) ｜ [临时文件中转](https://dlload.cn/) | [贝塞尔曲线动画](https://cubic-bezier.com/) ｜ [科研参考图库](https://plottie.art/) ｜[台词组装电影视频](https://www.playphrase.me/) ｜[3D模型下载](https://sketchfab.com/3d-models)
 
 @tab 玩具
 [大模型比较](https://beta.lmarena.ai/) ｜ [浏览器性能1](https://browserbench.org/) ｜ [浏览器性能2 养鱼](https://eucscore.com/demos/HTML5-Fishbowl/index.html) ｜ [字符地图](https://asciicker.com/x13/) ｜  [宝可梦-宠物小精灵 卡](https://poke-holo.simey.me/ ) ｜ [Escape Road](https://www.escaperoad.art/)

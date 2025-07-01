@@ -4,6 +4,7 @@
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
+      <select   ></select>
     </div>
   </div>
 </template>
@@ -27,9 +28,21 @@ export default {
   data() {
     return {
       dynamicText: "",
+      topZ: 8, // 最上层坐标
+      numShelves: 4, // 书架层数
+      shelfBoard:{
+        width: 10, // todo 做组件绑定变化重绘
+        height: 0.2,
+        depth: 3,
+        spacing: 2, // 书架层之间的间距
+        totalheight: 0, // 书架总高度
+      }
+
     };
   },
   mounted() {
+
+    this.initParam();
     this.init();
 
     this.threeJsAnimate();
@@ -79,6 +92,13 @@ export default {
     this.animationFrameId = null;
   },
   methods: {
+    initParam(){
+    let numEachShelf = this.shelfBoard.width* 12/5; // 一层能放的书的数目
+    this.numShelves = bookArr.length / numEachShelf +1;
+    this.totalheight = this.numShelves*this.shelfBoard.height + (this.numShelves-1) * this.shelfBoard.spacing -this.shelfBoard.height/2 +this.shelfBoard.spacing;
+    
+
+    },
     init() {
       this.isExtract = false;
       this.text3D = null;
@@ -98,7 +118,7 @@ export default {
         0.1,
         1000
       );
-      this.camera.position.set(5, 8, 15);
+      this.camera.position.set(5, this.topZ, 15);
       // 鼠标 和射线
       this.mouse = new THREE.Vector2();
       this.raycaster = new THREE.Raycaster();
@@ -119,8 +139,8 @@ export default {
       this.addPointLight();
       let shelfBoardDepth = 3;
       // 4.5 添加墙
-      const planeSize = 10;
-      let texture = this.createTexture("/images/brickWall.jpg", planeSize);
+      const planeSize = this.shelfBoard.width;
+      let texture = this.createTexture("/images/checker.png", planeSize);
       const plan = this.createWallMesh(texture, planeSize, shelfBoardDepth);
       this.scene.add(plan);
 
@@ -133,7 +153,7 @@ export default {
         texture,
       ];
       // // 5. 创建书架
-      this.createBookShelf(10, 0.2, shelfBoardDepth, textures);
+      this.createBookShelf(this.shelfBoard.width, this.shelfBoard.height, this.shelfBoard.depth, this.shelfBoard.spacing,  textures);
 
       // // 6. 加载书籍
       this.loadBooks();
@@ -157,10 +177,10 @@ export default {
       // this.torus2 .position.set(4, 8, 0);
       // this.scene.add(this.torus2);
       //星星
-      this.starMesh = createSharpStarMesh();
-      this.starMesh.position.set(0, 8, 0);
-      this.starMesh.rotation.set(Math.PI, 0, 0);
-      this.scene.add(this.starMesh);
+      // this.starMesh = createSharpStarMesh();
+      // this.starMesh.position.set(0,this.topZ, 0);
+      // this.starMesh.rotation.set(Math.PI, 0, 0);
+      // this.scene.add(this.starMesh);
 
       // 黑洞
       setTimeout(() => { // 再次延迟创建黑洞，确保其他资源加载完毕
@@ -171,8 +191,8 @@ export default {
           waveFrequency: 10,
           waveSpeed: 8.0
         });
-        this.blackHoleMesh.mesh.position.set(9, 8, 0);
-        this.blackHoleMesh.mesh.rotation.set(0, Math.PI/2, 0);
+        this.blackHoleMesh.mesh.position.set(this.shelfBoard.width/2 + 4, this.topZ, 0);
+        this.blackHoleMesh.mesh.rotation.set(0, Math.PI / 2, 0);
         this.scene.add(this.blackHoleMesh.mesh);
       }, 50);
       // 8. 添加控制器
@@ -186,11 +206,14 @@ export default {
         LEFT: THREE.MOUSE.ROTATE,
         MIDDLE: THREE.MOUSE.PAN
       };
+      this.loadSnorlax();
+
+
     },
     threeJsAnimate(time) {
       this.animationFrameId = requestAnimationFrame(this.threeJsAnimate);
       if (this.blackHoleMesh) {
-        this.blackHoleMesh.update(time*=0.001);
+        this.blackHoleMesh.update(time *= 0.001);
       }
       time *= 0.0008;
 
@@ -215,7 +238,6 @@ export default {
 
 
       if (resizeRendererToDisplaySize(this.renderer)) {
-        console.log("resizeRendererToDisplaySize")
         const canvas = this.renderer.domElement;
         this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
         this.camera.updateProjectionMatrix();
@@ -229,7 +251,7 @@ export default {
       this.scene.add(ambientLight);
 
       const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // 平行光
-      directionalLight.position.set(1, 8, 10).normalize();
+      directionalLight.position.set(1, this.topZ, 10).normalize();
       this.scene.add(directionalLight);
 
       const shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -251,7 +273,7 @@ export default {
       this.scene.add(lightB);
 
       this.starlight = new THREE.PointLight(0xffca0a, 30);
-      this.starlight.position.set(0, 8, 0);
+      this.starlight.position.set(0, this.topZ, 0);
       this.starlight.distance = 1;
       this.scene.add(this.starlight);
     },
@@ -279,11 +301,10 @@ export default {
       return texture;
     },
     createWallMesh(texture, planeSize, shelfBoardDepth) {
-      const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+      const planeGeo = new THREE.PlaneGeometry(planeSize, this.totalheight);
       const planeMat = new THREE.MeshStandardMaterial({
         roughness: 0.9,
         metalness: 0.2,
-        // clearCoatRoughness:0.3,
         opacity: 0.5, //透明度
         transparent: true,    // 启用透明
         map: texture,
@@ -292,7 +313,7 @@ export default {
       const mesh = new THREE.Mesh(planeGeo, planeMat);
       mesh.rotation.x = Math.PI;
       mesh.position.z = -shelfBoardDepth / 2;
-      mesh.position.y = planeSize / 2;
+      mesh.position.y = this.totalheight / 2;
       return mesh;
     },
     createFloorMesh(texture, planeSize) {
@@ -307,11 +328,9 @@ export default {
       return mesh;
     },
 
-    createBookShelf(shelfWidth = 10, shelfHeight = 0.2, shelfDepth = 3, textures) {
-      const shelfSpacing = 2; // 书架层之间的间距
-      const numShelves = 4;
+    createBookShelf(shelfWidth = 10, shelfHeight = 0.2, shelfDepth = 3,shelfSpacing = 2, textures) {
 
-      for (let i = 0; i < numShelves; i++) {
+      for (let i = 0; i < this.numShelves; i++) {
         const shelfGeometry = new THREE.BoxGeometry(
           shelfWidth,
           shelfHeight,
@@ -320,7 +339,7 @@ export default {
         let shelfMaterial;
         if (textures) {
           shelfMaterial = textures.map(texture => new THREE.MeshStandardMaterial({
-            opacity: 0.5, //透明度
+            opacity: 0.3, //透明度
             transparent: true,    // 启用透明
             map: texture,
             side: THREE.FrontSide, // 只渲染正面（可选）
@@ -342,8 +361,7 @@ export default {
       const loader = new GLTFLoader();
       const bookContentArr = bookArr;
 
-      const shelfWidth = 10;
-      // const bookWidth = 1;
+      let shelfWidth = this.shelfBoard.width;
       const bookWidth = 0.2;
       const black = new THREE.Color(0x000000); // 黑色
       let bookState = {
@@ -501,7 +519,15 @@ export default {
 
 
     },
+    async loadSnorlax() {
+      // 
+      let KBloader = new GLTFLoader();
+      const Snorlax = await this.loadGLTFAsync(KBloader, "/models/Snorlax.glb");
+      Snorlax.scene.position.set(0, this.totalheight-this.shelfBoard.spacing , 0);
+      Snorlax.scene.rotation.set(0, 0, 0);
 
+      this.scene.add(Snorlax.scene);
+    },
     addEventListeners() {
       this.canvas.addEventListener("mousemove", this.onMouseMove);
       this.canvas.addEventListener("click", this.onMouseClick);
@@ -519,12 +545,12 @@ export default {
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object.parent; // 获取书籍对象 (假设模型根节点是 parent)
         const intersectedBook = intersectedObject.userData.book; // 获取书籍对象 
-        
+
         if (intersectedBook && intersectedBook !== this.selectedBook) {
           // 如果选中了新的书籍
           this.highlightBook(intersectedBook);
         }
-        if(intersects[0].object.userData.name === "blackHole") {
+        if (intersects[0].object.userData.name === "blackHole") {
           this.choiseHole();
         }
       } else {
@@ -543,7 +569,7 @@ export default {
           this.extractBook(this.selectedBook);
         }
       }
-      if(this.couldJump){
+      if (this.couldJump) {
         // this.$emit("jumpToAnotherWorld");
         console.log("跳转位面成功");
         window.open("/content/tool/two/two", "_self");
@@ -622,11 +648,11 @@ export default {
       }
       this.unhighlightBook();
     },
-    choiseHole(){
+    choiseHole() {
       this.dynamicText = "跳转位面"
       this.couldJump = true;
     },
-    unchoiseHole(){
+    unchoiseHole() {
       this.dynamicText = "";
       this.couldJump = false;
     },

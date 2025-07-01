@@ -5,7 +5,7 @@
 * 1. [文章](#first)
 * 2. [句子](#second)
 
-*what and what*
+*what and what is checken soup*
 
 ## 1. <a name='first'></a> 文章
 
@@ -39,4 +39,10 @@
 You can hang back or fight your best on the front line 
 Sing a little bit of these workingman's blues
     --Bob Dylan
+```
+
+
+```
+最终你要学会像大海一样思考，而不是像躁动不安的人类一样--他们幻想前往某处，视这旅程至关重要，把目标当作意义，把意图当作人生。
+    --朋友圈卡片
 ```

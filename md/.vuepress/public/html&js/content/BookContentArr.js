@@ -180,6 +180,13 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "book22",
+    url: "content/write/flashThoughts",
+    title: "闪念",
+    isShow: true
+  },
+  {
     
     fileUrl: commonFileUrl,
     name: "booklast",
