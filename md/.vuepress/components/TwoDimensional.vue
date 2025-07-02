@@ -207,7 +207,7 @@ export default {
             const ctx = canvas.getContext('2d');
 
             const img = new Image();
-            img.src = '/images/R-C-gray.png';  
+            img.src = '/images/R-C-gray.png';
             img.onload = () => {
                 let x = canvas.width / 2;
                 let y = canvas.height / 2;
@@ -228,11 +228,70 @@ export default {
                     img,
                     -drawWidth / 2,          // 居中绘制
                     -drawHeight / 2,
-                    drawWidth,             
+                    drawWidth,
                     drawHeight
                 );
                 ctx.restore();
             };
+
+            let framee;
+            const rc = rough.canvas(canvas);
+            // rc.line(220, 0, 220, canvas.height, {
+            //     stroke: 'black',
+            //     strokeWidth: 2,
+            //     roughness: 1.5
+            // });
+            console.log("drawVortex framee:", framee);
+            if (angleOfset % 20 === 0) {
+                ctx.clearRect(220, 0, canvas.width, canvas.height); // 先清空画布
+                framee = angleOfset / 20 % 3;
+                this.drawVortexAuxiliaryLine(rc, framee);
+            }
+
+
+        },
+        // 辅助线
+        drawVortexAuxiliaryLine(rc, framee) {
+
+            let angleBegin = framee * Math.PI / 8;
+            let angleEnd = (framee + 1) * Math.PI / 8;
+
+            rc.arc(240, 20, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+            rc.arc(220, 20, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+            rc.arc(220, 50, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+
+            // 下方的角度镜像
+            angleBegin = - (framee + 1) * Math.PI / 8;
+            angleEnd = - (framee) * Math.PI / 8;
+
+            rc.arc(240, 120, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+            rc.arc(220, 120, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+            rc.arc(220, 90, 40, 30, angleBegin, angleEnd, false, {
+                stroke: 'black',
+                strokeWidth: 0.4,
+                roughness: 1.5
+            });
+
 
         },
         portal() {
@@ -357,7 +416,7 @@ export default {
     transform: translateX(-50%);
     top: 200px;
     /* 距离顶部100px，可根据需要调整 */
-    width: 200px;
+    width: 300px;
     height: 400px;
     z-index: 50;
 }
