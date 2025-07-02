@@ -1,12 +1,12 @@
 <template>
     <div>{{ count }}
         <div class="twoParent" v-if="positions.length === canvases.length">
-            <div v-for="(i, idx) in canvases" :key="i.name" class="canvas-wrapper"
-                :style="{   top: positions[idx].top + 'px', left: positions[idx].left + 'px', 
-                            boxShadow: positions[idx].highlight & canvases[idx].type == 'tape' ? '0 0 10px 3px #eecd98' : '',
-                            zIndex: canvases[idx].type == 'tape' ? 101 : 100 }"
-                @mouseenter="highlightIndex = idx" @mouseleave="highlightIndex = null"
-                @click="i.type == 'tape'?clickTape(i):null">
+            <div v-for="(i, idx) in canvases" :key="i.name" class="canvas-wrapper" :style="{
+                top: positions[idx].top + 'px', left: positions[idx].left + 'px',
+                boxShadow: positions[idx].highlight & canvases[idx].type == 'tape' ? '0 0 10px 3px #eecd98' : '',
+                zIndex: canvases[idx].type == 'tape' ? 101 : 100
+            }" @mouseenter="highlightIndex = idx" @mouseleave="highlightIndex = null"
+                @click="i.type == 'tape' ? clickTape(i) : null">
                 <canvas :id="i.name" width="64" height="54"></canvas>
             </div>
             <canvas class="tapePlayer" id="tapePlayer"></canvas>
@@ -202,29 +202,37 @@ export default {
             }
             this.drawPlayButton(); // 切换按钮图标
         },
-        drawVortex(fillData) {
+        drawVortex(angleOfset) {
             const canvas = document.getElementById('vortex');
             const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 适配缩放，原始路径宽高约 900x900，canvas 200x400
-            const scale = Math.min(canvas.width / 900, canvas.height / 900) * 0.9; // 适当缩小
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2); // 居中
-            ctx.scale(scale, scale);
-            ctx.translate(-450, -450); // 原始路径中心点大约在(450,450)
+            const img = new Image();
+            img.src = '/images/R-C-gray.png';  
+            img.onload = () => {
+                let x = canvas.width / 2;
+                let y = canvas.height / 2;
+                let angle = angleOfset * Math.PI / 180;
 
-            const rc = rough.canvas(canvas);
-            rc.path(this.vortex, fillData || {
-                fill: 'black',
-                fillStyle: 'cross-hatch',
-                stroke: 'none',
-                strokeWidth: 15,
-                roughness: 9,
-                bowing: 10
-            });
+                // 计算缩放因子
+                const scaleX = canvas.width / img.width;
+                const scaleY = canvas.height / img.height;
+                const scale = Math.min(scaleX, scaleY); // 保持比例
 
-            ctx.restore();
+                const drawWidth = img.width * scale;
+                const drawHeight = img.height * scale;
+
+                ctx.save();
+                ctx.translate(x, y);         // 移动到中心
+                ctx.rotate(angle);           // 旋转
+                ctx.drawImage(
+                    img,
+                    -drawWidth / 2,          // 居中绘制
+                    -drawHeight / 2,
+                    drawWidth,             
+                    drawHeight
+                );
+                ctx.restore();
+            };
 
         },
         portal() {
@@ -246,8 +254,7 @@ export default {
             this.drawPlayButton();
         },
         count(newVal) {
-            if (this.isPlay) {
-                console.log("draw once:", newVal);
+            if (this.isPlay && this.count % 30 === 0) {
                 let fillData = {
                     fill: `rgba(${newVal}%255, ${newVal}%200, ${newVal}%100, 0.8)`,
                     fillStyle: this.fillStyles[newVal % this.fillStyles.length],
@@ -256,8 +263,8 @@ export default {
                     roughness: 1.2
                 };
                 this.drawTapePlayer("tapePlayer", fillData);
-                // this.drawVortex(fillData);
             }
+            this.drawVortex(newVal % 360);
 
         },
         highlightIndex(newVal) {
@@ -278,7 +285,7 @@ export default {
         onMounted(() => {
             intervalId = setInterval(() => {
                 count.value++;
-            }, 300);
+            }, 10);
         });
 
         onUnmounted(() => {
@@ -296,7 +303,10 @@ export default {
 
 <style>
 .twoParent {
-    background-color: antiquewhite;
+    background-color: rgb(253, 243, 219);
+    background-image: url('/images/45-degree-fabric-dark.png');
+    /* 示例纹理 */
+    background-repeat: repeat;
     position: fixed;
     width: 100%;
     height: 100vh;
