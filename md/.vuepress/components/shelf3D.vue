@@ -202,6 +202,8 @@ export default {
         this.scene.add(this.blackHoleMesh.mesh);
         // 创建卡比兽
         this.loadSnorlax();
+        this.loadMinikyu();
+        this.loadMagikarp();
 
       }, 50);
       // 8. 添加控制器
@@ -537,6 +539,27 @@ export default {
 
       this.scene.add(Snorlax.scene);
     },
+    async loadMinikyu() {
+      // 迷你丘
+      let KBloader = new GLTFLoader();
+      const Minikyu = await this.loadGLTFAsync(KBloader, "/models/mimikyu.glb");
+      Minikyu.scene.scale.set(3,3,3); // 调整大小
+      Minikyu.scene.position.set(3, this.totalheight - this.shelfBoard.spacing, 0);
+      Minikyu.scene.rotation.set(0, 0, 0);
+
+      this.scene.add(Minikyu.scene);
+    },
+    async loadMagikarp() {
+      // 鲤鱼王
+      let KBloader = new GLTFLoader();
+      const Magikarp = await this.loadGLTFAsync(KBloader, "/models/magikarp.glb");
+      Magikarp.scene.scale.set(0.3, 0.3, 0.3); // 调整大小
+      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing +1, 0);
+      Magikarp.scene.rotation.set(0, 0, 0);
+
+      this.scene.add(Magikarp.scene);
+    },
+    
     addEventListeners() {
       this.canvas.addEventListener("mousemove", this.onMouseMove);
       this.canvas.addEventListener("click", this.onMouseClick);
