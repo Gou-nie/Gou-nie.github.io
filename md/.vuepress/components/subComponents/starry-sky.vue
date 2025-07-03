@@ -55,10 +55,10 @@ onMounted(() => {
 background: 
   radial-gradient(
     220% 105% at top center,
-    rgba(27, 41, 71, 1) 10%,       /* 深蓝 */
-    rgba(117, 81, 125, 0.85) 40%,  /* 紫灰 */
-    rgba(233, 111, 146, 0.6) 65%,  /* 粉红 */
-    rgba(247, 247, 182, 0.4)       /* 浅黄 */
+	 rgba(27, 41, 71, 1) 10%,      
+    rgba(37, 30, 38, 0.85) 40%,   
+    rgba(70, 35, 45, 0.6) 65%,   
+    rgba(55, 55, 40, 0.4)        
   ),
   radial-gradient(
     200% 100% at bottom center,
