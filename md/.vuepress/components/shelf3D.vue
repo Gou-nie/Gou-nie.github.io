@@ -11,6 +11,7 @@
         <option value="10">十</option>
       </select>
     </div>
+    <div class="white-fade" :style="{ opacity: whiteFadeOpacity }"></div>
   </div>
 </template>
 
@@ -41,7 +42,8 @@ export default {
         depth: 3,
         spacing: 2, // 书架层之间的间距
         totalheight: 0, // 书架总高度
-      }
+      },
+      whiteFadeOpacity: 0, // 白色渐变的透明度
 
     };
   },
@@ -188,7 +190,7 @@ export default {
       // this.scene.add(this.starMesh);
 
       // 延时创建
-      setTimeout(() => { 
+      setTimeout(() => {
         // 创建黑洞
         this.blackHoleMesh = createBlackHoleMesh({
           radius: 3,
@@ -543,7 +545,7 @@ export default {
       // 迷你丘
       let KBloader = new GLTFLoader();
       const Minikyu = await this.loadGLTFAsync(KBloader, "/models/mimikyu.glb");
-      Minikyu.scene.scale.set(3,3,3); // 调整大小
+      Minikyu.scene.scale.set(3, 3, 3); // 调整大小
       Minikyu.scene.position.set(3, this.totalheight - this.shelfBoard.spacing, 0);
       Minikyu.scene.rotation.set(0, 0, 0);
 
@@ -554,12 +556,12 @@ export default {
       let KBloader = new GLTFLoader();
       const Magikarp = await this.loadGLTFAsync(KBloader, "/models/magikarp.glb");
       Magikarp.scene.scale.set(0.3, 0.3, 0.3); // 调整大小
-      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing +1, 0);
+      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing + 1, 0);
       Magikarp.scene.rotation.set(0, 0, 0);
 
       this.scene.add(Magikarp.scene);
     },
-    
+
     addEventListeners() {
       this.canvas.addEventListener("mousemove", this.onMouseMove);
       this.canvas.addEventListener("click", this.onMouseClick);
@@ -603,8 +605,9 @@ export default {
       }
       if (this.couldJump) {
         // this.$emit("jumpToAnotherWorld");
-        console.log("跳转位面成功");
-        window.open("/content/tool/two/two", "_self");
+        this.moveCameraToBlackHoleAndJump();
+        // console.log("跳转位面成功");
+        // window.open("/content/tool/two/two", "_self");
       }
     },
     onWindowResize() {
@@ -615,6 +618,42 @@ export default {
       this.renderer.setSize(width, height);
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.render(this.scene, this.camera);
+    },
+    moveCameraToBlackHoleAndJump() {
+      if (!this.blackHoleMesh || !this.camera) return;
+
+      // 获取黑洞 mesh 的世界坐标
+      const targetPosition = new THREE.Vector3();
+      this.blackHoleMesh.mesh.getWorldPosition(targetPosition);
+
+      // 计算相机目标位置（可适当偏移，避免进入 mesh 内部）
+      const offset = new THREE.Vector3(2, 0, 0); // 向右偏移2单位
+      const cameraTarget = targetPosition.clone().add(offset);
+
+      // 获取黑洞 mesh 的朝向
+      const targetLookAt = targetPosition.clone();
+
+      // 动画相机位置
+      gsap.to(this.camera.position, {
+        x: cameraTarget.x,
+        y: cameraTarget.y,
+        z: cameraTarget.z,
+        duration: 0.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          this.camera.lookAt(targetLookAt);
+        },
+        onComplete: () => {// 先全屏变白，再跳转
+          gsap.to(this, {
+            whiteFadeOpacity: 1.5,
+            duration: 0.5,
+            ease: "power1.in",
+            onComplete: () => {
+              window.open("/content/tool/two/two", "_self");
+            }
+          });
+        }
+      });
     },
     highlightBook(book) {
       // 取消之前选中书籍的高亮
@@ -742,5 +781,18 @@ export default {
   /* Ensure it's above the canvas */
   pointer-events: auto;
   /*  So the text doesn't prevent interacting with the canvas */
+}
+
+.white-fade {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s;
 }
 </style>
