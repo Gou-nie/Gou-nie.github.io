@@ -4,12 +4,12 @@
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
-      <select v-model="shelfBoard.width" @change="init">
+      <!-- <select v-model="shelfBoard.width" @change="init">
         <option disabled value="">修改书架宽度</option>
         <option value="2">二</option>
         <option value="5">五</option>
         <option value="10">十</option>
-      </select>
+      </select> -->
     </div>
     <div class="white-fade" :style="{ opacity: whiteFadeOpacity }"></div>
   </div>
@@ -202,10 +202,9 @@ export default {
         this.blackHoleMesh.mesh.position.set(this.shelfBoard.width / 2 + 4, this.topZ, 0);
         this.blackHoleMesh.mesh.rotation.set(0, Math.PI / 2, 0);
         this.scene.add(this.blackHoleMesh.mesh);
-        // 创建卡比兽
-        this.loadSnorlax();
+        // this.loadSnorlax();
         this.loadMinikyu();
-        this.loadMagikarp();
+        // this.loadMagikarp();
 
       }, 50);
       // 8. 添加控制器
