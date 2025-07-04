@@ -204,6 +204,7 @@ export default {
         this.scene.add(this.blackHoleMesh.mesh);
         // this.loadSnorlax();
         this.loadMinikyu();
+        this.loadApple();
         // this.loadMagikarp();
 
       }, 50);
@@ -557,6 +558,16 @@ export default {
       Magikarp.scene.scale.set(0.3, 0.3, 0.3); // 调整大小
       Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing + 1, 0);
       Magikarp.scene.rotation.set(0, 0, 0);
+
+      this.scene.add(Magikarp.scene);
+    },
+    async loadApple() {
+      // 苹果
+      let KBloader = new GLTFLoader();
+      const Magikarp = await this.loadGLTFAsync(KBloader, "/models/apple.glb");
+      Magikarp.scene.scale.set(0.05, 0.05, 0.05); // 调整大小
+      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing , 0);
+      Magikarp.scene.rotation.set(0, Math.PI, 0);
 
       this.scene.add(Magikarp.scene);
     },
