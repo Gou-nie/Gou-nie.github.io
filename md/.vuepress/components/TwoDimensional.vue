@@ -343,11 +343,17 @@ export default {
                     this.positions[idx].left = centerX - 32;
                 }, idx * 60);
             });
-            // vortexImage放大+平移动画
+            // vortexImage 放大+平移动画
             setTimeout(() => {
                 this.isOver = true;
                 this.vortexImgScale = 1;
                 let progress = 0;
+                document.getElementById('vortexImage').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('vortexImage').classList.remove('shake');
+                    grow();
+                }, 800);
+                
                 const grow = () => {
                     if (this.vortexImgScale < 10) {
                         this.vortexImgScale += 0.2;
@@ -355,14 +361,13 @@ export default {
                         this.vortexImgLeft = this.vortexImgLeft * (1 - progress) + targetLeft * progress;
                         this.vortexImgTop = this.vortexImgTop * (1 - progress) + targetTop * progress;
                         requestAnimationFrame(grow);
-                        if(this.vortexImgScale >=9.6){
+                        if (this.vortexImgScale >= 9.6) {
                             window.open("/", "_self");
                         }
                     } else {
                         console.log("吸入完成, 跳转失败");
                     }
                 };
-                grow();
             }, this.canvases.length * 60);
         }
     },
@@ -497,5 +502,37 @@ export default {
     width: 300px;
     height: 400px;
     z-index: 50;
+}
+
+
+
+@keyframes shake {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-2px, 2px) rotate(-2deg);
+    }
+
+    40% {
+        transform: translate(-2px, -2px) rotate(2deg);
+    }
+
+    60% {
+        transform: translate(2px, 2px) rotate(0deg);
+    }
+
+    80% {
+        transform: translate(2px, -2px) rotate(2deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(-2deg);
+    }
+}
+
+#vortexImage.shake {
+    animation: shake 0.3s infinite;
 }
 </style>
