@@ -1,23 +1,51 @@
 <template>
     <div class="hugPare">
-        <font color=#ccbbaa>*不获取权限，手动输入您的经纬度:3* </font>
         <div class="param-div">
-            <span class="span">经度</span>
+            <span class="span">你的名字:</span>
+            <input class="input" v-model="role1Name" />
+            <span class="span">对方的名字:</span>
+            <input class="input" v-model="role2Name" />
+        </div>
+        <divider></divider>
+        <font color=#ccbbaa>*请手动输入你们的经纬度:3* </font>
+
+        <div class="param-div">
+            <span class="span">{{ role1Name }}的经度</span>
             <input type="number" class="input" v-model="longitudeInD" />°
             <input type="number" class="input" v-model="longitudeInF" />′
             <input type="number" class="input" v-model="longitudeInM" />″
         </div>
         <div class="param-div">
-            <span class="span">纬度</span>
+            <span class="span">{{ role1Name }}的纬度</span>
             <input type="number" class="input" v-model="latitudeInD" />°
             <input type="number" class="input" v-model="latitudeInF" />′
             <input type="number" class="input" v-model="latitudeInM" />″
         </div>
-        <button :disabled="latitudeInD == 0 && longitudeInD == 0 && latitudeInF == 0 && longitudeInF == 0 && latitudeInM == 0 && longitudeInM == 0 " class="calcultation" @click="handleCalculate">计算</button>
-        <span v-if="direction != ''">现在我在你{{ direction +'距离'+ distance+'公里的地方' }}</span>
-        <span>将指南针指向{{ directionDes + '°' }}</span>
+        <div class="param-div">
+            <span class="span">{{ role2Name }}的经度</span>
+            <input type="number" class="input" v-model="longitude2InD" />°
+            <input type="number" class="input" v-model="longitude2InF" />′
+            <input type="number" class="input" v-model="longitude2InM" />″
+        </div>
+        <div class="param-div">
+            <span class="span">{{ role2Name }}的纬度</span>
+            <input type="number" class="input" v-model="latitude2InD" />°
+            <input type="number" class="input" v-model="latitude2InF" />′
+            <input type="number" class="input" v-model="latitude2InM" />″
+        </div>
+        <button
+            :disabled="latitudeInD == 0 && longitudeInD == 0 && latitudeInF == 0 && longitudeInF == 0 && latitudeInM == 0 && longitudeInM == 0"
+            class="calcultation" @click="handleCalculate">抱抱他</button>
+        <div>
+            <span v-if="direction != ''">现在{{ role2Name + '大概在' + role1Name + direction + '距离' + distance + '公里的地方'
+                }}</span>
+
+        </div>
+        <div>
+            <span v-if="direction != ''">{{ '请' + role1Name + '将指南针指向' + directionDes + '°' }}</span>
+        </div>
         <font v-if="direction != ''" color=#aabbcc>面朝这个方向张开双手 「オラに元気を分けてくれ！」 或者抱一下🤗</font>
-        <font v-if="direction != ''" color=#aabbbb>:∂ 感谢你的元气 </font>
+        <font v-if="direction != ''" color=#aabbbb>:∂ 感谢你们的元气 </font>
     </div>
 </template>
 
@@ -27,6 +55,8 @@ export default {
     data() {
         return {
             icon: 'iconfont icon-hug',
+            role1Name: '你',
+            role2Name: 'gn',
             latitudeIn: 0,
             longitudeIn: 0,
             latitudeInD: 0,
@@ -36,13 +66,22 @@ export default {
             latitudeInM: 0,
             longitudeInM: 0,
 
+            latitude2In: 0,
+            longitude2In: 0,
+            latitude2InD: 31,
+            longitude2InD: 121,
+            latitude2InF: 13,
+            longitude2InF: 28,
+            latitude2InM: 50,
+            longitude2InM: 25,
+
             latitudeHome: 31.2304,
             longitudeHome: 121.4737,
             latitudeCompany: 31.1711,
             longitudeCompany: 121.3864,
             directionDes: 0,
             direction: '',
-            distance:0
+            distance: 0
         }
     },
     mounted() {
@@ -51,19 +90,21 @@ export default {
         handleCalculate() {
             // console.log('lat:', parseInt(this.latitudeInD), this.latitudeInF, this.latitudeInM);
             // console.log('lon:', parseInt(this.longitudeInD), parseInt(this.longitudeInF), parseInt(this.longitudeInM));
-            this.latitudeIn = (parseInt(this.latitudeInD )+ parseInt(this.latitudeInF )/ 60 + parseInt(this.latitudeInM )/ 3600);
+            this.latitudeIn = (parseInt(this.latitudeInD) + parseInt(this.latitudeInF) / 60 + parseInt(this.latitudeInM) / 3600);
             this.longitudeIn = (parseInt(this.longitudeInD) + parseInt(this.longitudeInF) / 60 + parseInt(this.longitudeInM) / 3600);
-            
-            // console.log('lat Company:', this.latitudeIn );
-            // console.log('lon Company:', this.longitudeIn );
+            this.latitude2In = (parseInt(this.latitude2InD) + parseInt(this.latitude2InF) / 60 + parseInt(this.latitude2InM) / 3600);
+            this.longitude2In = (parseInt(this.longitude2InD) + parseInt(this.longitude2InF) / 60 + parseInt(this.longitude2InM) / 3600);
 
-            const bearing = this.calculateBearing(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
+            // console.log('lat Company:', this.latitude2In );
+            // console.log('lon Company:', this.longitude2In );
+
+            const bearing = this.calculateBearing(this.latitudeIn, this.longitudeIn, this.latitude2In, this.longitude2In);
             // console.log('bearing:', bearing);//116.8
             this.directionDes = bearing.toFixed(2);
             // console.log('directionDes:', this.directionDes);
             this.direction = this.bearingToDirection(bearing);
             // console.log('direction:', this.direction);
-            this.distance = this.getDistanceFromLatLonInKm(this.latitudeIn, this.longitudeIn, this.latitudeCompany, this.longitudeCompany);
+            this.distance = this.getDistanceFromLatLonInKm(this.latitudeIn, this.longitudeIn, this.latitude2In, this.longitude2In);
         },
         calculateBearing(lat1, lon1, lat2, lon2) {
             // 转为弧度
@@ -94,21 +135,21 @@ export default {
                 "南偏西", "西偏南",
                 "西偏北", "北偏西"
             ];
-            const index = Math.floor((bearing  % 360) / 45);
+            const index = Math.floor((bearing % 360) / 45);
             // console.log('bearing%360:', (bearing % 360));
             // console.log('bearing%360%45:', (bearing % 360)%45);
             let a = ((bearing % 360) % 45).toFixed(2);
-            if(index%2!=0){
+            if (index % 2 != 0) {
                 a = (45 - a).toFixed(2);
             }
-            
+
             return directions[index] + '方向偏' + a + `°`;
 
         },
-        getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) { 
-            const R = 6371;  
-            const dLat = this.deg2rad(lat2 - lat1);  
-            const dLon = this.deg2rad(lon2 - lon1); 
+        getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = this.deg2rad(lat2 - lat1);
+            const dLon = this.deg2rad(lon2 - lon1);
             const a =
                 Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
@@ -164,6 +205,7 @@ calcultation {
     border: none;
     border-radius: 4px;
 }
+
 /* 正常状态的悬停效果 */
 calcultation:not(:disabled):hover {
     background-color: #0069d9;
@@ -176,5 +218,5 @@ calcultation:disabled {
     color: #666666;
     /* 如果需要还可以添加透明度 */
     /* opacity: 0.65; */
-} 
+}
 </style>
