@@ -10,7 +10,7 @@
                 <canvas :id="i.name" width="64" height="54"></canvas>
             </div>
             <canvas class="tapePlayer" id="tapePlayer"></canvas>
-            <canvas class="playButton" id="playButton" @click="togglePlay"></canvas>
+            <canvas :disabled="true" class="playButton" id="playButton" @click="togglePlay"></canvas>
             <img id="vortexImage" class="vortex" src="/images/R-C-gray.png" :style="{
                 left: vortexImgLeft + 'px',
                 top: vortexImgTop + 'px',
@@ -80,7 +80,7 @@ export default {
                 this.canvases.forEach(canvas => {
                     this.drawTapes(canvas);
                 });
-                this.drawPlayButton();
+
                 // 创建音频对象
                 this.drawTapePlayer("tapePlayer");
                 this.drawVortex();
@@ -107,6 +107,8 @@ export default {
                 if (this.cachePosition.index !== -1) {
                     this.positions[this.cachePosition.index] = { top: this.cachePosition.top, left: this.cachePosition.left };
                     this.drawTapes(this.canvases[this.cachePosition.index]);
+                } else {
+                    this.drawPlayButton();
                 }
 
                 this.cachePosition = { ...this.positions[idx], index: idx };
@@ -353,7 +355,7 @@ export default {
                     document.getElementById('vortexImage').classList.remove('shake');
                     grow();
                 }, 800);
-                
+
                 const grow = () => {
                     if (this.vortexImgScale < 10) {
                         this.vortexImgScale += 0.2;
