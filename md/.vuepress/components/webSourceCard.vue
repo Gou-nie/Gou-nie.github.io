@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Card from './subComponents/Card.vue';
+import Card from './subComponents/ccard.vue';
 import siteCollections from '../public/html&js/content/webContentArr.js';
 export default {
   components: {
