@@ -48,7 +48,9 @@ const siteCollections = [
       { name: "科研参考图库", content:"科研参考图库", url: "https://plottie.art/" },
       { name: "模型", content:"3D模型下载", url: "https://sketchfab.com/3d-models" },
       { name: "拼图", content:"在线拼图", url: "https://img.ops-coffee.cn/" },
-      { name: "noteDigger", content:"在线扒谱", url: "https://madderscientist.github.io/noteDigger/" }
+      { name: "noteDigger", content:"在线扒谱", url: "https://madderscientist.github.io/noteDigger/" },
+      { name: "ries.ai",content:"英语学习插件，随机翻译单词帮助记忆", url:"https://ries.ai/zh/learn-english"}
+      
     ]
   },
   {
