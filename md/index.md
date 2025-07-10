@@ -5,7 +5,9 @@
  avatar: /logo.png
  home: true 
  layout: Blog 
- backImage: /logo.png
+#  heroImage: /logo.png
+ bgImage: /yw.jpg
+ heroFullScreen: true
  projects:
    - name: 书架
      link: content/tool/three/shelf3D.md
