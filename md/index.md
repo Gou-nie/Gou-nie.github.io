@@ -37,6 +37,10 @@
      link: content/write/excerpte
      desc: 地鼠般念头
      icon: /images/icon/featherPen.png
+   - name: 新闻
+     link: content/tool/news
+     desc: 每日新闻
+     icon: /images/icon/news.png
 
   
 ---

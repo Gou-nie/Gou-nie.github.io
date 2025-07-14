@@ -74,3 +74,9 @@ Sing a little bit of these workingman's blues
 “我酒量一斤，跟你喝，两斤吧。我酒量二两，跟你喝，舍命”
     --《士兵突击》-Yuyang摘抄
 ```
+
+
+```
+服务于欲望的骄傲，比野蛮还可怕。
+    --Henli 知乎
+```
