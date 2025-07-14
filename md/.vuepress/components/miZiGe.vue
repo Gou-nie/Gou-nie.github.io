@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
 const props = defineProps({
   size: { type: Number, default: 120 },
   modelValue: { type: String, default: '' }

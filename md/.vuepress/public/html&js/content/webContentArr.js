@@ -61,7 +61,8 @@ const siteCollections = [
       { name: "养鱼", content:"养鱼", url: "https://eucscore.com/demos/HTML5-Fishbowl/index.html" },
       { name: "地图", content:"字符地图", url: "https://asciicker.com/x13/" },
       { name: "宝可梦", content:"-宠物小精灵卡片", url: "https://poke-holo.simey.me/" },
-      { name: "Escape Road", content:"逃亡之路小游戏", url: "https://www.escaperoad.art/" }
+      { name: "Escape Road", content:"逃亡之路小游戏", url: "https://www.escaperoad.art/" },
+      { name: "2048", content:"贪吃蛇版-2048", url: "https://cubes-2048.io/" },
     ]
   }
 ];

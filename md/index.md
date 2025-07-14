@@ -33,6 +33,10 @@
      link: content/write/flashThoughts
      desc: 地鼠般念头
      icon: /images/icon/lightbulb.png
+   - name: 摘抄
+     link: content/write/excerpte
+     desc: 地鼠般念头
+     icon: /images/icon/featherPen.png
 
   
 ---
