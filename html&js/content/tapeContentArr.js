@@ -31,6 +31,11 @@ const tapeArr=[
         url:"/music/LongingIsAKindOfDisease.mp4",
         type:"tape"
     },{
+        name: "tape4",
+        path:tapePath,
+        url:"/music/IBetSheKnows.mp4",
+        type:"tape"
+    },{
         name: "note1",
         path:note1Path,
         url:"xxxx",
