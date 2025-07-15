@@ -3,6 +3,16 @@ import { hopeTheme } from "vuepress-theme-hope";
 
 export default hopeTheme({
     logo: "/logo.png",
+    tags: [{
+        name: 'content',
+        path: '/content'
+    }
+    ],
+    category: [{
+        name: 'content',
+        path: '/content'
+    }
+    ],
     sidebar: false,
     navbar: false,
     // sidebar: [
@@ -144,7 +154,7 @@ export default hopeTheme({
         revealjs: true,
     },
     plugins: {
-        blog: true,  
+        blog: true,
         search: true,
     },
     // 设置侧边栏显示位置为右侧

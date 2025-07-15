@@ -1,3 +1,10 @@
+---
+tags:
+  - write
+category:
+  - write
+---
+
 <h1>摘抄</h1> 
 
 # 摘抄

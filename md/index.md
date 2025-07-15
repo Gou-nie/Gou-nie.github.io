@@ -35,7 +35,7 @@
      icon: /images/icon/lightbulb.png
    - name: 摘抄
      link: content/write/excerpte
-     desc: 地鼠般念头
+     desc: 人世间的内容
      icon: /images/icon/featherPen.png
    - name: 新闻
      link: content/tool/news

@@ -1,3 +1,10 @@
+---
+tags:
+  - write
+category:
+  - write
+---
+
 <h1>计划</h1>
 
 # 计划

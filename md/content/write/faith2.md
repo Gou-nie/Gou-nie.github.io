@@ -1,3 +1,10 @@
+---
+tags:
+  - write
+category:
+  - write
+---
+
 <h1>关于信仰2</h1> 
 
 # 关于信仰和宗教

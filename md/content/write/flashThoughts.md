@@ -1,3 +1,11 @@
+---
+tags:
+  - write
+category:
+  - write
+---
+
+
 
 # 闪念
 

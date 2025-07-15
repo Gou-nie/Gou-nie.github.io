@@ -1,3 +1,9 @@
+---
+tags:
+  - write
+category:
+  - write
+---
 <h1>舒适圈</h1> 
 
 # 关于舒适圈

@@ -1,3 +1,9 @@
+---
+tags:
+  - write
+category:
+  - write
+---
 
 # 坏心情
 

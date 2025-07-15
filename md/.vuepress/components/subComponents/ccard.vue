@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :style="{ '--primary-color': primaryColor }">
     <div class="card-header">
       <slot name="header">
         <!-- 默认头部内容 -->
@@ -12,12 +12,11 @@
         <p>{{ bodyContent }}</p>
       </slot>
     </div>
-    <div class="card-footer">
+    <!-- <div class="card-footer">
       <slot name="footer">
-        <!-- 默认底部内容 -->
         <small>{{ footerText }}</small>
       </slot>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -39,6 +38,10 @@ export default defineComponent({
       type: String,
       default: 'Last updated 3 mins ago',
     },
+    primaryColor: {
+      type: String,
+      default: '#5dc29a', // 默认主题色
+    },
   },
 });
 </script>
@@ -47,15 +50,22 @@ export default defineComponent({
 .card {
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.18);
   margin-bottom: 1rem;
-  overflow: hidden; /*  确保内容不会超出容器  */
+  overflow: hidden;
+  /*  确保内容不会超出容器  */
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 16px 32px rgba(93, 194, 154, 0.35);
+  border-color: var(--primary-color, #5dc29a);
 }
 
 .card-header {
   padding: 1rem;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  background-color: var(--primary-color, #5dc29a);
+  border-bottom: 1px solid #a8ffcb;
 }
 
 .card-header h3 {

@@ -1,3 +1,10 @@
+---
+tags:
+  - bug
+category:
+  - write
+---
+
 # 操作记录
 
 _踩坑记录_

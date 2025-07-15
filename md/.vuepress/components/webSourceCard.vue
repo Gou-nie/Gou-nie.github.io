@@ -49,23 +49,16 @@ export default {
 <style>
 .sourceS {
   position: fixed;
-  /* 修正 display: fixed 为 position: fixed */
   left: 0;
-  top:0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 200px); /* 如果有header可减去header高度 */
   display: flex;
-  /* 横向排列子元素 */
   flex-wrap: wrap;
-  /* 超出自动换行 */
   align-items: flex-start;
   gap: 16px;
-  /* 卡片间距，可根据需要调整 */
-  padding: 16px;
-  /* 可选：给容器加点内边距 */
+  padding: 12px;
   box-sizing: border-box;
   overflow: auto;
   z-index: 100;
-  /* 新增：内容溢出时可滚动 */
 }
 </style>

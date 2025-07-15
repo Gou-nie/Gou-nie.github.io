@@ -1,4 +1,8 @@
 ---
+tags:
+  - write
+category:
+  - write 
 layout: false
 ---
 

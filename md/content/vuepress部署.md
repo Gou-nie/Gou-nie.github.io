@@ -1,3 +1,10 @@
+---
+tags:
+  - play
+category:
+  - write
+---
+
 <h1>vuepress部署</h1>
 <h2>vuepress部署</h2>
 

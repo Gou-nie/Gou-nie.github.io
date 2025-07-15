@@ -1,3 +1,10 @@
+---
+tags:
+  - write
+category:
+  - write
+---
+
 <h1>标准&规则思考</h1> 
 
 # 关于标准&规则
