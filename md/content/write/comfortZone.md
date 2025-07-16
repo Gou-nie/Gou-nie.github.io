@@ -4,9 +4,8 @@ tags:
 category:
   - write
 ---
-<h1>舒适圈</h1> 
 
-# 关于舒适圈
+# 舒适圈
 
 * 1. [生活习惯](#first)
 * 2. [脑袋思路](#second)
