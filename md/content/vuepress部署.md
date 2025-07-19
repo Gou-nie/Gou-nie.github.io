@@ -1,4 +1,5 @@
 ---
+star: true
 tags:
   - play
 category:
