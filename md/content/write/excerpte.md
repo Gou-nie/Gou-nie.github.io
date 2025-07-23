@@ -56,7 +56,7 @@ Sing a little bit of these workingman's blues
 
 ```
 欲是自己的，容是别人的。
-    --没有耳朵的鸵鸟
+    --《士兵突击》高成
 ```
 
 ```
@@ -86,4 +86,10 @@ Sing a little bit of these workingman's blues
 ```
 服务于欲望的骄傲，比野蛮还可怕。
     --Henli 知乎
+```
+
+```
+"你就不怕我是骗子？"
+“你能骗我几次？多久？”【麻烦你多骗我几次？】
+    --gn
 ```
