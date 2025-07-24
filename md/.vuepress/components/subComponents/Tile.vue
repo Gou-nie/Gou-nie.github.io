@@ -5,7 +5,7 @@
     @click="moveTile"
   >
     <!-- <span v-if="value !== null">{{ value }}</span> -->
-    <img v-if="value !== null" draggable="false" :src="`/images/puzzle/${value+1}.png`" />
+    <img v-if="value !== null" draggable="false" :src="`https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/puzzle/${value+1}.png`" />
   </div>
 </template>
 

@@ -770,7 +770,7 @@ export default {
   height: 100vh;
   margin: 0;
   z-index: 101;
-  /* background: url(../public/images/gif/heythatme-cloud.gif) no-repeat center center;
+  /* background: url(../publichttps://gitee.com/xishiliuyu/resource-files/raw/master/public/images/gif/heythatme-cloud.gif) no-repeat center center;
     background-size: cover; */
 }
 
