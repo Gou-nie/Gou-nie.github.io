@@ -63,6 +63,7 @@ const siteCollections = [
       { name: "宝可梦", content:"-宠物小精灵卡片", url: "https://poke-holo.simey.me/" },
       { name: "Escape Road", content:"逃亡之路小游戏", url: "https://www.escaperoad.art/" },
       { name: "2048", content:"贪吃蛇版-2048", url: "https://cubes-2048.io/" },
+      { name: "手机", content:"模拟手机", url: "https://chaz.fun/phonemuseum/" },
     ]
   }
 ];
