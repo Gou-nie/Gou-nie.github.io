@@ -11,36 +11,36 @@
  projects:
    - name: 书架
      link: content/tool/three/shelf3D.md
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/bookshelf.png
+     icon: /images/icon/bookshelf.png
      desc: 3D书架
    - name: 小工具
      link: content/tool/hug
      desc: 抱抱
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/hug.png
+     icon: /images/icon/hug.png
    - name: 网站收集
      link: content/write/sources
      desc: 一些网站资源
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/collect.png
+     icon: /images/icon/collect.png
    - name: 关于信仰
      link: content/write/faith
      desc: 我对宗教的感触
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/faith.png
+     icon: /images/icon/faith.png
    - name: 俺的大作
      link: content/draw/bigDraw
      desc: 我画的一些东西
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/draw.png
+     icon: /images/icon/draw.png
    - name: 闪念
      link: content/write/flashThoughts
      desc: 地鼠般念头
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/lightbulb.png
+     icon: /images/icon/lightbulb.png
    - name: 摘抄
      link: content/write/excerpte
      desc: 人世间的内容
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/featherPen.png
+     icon: /images/icon/featherPen.png
    - name: 新闻
      link: content/tool/news
      desc: 每日新闻
-     icon: https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/icon/news.png
+     icon: /images/icon/news.png
 
   
 ---
@@ -56,9 +56,9 @@
 [<svg width="22" height="22" aria-hidden="true" viewBox="0 0 24 24" version="1.1"   data-view-component="true" class="octicon octicon-mark-github v-align-middle">
     <path d="M12 1C5.9225 1 1 5.9225 1 12C1 16.8675 4.14875 20.9787 8.52125 22.4362C9.07125 22.5325 9.2775 22.2025 9.2775 21.9137C9.2775 21.6525 9.26375 20.7862 9.26375 19.865C6.5 20.3737 5.785 19.1912 5.565 18.5725C5.44125 18.2562 4.905 17.28 4.4375 17.0187C4.0525 16.8125 3.5025 16.3037 4.42375 16.29C5.29 16.2762 5.90875 17.0875 6.115 17.4175C7.105 19.0812 8.68625 18.6137 9.31875 18.325C9.415 17.61 9.70375 17.1287 10.02 16.8537C7.5725 16.5787 5.015 15.63 5.015 11.4225C5.015 10.2262 5.44125 9.23625 6.1425 8.46625C6.0325 8.19125 5.6475 7.06375 6.2525 5.55125C6.2525 5.55125 7.17375 5.2625 9.2775 6.67875C10.1575 6.43125 11.0925 6.3075 12.0275 6.3075C12.9625 6.3075 13.8975 6.43125 14.7775 6.67875C16.8813 5.24875 17.8025 5.55125 17.8025 5.55125C18.4075 7.06375 18.0225 8.19125 17.9125 8.46625C18.6138 9.23625 19.04 10.2125 19.04 11.4225C19.04 15.6437 16.4688 16.5787 14.0213 16.8537C14.42 17.1975 14.7638 17.8575 14.7638 18.8887C14.7638 20.36 14.75 21.5425 14.75 21.9137C14.75 22.2025 14.9563 22.5462 15.5063 22.4362C19.8513 20.9787 23 16.8537 23 12C23 5.9225 18.0775 1 12 1Z"></path>
 </svg>](https://github.com/Gou-nie)
-[<img src="https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/svgs/emusic.svg" width="22" height="22" alt="emusic">](https://y.music.163.com/m/user?id=436369678)
-[<img src="https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/svgs/bili.svg" width="22" height="22" alt="bilibili">](https://b23.tv/JyhsNpX)
-[<img src="https://gitee.com/xishiliuyu/resource-files/raw/master/public/images/svgs/email.svg" width="22" height="22" alt="email">](mailto:gounieby@163.com)
+[<img src="/images/svgs/emusic.svg" width="22" height="22" alt="emusic">](https://y.music.163.com/m/user?id=436369678)
+[<img src="/images/svgs/bili.svg" width="22" height="22" alt="bilibili">](https://b23.tv/JyhsNpX)
+[<img src="/images/svgs/email.svg" width="22" height="22" alt="email">](mailto:gounieby@163.com)
 
 ---
 
