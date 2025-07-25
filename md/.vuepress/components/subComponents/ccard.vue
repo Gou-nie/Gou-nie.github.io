@@ -40,7 +40,7 @@ export default defineComponent({
     },
     primaryColor: {
       type: String,
-      default: '#5dc29a', // 默认主题色
+      default: '#91c28c', // 默认主题色
     },
   },
 });
@@ -58,13 +58,13 @@ export default defineComponent({
 }
 
 .card:hover {
-  box-shadow: 0 16px 32px rgba(93, 194, 154, 0.35);
-  border-color: var(--primary-color, #5dc29a);
+  box-shadow: 0 16px 32px rgba(214, 243, 232, 0.35);
+  border-color: var(--primary-color, #a2c3b6);
 }
 
 .card-header {
   padding: 1rem;
-  background-color: var(--primary-color, #5dc29a);
+  background-color: var(--primary-color, #91b9a9);
   border-bottom: 1px solid #a8ffcb;
 }
 
