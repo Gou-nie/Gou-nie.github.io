@@ -5,7 +5,7 @@
  avatar: /logo.png
  home: true 
  layout: Blog 
-#  heroImage: /logo.png
+#  heroImage: /windLogo.png
  bgImage: /yw.jpg
  heroFullScreen: true
  projects:
@@ -59,7 +59,7 @@
 [<img src="/images/svgs/emusic.svg" width="22" height="22" alt="emusic">](https://y.music.163.com/m/user?id=436369678)
 [<img src="/images/svgs/bili.svg" width="22" height="22" alt="bilibili">](https://b23.tv/JyhsNpX)
 [<img src="/images/svgs/email.svg" width="22" height="22" alt="email">](mailto:gounieby@163.com)
-
+[<img src="https://www.essay.ink/favicon.ico" width="22" height="22" alt="essay">](https://www.essay.ink/8nvk3xjkrvz2)
 ---
 
 <!-- <a href="https://info.flagcounter.com/Iq5W"><img src="https://s05.flagcounter.com/count/Iq5W/bg_EEECAE/txt_2578A8/border_CCCCCC/columns_2/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>  -->

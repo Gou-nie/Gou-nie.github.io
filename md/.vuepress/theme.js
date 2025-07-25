@@ -13,6 +13,18 @@ export default hopeTheme({
         path: '/content'
     }
     ],
+    blog: {
+        medias: {
+            GitHub:"https://github.com/Gou-nie",
+            "163Music":"https://y.music.163.com/m/user?id=436369678",
+            Email:"mailto:gounieby@163.com",
+            BiliBili:"https://b23.tv/JyhsNpX",
+            Essay:{
+                link:"https://www.essay.ink/8nvk3xjkrvz2",
+                icon:"https://www.essay.ink/favicon.ico"
+            }
+        }
+    },
     sidebar: false,
     navbar: false,
     // sidebar: [
