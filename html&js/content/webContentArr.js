@@ -36,8 +36,8 @@ const siteCollections = [
       { name: "中国植物志", content: "中国植物百科", url: "https://ppbc.iplant.cn" },
       { name: "鸟站", content: "To see and understand", url: "https://yihanphotos.eth.sucks/" },
       { name: "数字花园", content: "前端知识讲解", url: "https://garden.bradwoods.io/" },
-      { name: "Nature Reviews Bioengineering",url:"https://www.nature.com/natrevbioeng/" },
-      {name:"essays",url:"https://www.essay.ink/essays"}
+      { name: "自然综述性文",content:"Nature Reviews Bioengineering",url:"https://www.nature.com/natrevbioeng/" },
+      {name:"essays",content:"写写东西扔一起大家一起看看",url:"https://www.essay.ink/essays"}
     ]
   },
   {
