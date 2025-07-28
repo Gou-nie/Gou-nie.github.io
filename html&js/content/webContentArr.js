@@ -25,9 +25,10 @@ const siteCollections = [
     ]
   },
   {
-    tab: "帖子",
+    tab: "帖子&文章",
     links: [
-      { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" },
+      { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" }, 
+      { name: "自洽的程序员", content: "关于职业规划和思考模式", url: "https://www.dev-life.site/" },
     ]
   },
   {
@@ -37,7 +38,9 @@ const siteCollections = [
       { name: "鸟站", content: "To see and understand", url: "https://yihanphotos.eth.sucks/" },
       { name: "数字花园", content: "前端知识讲解", url: "https://garden.bradwoods.io/" },
       { name: "自然综述性文",content:"Nature Reviews Bioengineering",url:"https://www.nature.com/natrevbioeng/" },
-      {name:"essays",content:"写写东西扔一起大家一起看看",url:"https://www.essay.ink/essays"}
+      {name:"essays",content:"写写东西扔一起大家一起看看",url:"https://www.essay.ink/essays"},
+      {name:"HelloGithub",content:"github项目收集",url:"https://hellogithub.com/"},
+      
     ]
   },
   {
@@ -51,7 +54,9 @@ const siteCollections = [
       { name: "模型", content: "3D模型下载", url: "https://sketchfab.com/3d-models" },
       { name: "拼图", content: "在线拼图", url: "https://img.ops-coffee.cn/" },
       { name: "noteDigger", content: "在线扒谱", url: "https://madderscientist.github.io/noteDigger/" },
-      { name: "ries.ai", content: "英语学习插件，随机翻译单词帮助记忆", url: "https://ries.ai/zh/learn-english" }
+      { name: "ries.ai", content: "英语学习插件，随机翻译单词帮助记忆", url: "https://ries.ai/zh/learn-english" },
+      { name: "PakePlus", content: "将网页打包成为应用", url: "https://ppofficial.netlify.app/" },
+      
 
     ]
   },
