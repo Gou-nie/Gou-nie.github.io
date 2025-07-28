@@ -90,6 +90,15 @@ Sing a little bit of these workingman's blues
 
 ```
 "你就不怕我是骗子？"
-“你能骗我几次？多久？”【麻烦你多骗我几次？】
+“你能骗我几次？多久？” 能不能请你你多骗我几次？
     --gn
 ```
+
+```
+Meet me at the bottom, don't lag behind
+Bring me my boots and shoes
+You can hang back or fight your best on the frontline
+Sing a little bit of these workingman's blues
+    --<Workingman's Blues #2> Bob Dylan
+```
+
