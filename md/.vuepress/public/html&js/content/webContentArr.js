@@ -11,7 +11,8 @@ const siteCollections = [
       { name: "流体模拟古早实现1", content: "流体模拟古早实现1", url: "https://github.com/mharrys/fluids-2d" },
       { name: "流体mooning古早实现2", content: "流体mooning古早实现2", url: "https://github.com/haxiomic/GPU-Fluid-Experiments" },
       { name: "模拟星空", content: "模拟星空渐变粉色橙黄", url: "https://github.com/ZERO-DG/vue3-starry-sky" },
-      { name: "阿里icon", content: "阿里图标库", url: "https://www.iconfont.cn/" }
+      { name: "阿里icon", content: "阿里图标库", url: "https://www.iconfont.cn/" },
+      { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/"}
     ]
   },
   {
@@ -56,8 +57,10 @@ const siteCollections = [
       { name: "noteDigger", content: "在线扒谱", url: "https://madderscientist.github.io/noteDigger/" },
       { name: "ries.ai", content: "英语学习插件，随机翻译单词帮助记忆", url: "https://ries.ai/zh/learn-english" },
       { name: "PakePlus", content: "将网页打包成为应用", url: "https://ppofficial.netlify.app/" },
-      
-
+      { name: "kando", content: "桌面管理工具，挺好玩的", url: "https://kando.menu/" },
+      { name: "uglayAvg", content: "丑头像生成器", url: "https://txstc55.github.io/ugly-avatar/"},
+      { name: "winlator", content: "android运行windows经典游戏", url: "https://winlator.org/"}
+    
     ]
   },
   {

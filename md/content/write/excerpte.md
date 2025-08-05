@@ -102,3 +102,11 @@ Sing a little bit of these workingman's blues
     --<Workingman's Blues #2> Bob Dylan
 ```
 
+```
+阿莉莎对杰罗姆说：“你爱上的是一个臆想出来的形象。” *可是这个形象是抽象于你并渴望归附于你*
+
+
+我终于感到，我们之间的全部通信只是一个大大的幻影，我们每个人只是在给自己写信。
+    --《窄门》
+```
+
