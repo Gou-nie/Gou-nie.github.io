@@ -6,7 +6,7 @@ import { ref, onMounted } from 'vue';
 const props = defineProps({
 	starsCount: {
 		type: Number,
-		default: () => 800,
+		default: () => 400, // 减少星星数量提高性能
 	},
 	distance: {
 		type: Number,
@@ -52,21 +52,12 @@ onMounted(() => {
 	background-attachment: fixed;
 
 	/* 美学优化后的渐变背景 + 动态光感 */
-background: 
-  radial-gradient(
+background: radial-gradient(
     220% 105% at top center,
-	 rgba(27, 41, 71, 1) 10%,      
-    rgba(37, 30, 38, 0.85) 40%,   
-    rgba(70, 35, 45, 0.6) 65%,   
-    rgba(102, 102, 70, 0.4)        
-  ),
-  radial-gradient(
-    200% 100% at bottom center,
-    rgba(247, 247, 182, 0.2),
-    rgba(233, 111, 146, 0.3),
-    rgba(117, 81, 125, 0.4),
-    rgba(27, 41, 71, 0.5)
-  );
+    #1b2947 10%, 
+    #75517d 65%, 
+    #e96f92 100%
+);
 background-size: 200% 200%;
 background-repeat: no-repeat;
 animation: glowBackground 15s ease-in-out infinite;
@@ -107,5 +98,11 @@ animation: glowBackground 15s ease-in-out infinite;
 	top: 0px;
 	left: 0;
 	backface-visibility: hidden;
+	animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+	0% { opacity: 0.3; }
+	100% { opacity: 1; }
 }
 </style>

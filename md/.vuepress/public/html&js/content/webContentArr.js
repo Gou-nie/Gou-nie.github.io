@@ -59,7 +59,8 @@ const siteCollections = [
       { name: "PakePlus", content: "将网页打包成为应用", url: "https://ppofficial.netlify.app/" },
       { name: "kando", content: "桌面管理工具，挺好玩的", url: "https://kando.menu/" },
       { name: "uglayAvg", content: "丑头像生成器", url: "https://txstc55.github.io/ugly-avatar/"},
-      { name: "winlator", content: "android运行windows经典游戏", url: "https://winlator.org/"}
+      { name: "winlator", content: "android运行windows经典游戏", url: "https://winlator.org/"},
+      { name: "拼图_", content: "在线拼图_", url: "https://www.ilovecollagemaker.com/"},
     
     ]
   },

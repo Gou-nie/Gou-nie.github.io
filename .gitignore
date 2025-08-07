@@ -3,4 +3,5 @@ node_modules/
 dist/
 md/.vuepress/.temp/
 md/.vuepress/.cache/
+test.*
 
