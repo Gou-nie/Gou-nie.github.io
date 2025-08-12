@@ -110,3 +110,6 @@ Sing a little bit of these workingman's blues
     --《窄门》
 ```
 
+```
+既不执着于“懂”，也不畏惧于“难”
+```

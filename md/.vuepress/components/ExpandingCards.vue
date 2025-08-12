@@ -1,9 +1,14 @@
 <template>
     <div class="container">
         <div v-for="(card, index) in visibleCards" :key="index" class="panel" :class="{ active: activeIndex === index }"
-            :style="{ backgroundImage: `url('${card.image}')` }" @click="setActive(card.globalIndex)">
+            :style="{ backgroundImage: `url('${card.image}')` }" @click="setActive(card.globalIndex)"
+            @dblclick="drawHeart(card.globalIndex, $event)">
             <h3 class="card-title">{{ card.title }}</h3>
         </div>
+
+        <img v-for="p in pops" :key="p.id" src="../public/images/icon/heart.png" class="fade-image"
+            :style="{ left: p.x + 'px', top: p.y + 'px', animationDuration: duration + 'ms' }"
+            @animationend="remove(p.id)" draggable="false" />
     </div>
 </template>
 
@@ -11,28 +16,32 @@
 import drawImgCards from '../public/html&js/content/drawImgArr';
 export default {
     name: "ExpandingCards",
+    props: {
+        imageSrc: { type: String, required: true },
+        duration: { type: Number, default: 500 }
+    },
     data() {
         return {
             activeIndex: 0,
+            centerIndex: 0,
             cards: drawImgCards,
-            visibleCards: []
+            visibleCards: [],
+            show: false,
+            pops: []
         };
     },
     mounted() {
         this.computeVisible();
     },
     methods: {
-        setActive(index) { 
+        setActive(index) {
             // this.activeIndex = index;
-            console.log(this.visibleCards)
             if (index < 3) {
                 this.activeIndex = index
             } else {
                 this.activeIndex = 2
             }
-
-
-
+            this.centerIndex = index;
             this.computeVisible(index);
         },
         computeVisible(index) {
@@ -48,14 +57,46 @@ export default {
                     ...card,
                     globalIndex: start + i,// 保留原始索引，方便setActive判断
                 }));
-            console.log("visibleCards is ", this.visibleCards);
-        }
+        },
+        drawHeart(index, e) {
+            this.pops = []
+            if (this.centerIndex == index) {
+                console.log("红心");
+
+
+                const rect = e.currentTarget.getBoundingClientRect()
+
+                // 使用 pageX/pageY + 滚动偏移，确保坐标准确
+                const pageX = e.pageX || (e.touches && e.touches[0].pageX)
+                const pageY = e.pageY || (e.touches && e.touches[0].pageY)
+
+                const x = pageX - rect.left - window.pageXOffset
+                const y = pageY - rect.top - window.pageYOffset
+
+                const id = ++this.uid
+                this.pops.push({ id, x, y })
+
+                setTimeout(() => {
+                    this.remove(id)
+                }, this.duration + 50)
+
+            }
+
+        },
+        remove(id) {
+            const i = this.pops.findIndex(p => p.id === id)
+            if (i !== -1) this.pops.splice(i, 1)
+        },
+        // handleClick() {
+        //     console.log("######")
+        // }
     },
 };
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 
 * {
     box-sizing: border-box;
@@ -119,12 +160,51 @@ body {
         display: none;
     }
 }
+
 .card-title {
-  color: white; /* 初始值，必须有 */
-  mix-blend-mode: difference; /* 核心：反色效果 */
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 24px;
+    color: white;
+    /* 初始值，必须有 */
+    mix-blend-mode: difference;
+    /* 核心：反色效果 */
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 24px;
+}
+
+
+/* 图片的通用样式 */
+.fade-image {
+    position: absolute;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    width: 40px;
+    height: auto;
+    opacity: 0;
+    animation-name: fadeInOut;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8) translateY(0);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) translateY(0);
+    }
+
+    85% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.1) translateY(-50px);
+    }
 }
 </style>
