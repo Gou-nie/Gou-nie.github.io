@@ -61,6 +61,7 @@ const siteCollections = [
       { name: "uglayAvg", content: "丑头像生成器", url: "https://txstc55.github.io/ugly-avatar/"},
       { name: "winlator", content: "android运行windows经典游戏", url: "https://winlator.org/"},
       { name: "拼图_", content: "在线拼图_", url: "https://www.ilovecollagemaker.com/"},
+      { name: "建模", content: "在线3D编辑", url: "https://make3d.online/editor"},
     
     ]
   },
