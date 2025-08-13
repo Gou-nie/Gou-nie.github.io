@@ -114,7 +114,9 @@ body {
 
 .container {
     display: flex;
-    width: 90vw;
+    width: 60vw;
+    position: relative; /* 新增，让 fade-image 定位到容器里 */
+    overflow-x: hidden; /* 新增，防止横向溢出 */
 }
 
 .panel {
