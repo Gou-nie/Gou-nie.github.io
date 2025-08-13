@@ -7,7 +7,7 @@
  home: true 
  layout: Blog 
 #  heroImage: /windLogo.png
- bgImage: /yw.jpg
+ bgImage: http://aleah.oss-cn-heyuan.aliyuncs.com/images/yw.jpg
  heroFullScreen: true
  projects:
    - name: 书架
