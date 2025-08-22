@@ -12,7 +12,8 @@ const siteCollections = [
       { name: "流体mooning古早实现2", content: "流体mooning古早实现2", url: "https://github.com/haxiomic/GPU-Fluid-Experiments" },
       { name: "模拟星空", content: "模拟星空渐变粉色橙黄", url: "https://github.com/ZERO-DG/vue3-starry-sky" },
       { name: "阿里icon", content: "阿里图标库", url: "https://www.iconfont.cn/" },
-      { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/"}
+      { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/"},
+      { name:"",content:"",url:""},
     ]
   },
   {
@@ -22,7 +23,8 @@ const siteCollections = [
       { name: "bash手册", content: "bash手册", url: "https://chegva.com/ueditor/php/upload/file/20180103/1514968607814189.pdf" },
       { name: "rust教程", content: "「第n次学习rust」", url: "https://kaisery.github.io/trpl-zh-cn/" },
       { name: "Nginx解析", content: "Nginx源码级解读", url: "https://www.kancloud.cn/digest/understandingnginx/202587" },
-      { name: "globalplatform", content: "加密包", url: "https://pinpasjc.win.tue.nl/docs/apis/gp211/org/globalplatform/" }
+      { name: "globalplatform", content: "加密包", url: "https://pinpasjc.win.tue.nl/docs/apis/gp211/org/globalplatform/" },
+      { name:"",content:"",url:""},
     ]
   },
   {
@@ -30,6 +32,7 @@ const siteCollections = [
     links: [
       { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" }, 
       { name: "自洽的程序员", content: "关于职业规划和思考模式", url: "https://www.dev-life.site/" },
+      { name:"",content:"",url:""},
     ]
   },
   {
@@ -41,6 +44,8 @@ const siteCollections = [
       { name: "自然综述性文",content:"Nature Reviews Bioengineering",url:"https://www.nature.com/natrevbioeng/" },
       {name:"essays",content:"写写东西扔一起大家一起看看",url:"https://www.essay.ink/essays"},
       {name:"HelloGithub",content:"github项目收集",url:"https://hellogithub.com/"},
+      { name:"设计",content:"UI设计",url:"https://dribbble.com/"},
+      { name:"",content:"",url:""},
       
     ]
   },
@@ -62,6 +67,8 @@ const siteCollections = [
       { name: "winlator", content: "android运行windows经典游戏", url: "https://winlator.org/"},
       { name: "拼图_", content: "在线拼图_", url: "https://www.ilovecollagemaker.com/"},
       { name: "建模", content: "在线3D编辑", url: "https://make3d.online/editor"},
+      { name: "嵌入图表", content: "数据向量可视化", url: "https://github.com/apple/embedding-atlas"},
+      { name:"",content:"",url:""},
     
     ]
   },
@@ -76,6 +83,9 @@ const siteCollections = [
       { name: "Escape Road", content: "逃亡之路小游戏", url: "https://www.escaperoad.art/" },
       { name: "2048", content: "贪吃蛇版-2048", url: "https://cubes-2048.io/" },
       { name: "手机", content: "模拟手机", url: "https://chaz.fun/phonemuseum/" },
+      { name:"逗猫小玩具",content:"逗猫小玩具，让猫去追小蝌蚪",url:"https://cat.vacuity.me/"},
+      { name:"吆喝",content:"ai生成吆喝",url:"https://www.celebshout.online/zh"},
+      { name:"",content:"",url:""},
     ]
   }
 ];
