@@ -3,7 +3,7 @@
     <hr class="full-line" />
     前端相关：
     <hr class="full-line" />
-    <Card v-for="i in frontS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Card   v-for="i in frontS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     后端相关：
@@ -88,6 +88,7 @@ export default {
   box-sizing: border-box;
   overflow: auto;
   z-index: 100;
+  background-color: rgb(254, 239, 194);
 }
 
 .full-line {

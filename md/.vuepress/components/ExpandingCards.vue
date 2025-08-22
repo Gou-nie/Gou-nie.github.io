@@ -3,7 +3,7 @@
         <div v-for="(card, index) in visibleCards" :key="index" class="panel" :class="{ active: activeIndex === index }"
             :style="{ backgroundImage: `url('${card.image}')` }" @click="setActive(card.globalIndex)"
             @dblclick="drawHeart(card.globalIndex, $event)">
-            <h3 class="card-title">{{ card.title }}</h3>
+            <h3 v-if="!isMobile" class="card-title">{{ card.title }}</h3>
         </div>
 
         <img v-for="p in pops" :key="p.id" src="../public/images/icon/heart.png" class="fade-image"
@@ -27,11 +27,19 @@ export default {
             cards: drawImgCards,
             visibleCards: [],
             show: false,
-            pops: []
+            pops: [],
+            isMobile: false
         };
     },
     mounted() {
+        this.checkMobile();
+        window.addEventListener('resize', this.checkMobile);
         this.computeVisible();
+    }, 
+    beforeDestroy() {
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('resize', this.checkMobile)
+        }
     },
     methods: {
         setActive(index) {
@@ -87,6 +95,10 @@ export default {
             const i = this.pops.findIndex(p => p.id === id)
             if (i !== -1) this.pops.splice(i, 1)
         },
+        checkMobile() {
+            this.isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
+            // console.log("this.isMobile is ",this.isMobile)
+        }
         // handleClick() {
         //     console.log("######")
         // }
@@ -115,8 +127,10 @@ body {
 .container {
     display: flex;
     width: 60vw;
-    position: relative; /* 新增，让 fade-image 定位到容器里 */
-    overflow-x: hidden; /* 新增，防止横向溢出 */
+    position: relative;
+    /* 新增，让 fade-image 定位到容器里 */
+    overflow-x: hidden;
+    /* 新增，防止横向溢出 */
 }
 
 .panel {
@@ -152,16 +166,18 @@ body {
     transition: opacity 0.3s ease-in 0.4s;
 }
 
-@media (max-width: 480px) {
-    .container {
-        width: 100vw;
-    }
+@media (max-width: 768px) {
+  :deep(.container) {
+    flex-direction: column; /* 从横向变竖向 */
+    height: auto;
+  }
 
-    .panel:nth-of-type(4),
-    .panel:nth-of-type(5) {
-        display: none;
-    }
+  :deep(.panel) {
+    width: 100%;
+    height: 40vh;
+  }
 }
+
 
 .card-title {
     color: white;
