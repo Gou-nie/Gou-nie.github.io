@@ -44,6 +44,12 @@ export default {
         totalheight: 0, // 书架总高度
       },
       whiteFadeOpacity: 0, // 白色渐变的透明度
+      isChoisePlayer: false,
+      isPlaying: false,
+      musicUrl: '/music/ItOnlyGetsMuchWorse.mp3',
+      audio: null,
+      lrcUrl: "/music/lrc/ItOnlyGetsMuchWorseNateRuess.lrc",   // 歌词文件 URL
+      lyrics: [],
 
     };
   },
@@ -52,6 +58,7 @@ export default {
     this.init();
 
     this.threeJsAnimate();
+    this.loadLRC();
   },
   beforeUnmount() {
     // 取消动画循环
@@ -204,6 +211,7 @@ export default {
         this.scene.add(this.blackHoleMesh.mesh);
         // this.loadSnorlax();
         this.loadMinikyu();
+        this.loadTapeRecorder();
         this.loadApple();
         // this.loadMagikarp();
 
@@ -561,12 +569,31 @@ export default {
 
       this.scene.add(Magikarp.scene);
     },
+    async loadTapeRecorder() {
+      // tape
+      let KBloader = new GLTFLoader();
+      const tapeRecorder = await this.loadGLTFAsync(KBloader, "/models/tape_recorder.glb");
+      tapeRecorder.scene.scale.set(0.3, 0.3, 0.3); // 调整大小
+      tapeRecorder.scene.position.set(1, this.totalheight - this.shelfBoard.spacing, 0);
+      tapeRecorder.scene.rotation.set(0, Math.PI, 0);
+
+      // 添加唯一标识
+      tapeRecorder.scene.traverse((child) => {
+        child.name = "tape_recorder"; // 统一命名
+        child.userData = {
+          ...child.userData, // 保留原始数据
+          isTapeRecorder: true,
+          originalName: child.userData.name // 保留原始名称
+        };
+      });
+      this.scene.add(tapeRecorder.scene);
+    },
     async loadApple() {
       // 苹果
       let KBloader = new GLTFLoader();
       const Magikarp = await this.loadGLTFAsync(KBloader, "/models/apple.glb");
       Magikarp.scene.scale.set(0.05, 0.05, 0.05); // 调整大小
-      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing , 0);
+      Magikarp.scene.position.set(-3, this.totalheight - this.shelfBoard.spacing, 0);
       Magikarp.scene.rotation.set(0, Math.PI, 0);
 
       this.scene.add(Magikarp.scene);
@@ -597,6 +624,12 @@ export default {
         if (intersects[0].object.userData.name === "blackHole") {
           this.choiseHole();
         }
+        if (intersects[0].object.name === "tape_recorder") {
+          console.log("现在选中的是播放器")
+          this.isChoisePlayer = true
+        } else {
+          this.isChoisePlayer = false
+        }
       } else {
         // 没有选中书籍，取消高亮
         this.unhighlightBook();
@@ -618,6 +651,30 @@ export default {
         this.moveCameraToBlackHoleAndJump();
         // console.log("跳转位面成功");
         // window.open("/content/tool/two/two", "_self");
+      }
+      if (this.isChoisePlayer) {
+        console.log("点击了一下播放器")
+        if (this.isPlaying) {
+          this.audio.pause();
+          this.audio = null;
+          this.isPlaying = false;
+        } else {
+          this.audio = new Audio(this.musicUrl);
+
+          // 绑定timeupdate 事件
+          this.audio.addEventListener("timeupdate", () => {
+            const currentTime = this.audio.currentTime;
+            for (let i = this.lyrics.length - 1; i >= 0; i--) {
+              if (currentTime >= this.lyrics[i].time) {
+                this.dynamicText = this.lyrics[i].text
+                break;
+              }
+            }
+          });
+
+          this.audio.play();
+          this.isPlaying = true;
+        }
       }
     },
     onWindowResize() {
@@ -751,7 +808,32 @@ export default {
       geometry.boundingBox.getCenter(mesh.position).multiplyScalar(-1);
 
       return mesh;
-    }
+    },
+    async loadLRC() {
+      try {
+        const res = await fetch(this.lrcUrl);
+        const text = await res.text();
+        this.parseLRC(text);
+      } catch (err) {
+        console.error("加载歌词失败", err);
+      }
+    },
+
+    parseLRC(lrcText) {
+      const lines = lrcText.split("\n");
+      this.lyrics = lines
+        .map((line) => {
+          const match = line.match(/\[(\d+):(\d+\.\d+)\](.*)/);
+          if (match) {
+            const min = parseInt(match[1]);
+            const sec = parseFloat(match[2]);
+            const time = min * 60 + sec;
+            return { time, text: match[3].trim() };
+          }
+          return null;
+        })
+        .filter(Boolean);
+    },
   },
 };
 </script>

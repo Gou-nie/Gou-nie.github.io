@@ -36,6 +36,11 @@ const tapeArr=[
         url:"/music/IBetSheKnows.mp4",
         type:"tape"
     },{
+        name: "tape5",
+        path:tapePath,
+        url:"/music/ItOnlyGetsMuchWorse.mp3",
+        type:"tape"
+    },{
         name: "note1",
         path:note1Path,
         url:"xxxx",
