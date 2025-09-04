@@ -148,7 +148,8 @@ body {
 .layout {
     display: grid; 
     gap: 0;
-    min-height: calc(100vh - 56px);
+    height: calc(100vh - 56px);
+    overflow: hidden;
 }
 
 
@@ -174,6 +175,8 @@ body {
 /* 主内容 */
 .content {
     padding: 24px;
+    overflow-y: auto;
+    height: calc(100vh - 56px);
 }
 
 

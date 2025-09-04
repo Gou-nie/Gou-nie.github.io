@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; background-image: url('/images/45-degree-fabric-dark.png');">
+  <div class="container" style="background-image: url('/images/45-degree-fabric-dark.png');">
     <!-- 缩略图 -->
     <div
       class="preview"
@@ -61,6 +61,8 @@ export default {
 
 .preview {
   margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 200px;
   height: 120px;
   border: 1px solid #ddd;
@@ -78,6 +80,51 @@ export default {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* 移动端响应式 - 竖向排列 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .preview {
+    width: 90%;
+    max-width: 300px;
+    height: 80px;
+    margin: 8px 0;
+  }
+  
+  .preview-content {
+    font-size: 14px;
+  }
+  
+  .preview-content ul {
+    font-size: 12px;
+  }
+}
+
+/* 超小屏幕 */
+@media (max-width: 480px) {
+  .preview {
+    width: 95%;
+    height: 70px;
+    margin: 6px 0;
+  }
+  
+  .preview-content {
+    font-size: 13px;
+  }
+  
+  .preview-content ul {
+    font-size: 11px;
+  }
 }
 
 .preview:hover {
