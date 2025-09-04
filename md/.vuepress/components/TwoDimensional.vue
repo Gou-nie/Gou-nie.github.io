@@ -209,6 +209,15 @@ export default {
             this.isPlay = !this.isPlay;
             if (this.isPlay) {
                 this.audio = new Audio(this.musicUrl);
+                this.audio.addEventListener("timeupdate", () => {
+                    const currentTime = this.audio.currentTime;
+                    for (let i = this.lyrics.length - 1; i >= 0; i--) {
+                        if (currentTime >= this.lyrics[i].time) {
+                            this.dynamicText = this.lyrics[i].text
+                            break;
+                        }
+                    }
+                });
                 this.audio.play();
             } else {
                 this.audio.pause();

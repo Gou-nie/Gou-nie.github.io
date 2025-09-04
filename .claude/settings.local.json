@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:bookmark.bqrdh.com)",
+      "Bash(curl -s \"https://bookmark.bqrdh.com/share/e559441f938f2c05f5749fd9150d79e9?pageId=41\")"
+    ],
+    "deny": []
+  }
+}

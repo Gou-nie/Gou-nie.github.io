@@ -39,6 +39,7 @@ const tapeArr=[
         name: "tape5",
         path:tapePath,
         url:"/music/ItOnlyGetsMuchWorse.mp3",
+        lrcPath:"/music/lrc/ItOnlyGetsMuchWorseNateRuess.lrc",
         type:"tape"
     },{
         name: "note1",

@@ -91,6 +91,7 @@ const siteCollections = [
       { name: "逗猫小玩具", content: "逗猫小玩具，让猫去追小蝌蚪", url: "https://cat.vacuity.me/" },
       { name: "吆喝", content: "ai生成吆喝", url: "https://www.celebshout.online/zh" },
       { name: "子弹特效", content: "有两个角度的照片生成360环绕的video特效", url: "https://www.bullettime.net/" },
+      { name: "时光照相馆", content: "生成不同年代的照片", url: "https://self2art.com/" },
       { name: "", content: "", url: "" },
     ]
   }
