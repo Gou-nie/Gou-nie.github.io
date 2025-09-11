@@ -8,6 +8,6 @@ category:
 
 # 每日新闻
 
-*来源：https://github.com/RavelloH/EverydayNews*
+*数据源：https://github.com/RavelloH/EverydayNews*
 
-<news/>
+<News/>

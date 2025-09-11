@@ -8,7 +8,7 @@ layout: false
 
 # 星空中的书架
 
-<shelf3D />
+<Shelf3D />
 
 <style>
 body, html {

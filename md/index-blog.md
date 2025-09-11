@@ -71,8 +71,8 @@
 <Badge text="涂鸦板" type="warning"/>  
 
 <CanvasBoard />
- 
-<script>
+<TempTest />
+<script> 
 export default {
   data() {
     return {

@@ -9,7 +9,7 @@ category:
 
 # 抱抱&拼图
 
-  <hug></hug>
+  <Hug></Hug>
 
 ---
 

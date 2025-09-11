@@ -5,4 +5,4 @@ category:
   - tool
 ---
 # 生字
-<miZiGe/>
+<MiZiGe/>

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import Star from './subComponents/star.vue';
+import Star from './subComponents/Star.vue';
 import ColorPicker from './subComponents/ColorPicker.vue';
 // import OSS from 'ali-oss';∂
 export default {
