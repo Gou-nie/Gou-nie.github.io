@@ -23,7 +23,7 @@
                 'border-bottom-width': circleSize + 'px',
                 'border-bottom-color': colorValue
             }"></div>
-        <Star v-if="checkShape('star')" :color="colorValue" :size="circleSize"></Star>
+        <StarShape v-if="checkShape('star')" :color="colorValue" :size="circleSize"></StarShape>
         <div class="pen-size">
             <span>大小</span>
             <input type="range" min="0" max="100" v-model="progress" @input="handleProgressChange"
@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import Star from './subComponents/Star.vue';
+import StarShape from './subComponents/StarShape.vue';
 import ColorPicker from './subComponents/ColorPicker.vue';
 // import OSS from 'ali-oss';∂
 export default {
     components: {
-        Star,
+        StarShape,
         ColorPicker
     },
     data() {
