@@ -1,6 +1,6 @@
 <template>
   <div class="book-shelf-container">
-    <starrySky :stars-count="1000" :distance="1000" />
+    <StarrySky :stars-count="1000" :distance="1000" />
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import starrySky from "./subComponents/Starry-sky.vue";
+import StarrySky from "./subComponents/StarrySky.vue";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -29,7 +29,7 @@ import { createBlackHoleMesh } from "../public/html&js/three3D/blackholeMesh.js"
 export default {
   name: "BookShelf",
   components: {
-    starrySky,
+    StarrySky,
   },
   data() {
     return {
