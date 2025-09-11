@@ -23,7 +23,7 @@
                 'border-bottom-width': circleSize + 'px',
                 'border-bottom-color': colorValue
             }"></div>
-        <star v-if="checkShape('star')" :color="colorValue" :size="circleSize"></star>
+        <Star v-if="checkShape('star')" :color="colorValue" :size="circleSize"></Star>
         <div class="pen-size">
             <span>大小</span>
             <input type="range" min="0" max="100" v-model="progress" @input="handleProgressChange"
