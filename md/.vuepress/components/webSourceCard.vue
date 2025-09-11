@@ -3,43 +3,43 @@
     <hr class="full-line" />
     前端相关：
     <hr class="full-line" />
-    <Card   v-for="i in frontS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard   v-for="i in frontS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     后端相关：
     <hr class="full-line" />
-    <Card v-for="i in backS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard v-for="i in backS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     帖子：
     <hr class="full-line" />
-    <Card v-for="i in txtS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard v-for="i in txtS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     站点：
     <hr class="full-line" />
-    <Card v-for="i in webS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard v-for="i in webS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     工具：
     <hr class="full-line" />
-    <Card v-for="i in toolS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard v-for="i in toolS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" />
     玩具：
     <hr class="full-line" />
-    <Card v-for="i in toyS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
+    <Ccard v-for="i in toyS" :headerTitle='i.name' :bodyContent="i.content" footerText="Updated just now"
       @click="clickSource(i.url)" />
     <hr class="full-line" /> 
   </div>
 </template>
 
 <script>
-import Card from './subComponents/Ccard.vue';
+import Ccard from './subComponents/Ccard.vue';
 import siteCollections from '../public/html&js/content/webContentArr.js';
 export default {
   components: {
-    Card,
+    Ccard,
 
   },
   data() {
