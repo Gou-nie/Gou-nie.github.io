@@ -10,4 +10,4 @@ category:
 
 *数据源：https://github.com/RavelloH/EverydayNews*
 
-<News/>
+<NewsControl/>
