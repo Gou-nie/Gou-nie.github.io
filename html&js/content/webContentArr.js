@@ -13,6 +13,7 @@ const siteCollections = [
       { name: "模拟星空", content: "模拟星空渐变粉色橙黄", url: "https://github.com/ZERO-DG/vue3-starry-sky" },
       { name: "阿里icon", content: "阿里图标库", url: "https://www.iconfont.cn/" },
       { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/" },
+      { name: "霂明坊", content: "一些前端样式展示，我要抄这个多做做", url: "https://mumingfang.com/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -32,6 +33,7 @@ const siteCollections = [
     links: [
       { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" },
       { name: "自洽的程序员", content: "关于职业规划和思考模式", url: "https://www.dev-life.site/" },
+      { name: "p1gd0g", content: "随手收录的博客", url: "https://www.p1gd0g.cc/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -46,6 +48,7 @@ const siteCollections = [
       { name: "HelloGithub", content: "github项目收集", url: "https://hellogithub.com/" },
       { name: "设计", content: "UI设计", url: "https://dribbble.com/" },
       { name: "维修站", content: "维修手册，各种设备的维修技能手册", url: "https://zh.ifixit.com/" },
+      { name: "五十键盘", content: "Marcin Wichary收集的五十个键盘", url: "https://aresluna.org/50-keyboards-from-my-collection/" },
       { name: "", content: "", url: "" },
 
     ]
@@ -74,6 +77,8 @@ const siteCollections = [
       { name: "白板", content: "绘图白板", url: "https://drawnix.com/" },
       { name: "太阳系", content: "太阳系天体地图", url: "https://atlasof.space/" },
       { name: "歌曲宝", content: "搜歌下载歌曲&歌词，挺好的感觉", url: "https://www.gequbao.com/" },
+      { name: "歌谱", content: "各种歌谱，独奏&合奏 但是都是五线谱", url: "https://musescore.com/" },
+      { name: "spotify", content: "音频文件转midi", url: "https://basicpitch.spotify.com/" },
       { name: "", content: "", url: "" },
     ]
   },
