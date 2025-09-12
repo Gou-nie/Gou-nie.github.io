@@ -1,0 +1,1 @@
+import e from"./FloatingBall-ZpVz5M6O.js";import{x as t,c as o,o as s,d as a}from"./app-DmP-Ro8h.js";import{_ as c}from"./plugin-vue_export-helper-DlAUqK2U.js";const r={class:"home-view"},_=t({__name:"tempTest",setup(m){return(n,p)=>(s(),o("div",r,[a(e)]))}}),l=c(_,[["__scopeId","data-v-4236f42c"]]);export{l as default};
