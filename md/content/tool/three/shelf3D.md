@@ -11,7 +11,7 @@ layout: false
 
 
 
-<Shelf3D />
+<ShelfShow />
 
 <style>
 body, html {
