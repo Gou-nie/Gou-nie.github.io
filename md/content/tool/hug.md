@@ -9,8 +9,8 @@ category:
 
 # 抱抱&拼图
 
-  <Hug></Hug>
+  <HugHug></HugHug>
 
 ---
 
-  <puzzle></puzzle> 
+  <Puzzle></Puzzle> 

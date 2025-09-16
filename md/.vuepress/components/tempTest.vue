@@ -9,9 +9,7 @@
 import FloatingBall from "./FloatingBall.vue";
 </script>
 <style scoped lang="scss">
-.home-view {
-  height: 200px;
-  width: 200px;
+.home-view { 
   background-color: #000000;
 
   h2 {
