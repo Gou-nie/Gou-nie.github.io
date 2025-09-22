@@ -49,6 +49,7 @@ const siteCollections = [
       { name: "设计", content: "UI设计", url: "https://dribbble.com/" },
       { name: "维修站", content: "维修手册，各种设备的维修技能手册", url: "https://zh.ifixit.com/" },
       { name: "五十键盘", content: "Marcin Wichary收集的五十个键盘", url: "https://aresluna.org/50-keyboards-from-my-collection/" },
+      { name: "posthog", content: "电脑端样式的主页", url: "https://posthog.com/" },
       { name: "", content: "", url: "" },
 
     ]

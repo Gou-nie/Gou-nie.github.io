@@ -278,3 +278,39 @@ You don’t need to be entertained every second. In fact, you shouldn’t be. Re
     --Fayilor
 来源：linux.do
 ```
+
+
+```
+那一年我二十一岁， 在我一生的黄金时代， 我有好多奢望。 我想爱，我想吃， 还想再一瞬间变成天上半明半暗的云。 
+    ——王小波 《黄金年代》
+```
+
+
+
+```
+I remember back six years ago, this Western life I chose,
+And every day, the news would say some factory's going to close
+...
+This western life's no paaradise, but it's better than lying down
+...
+Oh, the streets aren't clean, and there's nothing green, and the hills are dirty brown
+But the government Dole will rot your soul back there in your home town
+    -- The Idiot
+```
+
+```
+突然觉得，把喜欢的东西分享给不懂的人是一种自取其辱式的孤独。
+    --因为风就在那里c
+来源：网抑云
+```
+
+
+```
+从小时候开始，我就很喜欢隧道。
+我喜欢飞快地穿行在这个被认为“逼狭”的道路上。
+似乎只有在这个时候，世界上明显多余的那个维度才被压缩到一个可以将它们从思维里彻底删除的地步。
+我盯着前方似乎无限延伸的灯光。
+所能做的只有默默赶路，向前方去。
+    --十方亭主人 -乙巳年七月廿八星期五
+来源：essay
+```
