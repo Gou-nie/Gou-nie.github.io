@@ -314,3 +314,20 @@ But the government Dole will rot your soul back there in your home town
     --十方亭主人 -乙巳年七月廿八星期五
 来源：essay
 ```
+
+
+
+```
+登岭见村庐，
+炊烟缠远树
+凝目处，金涛千亩，
+尽是丰年赋。
+    --晚安托丽娜 《点绛唇 秋天》节选
+来源：linux.do
+```
+
+
+```
+人常会不自觉地记下对自己有利的部分，这是形成委屈的重要原因。
+    --张一鸣
+```
