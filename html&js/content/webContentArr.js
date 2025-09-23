@@ -34,6 +34,8 @@ const siteCollections = [
       { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" },
       { name: "自洽的程序员", content: "关于职业规划和思考模式", url: "https://www.dev-life.site/" },
       { name: "p1gd0g", content: "随手收录的博客", url: "https://www.p1gd0g.cc/" },
+      { name: "lusion的效果", content: "Lusion引出的前端流体特效讨论", url: "https://v2ex.com/t/1160190#reply102" },
+      { name: "十方亭主人", content: "感觉这个人写的东西挺不错。", url: "https://www.essay.ink/idrfer" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -50,6 +52,7 @@ const siteCollections = [
       { name: "维修站", content: "维修手册，各种设备的维修技能手册", url: "https://zh.ifixit.com/" },
       { name: "五十键盘", content: "Marcin Wichary收集的五十个键盘", url: "https://aresluna.org/50-keyboards-from-my-collection/" },
       { name: "posthog", content: "电脑端样式的主页", url: "https://posthog.com/" },
+      { name: "lusion", content: "创意制作／互动设计工作室Lusion的网站", url: "https://lusion.co/" },
       { name: "", content: "", url: "" },
 
     ]
