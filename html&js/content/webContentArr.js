@@ -36,6 +36,7 @@ const siteCollections = [
       { name: "p1gd0g", content: "随手收录的博客", url: "https://www.p1gd0g.cc/" },
       { name: "lusion的效果", content: "Lusion引出的前端流体特效讨论", url: "https://v2ex.com/t/1160190#reply102" },
       { name: "十方亭主人", content: "感觉这个人写的东西挺不错。", url: "https://www.essay.ink/idrfer" },
+      { name: "道德经", content: "道德经在线阅读，干净整齐无广告", url: "https://daodejing.shop/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -53,6 +54,7 @@ const siteCollections = [
       { name: "五十键盘", content: "Marcin Wichary收集的五十个键盘", url: "https://aresluna.org/50-keyboards-from-my-collection/" },
       { name: "posthog", content: "电脑端样式的主页", url: "https://posthog.com/" },
       { name: "lusion", content: "创意制作／互动设计工作室Lusion的网站", url: "https://lusion.co/" },
+      { name: "zlibrary", content: "zlibrary的一个镜像站", url: "https://1lib.sk/ " },
       { name: "", content: "", url: "" },
 
     ]
