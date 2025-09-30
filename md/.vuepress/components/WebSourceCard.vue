@@ -1,12 +1,7 @@
 <template>
   <div class="container" style="background-image: url('/images/45-degree-fabric-dark.png');">
     <!-- 缩略图 -->
-    <div
-      class="preview"
-      @click="clickOne(value)"
-      v-for="(value, idx) in siteCollections"
-      :key="idx"
-    >
+    <div class="preview" @click="clickOne(value)" v-for="(value, idx) in siteCollections" :key="idx">
       <div class="preview-content">
         <h3>{{ value.tab || "我的收藏夹" }}</h3>
 
@@ -48,17 +43,13 @@ export default {
   methods: {
     clickOne(item) {
       this.showFull = true;
-      this.myLinks = item.links || []; 
+      this.myLinks = (item.links || []).filter(link => link.url !== "");
     }
   }
 };
 </script>
 
 <style scoped>
-
-
-
-
 .preview {
   margin-left: 20px;
   margin-top: 10px;
@@ -70,11 +61,14 @@ export default {
   overflow: hidden;
   cursor: pointer;
 
-  
+
   /* 毛玻璃核心 */
-  background: rgba(255, 255, 255, 0.2); /* 半透明背景 */
-  backdrop-filter: blur(10px);          /* 毛玻璃模糊 */
-  -webkit-backdrop-filter: blur(10px);  /* 兼容 Safari */
+  background: rgba(255, 255, 255, 0.2);
+  /* 半透明背景 */
+  backdrop-filter: blur(10px);
+  /* 毛玻璃模糊 */
+  -webkit-backdrop-filter: blur(10px);
+  /* 兼容 Safari */
 
   display: flex;
   align-items: center;
@@ -93,18 +87,18 @@ export default {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .preview {
     width: 90%;
     max-width: 300px;
     height: 80px;
     margin: 8px 0;
   }
-  
+
   .preview-content {
     font-size: 14px;
   }
-  
+
   .preview-content ul {
     font-size: 12px;
   }
@@ -117,11 +111,11 @@ export default {
     height: 70px;
     margin: 6px 0;
   }
-  
+
   .preview-content {
     font-size: 13px;
   }
-  
+
   .preview-content ul {
     font-size: 11px;
   }
@@ -129,7 +123,8 @@ export default {
 
 .preview:hover {
   transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.3); /* hover 时稍微亮一些 */
+  background: rgba(255, 255, 255, 0.3);
+  /* hover 时稍微亮一些 */
 }
 
 .preview-content {

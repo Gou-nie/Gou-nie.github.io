@@ -376,3 +376,16 @@ But the government Dole will rot your soul back there in your home town
 平添吴楚千江水，压倒东南几树梅。却便似战退玉龙三百万，果然如败鳞残甲满天飞。
     --西游记
 ```
+
+
+```
+一转头如释重负，一瞬间心如刀绞。
+    --Common陈-_-抠门
+来源：网易云
+```
+
+
+```
+魔鬼在细节里，上帝也在.
+    --看山客
+```

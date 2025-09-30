@@ -59,7 +59,7 @@ export default {
   methods: {
     clickSource(url) {
       console.log("url is:", url);
-      window.open(url, "_blank");
+      window.open(url, "_blank"); 
     },
     getDomain(url) {
       try {
