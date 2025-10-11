@@ -13,4 +13,4 @@ category:
 
 ---
 
-  <Puzzle></Puzzle> 
+  <PuzzleGame></PuzzleGame> 
