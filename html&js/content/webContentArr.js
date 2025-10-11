@@ -29,14 +29,16 @@ const siteCollections = [
     ]
   },
   {
-    tab: "帖子&文章",
+    tab: "博客&文章",
     links: [
       { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" },
+      { name: "博客收集贴", content: "分享你的博客", url: "https://www.v2ex.com/t/1089949" },
       { name: "自洽的程序员", content: "关于职业规划和思考模式", url: "https://www.dev-life.site/" },
       { name: "p1gd0g", content: "随手收录的博客", url: "https://www.p1gd0g.cc/" },
       { name: "lusion的效果", content: "Lusion引出的前端流体特效讨论", url: "https://v2ex.com/t/1160190#reply102" },
       { name: "十方亭主人", content: "感觉这个人写的东西挺不错。", url: "https://www.essay.ink/idrfer" },
       { name: "道德经", content: "道德经在线阅读，干净整齐无广告", url: "https://daodejing.shop/" },
+      { name: "Art by Oskar Stålberg", content: "Art by Oskar Stålberg", url: "https://oskarstalberg.tumblr.com/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -55,6 +57,7 @@ const siteCollections = [
       { name: "posthog", content: "电脑端样式的主页", url: "https://posthog.com/" },
       { name: "lusion", content: "创意制作／互动设计工作室Lusion的网站", url: "https://lusion.co/" },
       { name: "zlibrary", content: "zlibrary的一个镜像站", url: "https://1lib.sk/ " },
+      { name: "iw家饰", content: "建筑设计", url: "https://www.iw-space.com/" },
       { name: "", content: "", url: "" },
 
     ]
@@ -85,6 +88,7 @@ const siteCollections = [
       { name: "歌曲宝", content: "搜歌下载歌曲&歌词，挺好的感觉", url: "https://www.gequbao.com/" },
       { name: "歌谱", content: "各种歌谱，独奏&合奏 但是都是五线谱", url: "https://musescore.com/" },
       { name: "spotify", content: "音频文件转midi", url: "https://basicpitch.spotify.com/" },
+      { name: "Sumo Paint", content: "web版ps在线修图", url: "https://paint.sumo.app/" },
       { name: "", content: "", url: "" },
     ]
   },
