@@ -11,7 +11,7 @@
  heroFullScreen: true
  projects:
    - name: 书架
-     link: content/tool/three/shelf3D.md
+     link: shelf3D.md
      icon: /images/icon/bookshelf.png
      desc: 3D书架
    - name: 小工具

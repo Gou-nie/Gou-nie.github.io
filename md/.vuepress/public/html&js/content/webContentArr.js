@@ -58,6 +58,7 @@ const siteCollections = [
       { name: "lusion", content: "创意制作／互动设计工作室Lusion的网站", url: "https://lusion.co/" },
       { name: "zlibrary", content: "zlibrary的一个镜像站", url: "https://1lib.sk/ " },
       { name: "iw家饰", content: "建筑设计", url: "https://www.iw-space.com/" },
+      { name: "IP查询", content: "IP查询", url: "https://zh-hans.ipshu.com/" },
       { name: "", content: "", url: "" },
 
     ]
