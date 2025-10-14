@@ -109,6 +109,8 @@ const siteCollections = [
       { name: "子弹特效", content: "有两个角度的照片生成360环绕的video特效", url: "https://www.bullettime.net/" },
       { name: "时光照相馆", content: "生成不同年代的照片", url: "https://self2art.com/" },
       { name: "宝可梦棋", content: "宝可梦自走棋", url: "https://pokev9.52kx.net/" },
+      { name: "宇宙大小", content: "你知道宇宙有多大么", url: "https://htwins.net/scale2/" },
+      { name: "信任的进化", content: "信任的进化", url: "https://dccxi.com/trust/" },
       { name: "", content: "", url: "" },
     ]
   }

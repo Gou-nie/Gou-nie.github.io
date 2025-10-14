@@ -508,3 +508,10 @@ But the government Dole will rot your soul back there in your home town
     ---Sue
 来源：essay
 ```
+
+
+
+```
+同情屌丝 是女神的原罪.
+    --Rhymes
+```
