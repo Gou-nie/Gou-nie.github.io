@@ -14,6 +14,7 @@ const siteCollections = [
       { name: "阿里icon", content: "阿里图标库", url: "https://www.iconfont.cn/" },
       { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/" },
       { name: "霂明坊", content: "一些前端样式展示，我要抄这个多做做", url: "https://mumingfang.com/" },
+      { name: "cloudflare/sandbox", content: "cloudflare/sandBox的 使用说明，网站风格不错", url: "https://sandbox.cloudflare.com/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -59,6 +60,7 @@ const siteCollections = [
       { name: "zlibrary", content: "zlibrary的一个镜像站", url: "https://1lib.sk/ " },
       { name: "iw家饰", content: "建筑设计", url: "https://www.iw-space.com/" },
       { name: "IP查询", content: "IP查询", url: "https://zh-hans.ipshu.com/" },
+      { name: "诗歌维基", content: "诗歌维基，好多好多诗, 大家在这里描写自己的感触。（btw它这个站点的文字选择效果有些独特）", url: "https://poemwiki.org/" },
       { name: "", content: "", url: "" },
 
     ]
@@ -90,7 +92,7 @@ const siteCollections = [
       { name: "歌谱", content: "各种歌谱，独奏&合奏 但是都是五线谱", url: "https://musescore.com/" },
       { name: "spotify", content: "音频文件转midi", url: "https://basicpitch.spotify.com/" },
       { name: "Sumo Paint", content: "web版ps在线修图", url: "https://paint.sumo.app/" },
-      { name: "", content: "", url: "" },
+      { name: "TypeWords", content: "英语学习", url: "https://2study.top/" },
     ]
   },
   {
@@ -111,6 +113,7 @@ const siteCollections = [
       { name: "宝可梦棋", content: "宝可梦自走棋", url: "https://pokev9.52kx.net/" },
       { name: "宇宙大小", content: "你知道宇宙有多大么", url: "https://htwins.net/scale2/" },
       { name: "信任的进化", content: "信任的进化", url: "https://dccxi.com/trust/" },
+      { name: "Friday Night Funkin", content: "网页节奏小游戏，一款在线玩的浏览器节奏游戏，结合了90年代怀旧视觉效果和说唱音乐战斗。游戏的核心是说唱对决模拟器：你扮演男友，一个坚定的说唱新手，通过与对手对决来证明自己配得上Girlfriend女友，她会一直在音箱上为你加油。", url: "https://fridaynightfunkin.app/zh/" },
       { name: "", content: "", url: "" },
     ]
   }

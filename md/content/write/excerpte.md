@@ -515,3 +515,17 @@ But the government Dole will rot your soul back there in your home town
 同情屌丝 是女神的原罪.
     --Rhymes
 ```
+
+
+```
+You're not your job. You're not how much money you have in the bank. You're not the car you drive. You're not the contents of your wallet.
+    --《Fight Club》
+```
+
+
+```
+你不愿意种花，
+你说：“我不愿看见它，一点点凋落。”
+是的为了避免结束，您避免了一切开始
+    --顾城 《避免》
+```
