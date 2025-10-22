@@ -16,6 +16,7 @@ const siteCollections = [
       { name: "霂明坊", content: "一些前端样式展示，我要抄这个多做做", url: "https://mumingfang.com/" },
       { name: "cloudflare/sandbox", content: "cloudflare/sandBox的 使用说明，网站风格不错", url: "https://sandbox.cloudflare.com/" },
       { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
     ]
   },
   {
@@ -26,6 +27,7 @@ const siteCollections = [
       { name: "rust教程", content: "「第n次学习rust」", url: "https://kaisery.github.io/trpl-zh-cn/" },
       { name: "Nginx解析", content: "Nginx源码级解读", url: "https://www.kancloud.cn/digest/understandingnginx/202587" },
       { name: "globalplatform", content: "加密包", url: "https://pinpasjc.win.tue.nl/docs/apis/gp211/org/globalplatform/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -40,6 +42,7 @@ const siteCollections = [
       { name: "十方亭主人", content: "感觉这个人写的东西挺不错。", url: "https://www.essay.ink/idrfer" },
       { name: "道德经", content: "道德经在线阅读，干净整齐无广告", url: "https://daodejing.shop/" },
       { name: "Art by Oskar Stålberg", content: "Art by Oskar Stålberg", url: "https://oskarstalberg.tumblr.com/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -61,6 +64,8 @@ const siteCollections = [
       { name: "iw家饰", content: "建筑设计", url: "https://www.iw-space.com/" },
       { name: "IP查询", content: "IP查询", url: "https://zh-hans.ipshu.com/" },
       { name: "诗歌维基", content: "诗歌维基，好多好多诗, 大家在这里描写自己的感触。（btw它这个站点的文字选择效果有些独特）", url: "https://poemwiki.org/" },
+      { name: "极客洞察", content: "极客洞察，ai新事态更新", url: "https://newshacker.me/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
     ]
@@ -93,6 +98,9 @@ const siteCollections = [
       { name: "spotify", content: "音频文件转midi", url: "https://basicpitch.spotify.com/" },
       { name: "Sumo Paint", content: "web版ps在线修图", url: "https://paint.sumo.app/" },
       { name: "TypeWords", content: "英语学习", url: "https://2study.top/" },
+      { name: "字符格式转换", content: "自动识别自负串格式并转换", url: "https://restring.dev/" },
+      { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
     ]
   },
   {
@@ -114,6 +122,7 @@ const siteCollections = [
       { name: "宇宙大小", content: "你知道宇宙有多大么", url: "https://htwins.net/scale2/" },
       { name: "信任的进化", content: "信任的进化", url: "https://dccxi.com/trust/" },
       { name: "Friday Night Funkin", content: "网页节奏小游戏，一款在线玩的浏览器节奏游戏，结合了90年代怀旧视觉效果和说唱音乐战斗。游戏的核心是说唱对决模拟器：你扮演男友，一个坚定的说唱新手，通过与对手对决来证明自己配得上Girlfriend女友，她会一直在音箱上为你加油。", url: "https://fridaynightfunkin.app/zh/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   }

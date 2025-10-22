@@ -1,5 +1,8 @@
 <template>
-    <div ref="scene" class="scene"></div>
+    <div class="matterfallback">
+        <div ref="scene" class="scene"></div>
+    </div>
+
 </template>
 
 <script>
@@ -15,7 +18,7 @@ const {
     Composite,
     Svg,
     Bodies
-} = Matter 
+} = Matter
 
 export default {
     data() {
@@ -26,8 +29,8 @@ export default {
             isPlaying: false,
             playingTape: null,
             render: null,
-            boxWidth:800,
-            boxHeight:600,
+            boxWidth: 0,
+            boxHeight: 0,
             //探针
             tip: null,
             playingTapeUrl: ''
@@ -64,7 +67,7 @@ export default {
                 options: {
                     width, height,
                     wireframes: false,
-                    background: '#aaaaaa'
+                    background: '#aaaaaa' // '#ebc775'
                 }
             })
             this.render = render
@@ -74,10 +77,10 @@ export default {
             Runner.run(runner, engine)
 
             // 创建边界
-            const ground = Bodies.rectangle(this.boxWidth/2, this.boxHeight, this.boxWidth, 50, { isStatic: true })  // 底边
-            const leftWall = Bodies.rectangle(0, this.boxHeight/2, 50, this.boxHeight, { isStatic: true })  // 左边
-            const rightWall = Bodies.rectangle(this.boxWidth, this.boxHeight/2, 50, this.boxHeight, { isStatic: true }) // 右边
-            const ceiling = Bodies.rectangle(this.boxWidth/2, 0, this.boxWidth, 50, { isStatic: true })   // 顶部
+            const ground = Bodies.rectangle(this.boxWidth / 2, this.boxHeight, this.boxWidth, 50, { isStatic: true })  // 底边
+            const leftWall = Bodies.rectangle(0, this.boxHeight / 2, 50, this.boxHeight, { isStatic: true })  // 左边
+            const rightWall = Bodies.rectangle(this.boxWidth, this.boxHeight / 2, 50, this.boxHeight, { isStatic: true }) // 右边
+            const ceiling = Bodies.rectangle(this.boxWidth / 2, 0, this.boxWidth, 50, { isStatic: true })   // 顶部
 
             Composite.add(this.world, [ground, leftWall, rightWall, ceiling])
 
@@ -136,8 +139,8 @@ export default {
         addByVertexSets(vertexSets) {
             return vertexSets.map(verts =>
                 Bodies.fromVertices(
-                    Common.random(100, this.boxWidth-100),
-                    Common.random(100, this.boxHeight-100),
+                    Common.random(100, this.boxWidth - 100),
+                    Common.random(100, this.boxHeight - 100),
                     verts,
                     {
                         render: {
@@ -162,7 +165,7 @@ export default {
                 {
                     isStatic: true,
                     render: {
-                        fillStyle: '#c7c6b6'
+                        fillStyle: '#9bc0eb'
                     }
                 }
             );
@@ -209,7 +212,7 @@ export default {
                 if (!body) return; // 没有要锁的刚体就直接返回
 
                 let { x, y } = body.position;
-                const minX = this.boxWidth/2-50, maxX = this.boxWidth/2, minY = 70, maxY = 150;
+                const minX = this.boxWidth / 2 - 50, maxX = this.boxWidth / 2, minY = 70, maxY = 150;
 
                 // 限制位置
                 if (x < minX) x = minX;
@@ -251,7 +254,7 @@ export default {
                 this.playingTape = body;
                 this.isPlaying = true;
                 this.audio = new Audio(this.playingTape.plugin.userData.url);
-                this.audio.play();
+                // this.audio.play();
             }
 
 
@@ -341,14 +344,23 @@ export default {
 .scene {
     width: 100%;
     /* 宽度随屏幕缩放 */
-    max-width: 800px;
+    max-width: 100%;
+    max-height: 100%;
     /* 桌面端最大宽度 */
     aspect-ratio: 4 / 3;
     /* 保持宽高比 */
     border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    /* background-color: #dcad6d; */
     /* 可选背景 */
     margin: 0 auto;
     /* 居中 */
+}
+.matterfallback{
+    width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99;
 }
 </style>
