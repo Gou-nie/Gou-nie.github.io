@@ -60,7 +60,7 @@ import * as pdfjsLib from "pdfjs-dist";
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 
-const newBookUrl = ref("http://aleah.oss-cn-heyuan.aliyuncs.com/epub/%20Designing%20Your%20Life%20How%20to%20Build%20a%20Well.epub");
+const newBookUrl = ref("https://aleah.oss-cn-heyuan.aliyuncs.com/epub/%20Designing%20Your%20Life%20How%20to%20Build%20a%20Well.epub");
 const books = ref([]);
 const currentBook = ref(null);
 const pdfCanvas = ref(null);
