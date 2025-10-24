@@ -65,6 +65,7 @@ const siteCollections = [
       { name: "IP查询", content: "IP查询", url: "https://zh-hans.ipshu.com/" },
       { name: "诗歌维基", content: "诗歌维基，好多好多诗, 大家在这里描写自己的感触。（btw它这个站点的文字选择效果有些独特）", url: "https://poemwiki.org/" },
       { name: "极客洞察", content: "极客洞察，ai新事态更新", url: "https://newshacker.me/" },
+      { name: "老游戏在线玩", content: "在线游戏站", url: "https://zaixianwan.app/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -99,6 +100,8 @@ const siteCollections = [
       { name: "Sumo Paint", content: "web版ps在线修图", url: "https://paint.sumo.app/" },
       { name: "TypeWords", content: "英语学习", url: "https://2study.top/" },
       { name: "字符格式转换", content: "自动识别自负串格式并转换", url: "https://restring.dev/" },
+      { name: "css设计", content: "css在线编辑", url: "https://www.json.cn/css_flex/" },
+      { name: "代理查询", content: "代理查询", url: "https://user-agents.net/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]

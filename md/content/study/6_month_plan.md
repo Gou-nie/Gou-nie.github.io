@@ -1,7 +1,7 @@
 ---
 star: true
 tags:
-  - animation
+  - study
 category:
   - study
 ---
