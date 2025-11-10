@@ -151,8 +151,8 @@ const bookArr = [
 
     fileUrl: commonFileUrl,
     name: "book16",
-    url: "content/write/songs",
-    title: "歌词",
+    url: "content/write/learningByPvP",
+    title: "格斗",
     locked: true,
     isShow: true
   },
@@ -206,6 +206,22 @@ const bookArr = [
     name: "book22",
     url: "content/write/flashThoughts",
     title: "闪念",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "book23",
+    url: "content/tool/sheetMusic",
+    title: "乐谱",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "book23",
+    url: "content/tool/sheetMusic",
+    title: "乐谱",
     locked: true,
     isShow: true
   },
