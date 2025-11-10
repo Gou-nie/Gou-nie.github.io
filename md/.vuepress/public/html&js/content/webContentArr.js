@@ -42,7 +42,7 @@ const siteCollections = [
       { name: "十方亭主人", content: "感觉这个人写的东西挺不错。", url: "https://www.essay.ink/idrfer" },
       { name: "道德经", content: "道德经在线阅读，干净整齐无广告", url: "https://daodejing.shop/" },
       { name: "Art by Oskar Stålberg", content: "Art by Oskar Stålberg", url: "https://oskarstalberg.tumblr.com/" },
-      { name: "", content: "", url: "" },
+      { name: "行走郑州", content: "行走郑州，一个美国人对郑州的印象", url: "https://walkingtheworld.substack.com/p/walking-zhengzhou-china" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -66,6 +66,7 @@ const siteCollections = [
       { name: "诗歌维基", content: "诗歌维基，好多好多诗, 大家在这里描写自己的感触。（btw它这个站点的文字选择效果有些独特）", url: "https://poemwiki.org/" },
       { name: "极客洞察", content: "极客洞察，ai新事态更新", url: "https://newshacker.me/" },
       { name: "老游戏在线玩", content: "在线游戏站", url: "https://zaixianwan.app/" },
+      { name: "AsciiMoon", content: "ascii码显示月相", url: "https://asciimoon.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -102,6 +103,8 @@ const siteCollections = [
       { name: "字符格式转换", content: "自动识别自负串格式并转换", url: "https://restring.dev/" },
       { name: "css设计", content: "css在线编辑", url: "https://www.json.cn/css_flex/" },
       { name: "代理查询", content: "代理查询", url: "https://user-agents.net/" },
+      { name: "lernAnything", content: "一堆项 然后检索跳转ai学习，主页设计的不错", url: "https://learn-anything.xyz/" },
+      { name: "文件格式转换", content: "文件格式转换", url: "https://file-converter.io/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -125,6 +128,8 @@ const siteCollections = [
       { name: "宇宙大小", content: "你知道宇宙有多大么", url: "https://htwins.net/scale2/" },
       { name: "信任的进化", content: "信任的进化", url: "https://dccxi.com/trust/" },
       { name: "Friday Night Funkin", content: "网页节奏小游戏，一款在线玩的浏览器节奏游戏，结合了90年代怀旧视觉效果和说唱音乐战斗。游戏的核心是说唱对决模拟器：你扮演男友，一个坚定的说唱新手，通过与对手对决来证明自己配得上Girlfriend女友，她会一直在音箱上为你加油。", url: "https://fridaynightfunkin.app/zh/" },
+      { name: "种花", content: "自己画个花种下来", url: "https://annasgarden.vercel.app/gallery" },
+      { name: "养鱼", content: "赛博养鱼", url: "https://drawafish.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]

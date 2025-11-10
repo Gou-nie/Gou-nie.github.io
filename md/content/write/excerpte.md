@@ -649,3 +649,100 @@ You're not your job. You're not how much money you have in the bank. You're not 
 我们一路奋战，不是为了改变世界，而是为了不让世界改变我们。
     --《熔炉》
 ```
+
+
+```
+其实很多项目是不需要微服务架构的，但中层领导想做出政绩，高层领导又喜欢听一些装逼的名词，所以就形成了 "万物皆微服务架构" 的局面。
+比如：把几个人使用的后台管理系统拆成了 6 个微服务模块，然后把模块拆分取个装逼的名字，叫 "达芬奇架构"，把集群部署取个装逼的名字，叫 "多副本矩阵集群"......
+    --midsolo
+来源：v2ex
+```
+
+
+
+```
+只要你想到，就能做到。
+程序就是一个状态机。
+状态机是一种思想方法。
+    --Viva la Vida
+```
+
+ 
+```
+读书和抽大麻没有区别，都是捧着死掉的植物产生幻觉。
+    --难以溯源的发疯文案
+```
+
+
+```
+我个人认为，问题在于接触什么哲学。因为年轻人可能不知道哲学到底是什么，误把一些看上去很神秘能引起人共鸣的东西称为哲学。比如我见过很多混社会的人，他们就有一套自己称为“人生哲学”的东西，那应该叫做一些比较偏激的感悟，而不是哲学。
+    --知乎用户囸
+```
+
+
+
+```
+感觉很麻烦。
+人对了就不麻烦。
+    --倪总
+```
+
+
+```
+每个人好像都是住在井里的青蛙
+只不过井有深有浅
+    --Tony
+来源：essay
+```
+
+``` 
+an uncanny valley, neither in “orality” nor “literacy”—surrounded by more books, more words, more reading and writing than perhaps at any time in history, yet lacking a coherent culture.
+
+They did not worry about the disappearance of books, but about the cultural collapse that would occur when reading shifts from an immersive, contemplative act to something passive, fragmented and superficial. The death of reading was not a loss of books, but a loss of culture.
+
+without leisure as letters, or “research as leisure,” there is no pattern from which higher civilisation is found.
+
+but as an opportunity to superficially appropriate concepts that comfortably align with their existing beliefs. The result is an intellectual ventriloquism that stunts curiosity.
+
+
+intellectual ventriloquism: 思想假借
+
+For the academy, “research” is a term of art. For our purposes, research is not a rarefied academic exercise. It is a fundamentally human activity, an adventure, a craft, a conviviality that assembles culture.
+
+No question is stupid, but most questions are bad, which is not in itself bad.
+
+The most challenging part of gathering evidence is organising it.
+    --Mariam
+来源：kasurian
+```
+
+
+```
+私域宗教，你就理解为 cosplay 就好了
+    --Maipol
+```
+
+```
+与父母聊天，聊到出趟远门，看看世界。俩人摇头，理由是没时间，要忙这忙那。
+他记起来一句不知道哪看来的话，说，平凡的人生一直陷在“不可能三角”，就是，做任何一件事，人不能同时具备，有足够功夫、有足够财富和有足够心情。
+老人沉思不语，应该是表示同意。
+他说完也在思考，每天要看半小时书、写半小时，不也如他劝父母出去转转一样吗。
+    --东方四十一
+```
+
+
+```
+你要是个个人都吹对，那科学就不存在了，那我们这些练了几个月，练几年的人怎么办，直接上吊吗?
+    --不会分解和弦不改名
+```
+
+
+
+```
+但问题在于，“真爱”和“爱上”的区别在哪里呢？这是持之以恒的爱和短暂的幻想之间的永恒对立。在我看来，“你真正拥有后，也就不再爱了。”这句话当然是错的，因为“真爱”的答案是“当你真正拥有后，你却依然爱这一切”
+公主会说：“好吧，这个勇士挺讨厌的，身上臭烘烘，也不讲礼貌，他可能只是想索爱，只是想缠绵，但他抱着这种愚蠢的理由跨越千山万水，击败邪恶的看守者，然后徒手爬上高塔只为见到我。这一系列愚蠢的、渺小的东西却实实在在地、无可置疑地拯救了我，不论如何，我永远地被解放了，他对我而言是独一无二的。”；
+勇士会说：“好吧，我以为她是个美若天仙的人，但现在看起来她也没那么完美，缺乏运动导致她身体消瘦，皮肤跟吸血鬼一样白。禁闭太久，让她说话有点像疯子。哦天啊！她竟然也会打嗝和挖鼻屎。我以为她是个公主，但其实她只是个普通人。但不论如何，我从未忘记是什么支撑着我到达这里的，现在，我看到了她眼中对自由的渴望。她眼中的白玫瑰盛开着，而我有一百个故事要讲给她听。她对我而言是独一无二的。”
+于是，两个人不断在对方身上发现那个破坏自己的幻想的东西，随时处于分手的边缘，但他们都坚持地、无可置疑地爱着彼此，那些不完美的东西恰恰构成了完美的人。从这里，真爱才开始。
+    --Lorraine
+
+```
