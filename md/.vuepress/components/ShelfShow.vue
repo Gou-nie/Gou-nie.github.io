@@ -107,7 +107,8 @@ export default {
   methods: {
     initParam() {
       let numEachShelf = this.shelfBoard.width * 12 / 5; // 一层能放的书的数目
-      this.numShelves = bookArr.length / numEachShelf + 1;
+      this.numShelves = bookArr.length / numEachShelf + 2;
+      console.log("this.numShelves is ",this.numShelves);
       this.totalheight = this.numShelves * this.shelfBoard.height + (this.numShelves - 1) * this.shelfBoard.spacing - this.shelfBoard.height / 2 + this.shelfBoard.spacing;
 
 
