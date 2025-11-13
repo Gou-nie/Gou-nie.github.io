@@ -67,7 +67,7 @@ const siteCollections = [
       { name: "极客洞察", content: "极客洞察，ai新事态更新", url: "https://newshacker.me/" },
       { name: "老游戏在线玩", content: "在线游戏站", url: "https://zaixianwan.app/" },
       { name: "AsciiMoon", content: "ascii码显示月相", url: "https://asciimoon.com/" },
-      { name: "", content: "", url: "" },
+      { name: "猎人wiki", content: "HunterXHunter的wiki百科", url: "https://hunterxhunter.fandom.com/zh/wiki/%E7%8D%B5%E4%BA%BA_wiki" },
       { name: "", content: "", url: "" },
 
     ]
@@ -130,6 +130,8 @@ const siteCollections = [
       { name: "Friday Night Funkin", content: "网页节奏小游戏，一款在线玩的浏览器节奏游戏，结合了90年代怀旧视觉效果和说唱音乐战斗。游戏的核心是说唱对决模拟器：你扮演男友，一个坚定的说唱新手，通过与对手对决来证明自己配得上Girlfriend女友，她会一直在音箱上为你加油。", url: "https://fridaynightfunkin.app/zh/" },
       { name: "种花", content: "自己画个花种下来", url: "https://annasgarden.vercel.app/gallery" },
       { name: "养鱼", content: "赛博养鱼", url: "https://drawafish.com/" },
+      { name: "填词游戏", content: "填词游戏", url: "https://www.newyorker.com/puzzles-and-games-dept/shuffalo" },
+      { name: "填词游戏", content: "填词游戏", url: "https://shuffalo.space/play" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
