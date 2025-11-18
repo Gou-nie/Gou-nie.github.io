@@ -2,7 +2,7 @@
 tags:
   - write
 category:
-  - write
+  - emotion
 ---
 
 # 好心情

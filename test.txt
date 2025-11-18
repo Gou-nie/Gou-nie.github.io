@@ -1,0 +1,17 @@
+scp /etc/kubernetes/pki/ca.crt root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/ca.key root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/sa.key root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/sa.pub root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/front-proxy-ca.crt root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/front-proxy-ca.key root@192.168.56.102:/etc/kubernetes/pki/
+scp /etc/kubernetes/pki/etcd/ca.crt root@192.168.56.102:/etc/kubernetes/pki/etcd/
+scp /etc/kubernetes/pki/etcd/ca.key root@192.168.56.102:/etc/kubernetes/pki/etcd/
+
+
+
+
+
+
+sed -i 's|--initial-cluster=master01=https://192.168.56.101:2380|--initial-cluster=master01=https://192.168.56.101:2380,master02=https://192.168.56.102:2380|' /etc/kubernetes/manifests/etcd.yaml
+
+ 
