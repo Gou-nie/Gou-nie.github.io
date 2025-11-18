@@ -77,9 +77,18 @@ const bookArr = [
   {
 
     fileUrl: commonFileUrl,
-    name: "book8",
+    name: "badMood",
     url: "content/write/badMood",
     title: "坏心情",
+    locked: true,
+    isShow: true
+  },
+  {
+
+    fileUrl: commonFileUrl,
+    name: "goodMood",
+    url: "content/write/goodMood",
+    title: "好心情",
     locked: true,
     isShow: true
   },
@@ -219,9 +228,25 @@ const bookArr = [
   },
   {
     fileUrl: commonFileUrl,
-    name: "book23",
-    url: "content/tool/sheetMusic",
-    title: "乐谱",
+    name: "book24",
+    url: "content/write/family",
+    title: "家人",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "noteHands",
+    url: "content/write/noteHands",
+    title: "随手记",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "flags",
+    url: "content/tool/flags",
+    title: "Flags",
     locked: true,
     isShow: true
   },
