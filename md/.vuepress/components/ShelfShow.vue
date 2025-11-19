@@ -41,8 +41,9 @@ export default {
         height: 0.2,
         depth: 3,
         spacing: 2, // 书架层之间的间距
-        totalheight: 0, // 书架总高度
+        // totalheight: 0, // 书架总高度
       },
+      totalheight:0,
       whiteFadeOpacity: 0, // 白色渐变的透明度
       isChoisePlayer: false,
       isPlaying: false,
@@ -107,10 +108,10 @@ export default {
   methods: {
     initParam() {
       let numEachShelf = this.shelfBoard.width * 12 / 5; // 一层能放的书的数目
-      this.numShelves = bookArr.length / numEachShelf + 2;
+      this.numShelves = Math.trunc(bookArr.length / numEachShelf + 2);
       console.log("this.numShelves is ",this.numShelves);
       this.totalheight = this.numShelves * this.shelfBoard.height + (this.numShelves - 1) * this.shelfBoard.spacing - this.shelfBoard.height / 2 + this.shelfBoard.spacing;
-
+      console.log(this.totalheight,"------------>totalheight")
 
     },
     init() {
