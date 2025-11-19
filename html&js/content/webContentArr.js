@@ -43,6 +43,8 @@ const siteCollections = [
       { name: "道德经", content: "道德经在线阅读，干净整齐无广告", url: "https://daodejing.shop/" },
       { name: "Art by Oskar Stålberg", content: "Art by Oskar Stålberg", url: "https://oskarstalberg.tumblr.com/" },
       { name: "行走郑州", content: "行走郑州，一个美国人对郑州的印象", url: "https://walkingtheworld.substack.com/p/walking-zhengzhou-china" },
+      { name: "A blog", content: "一个好看的博客页", url: "https://www.yysuni.com/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   },

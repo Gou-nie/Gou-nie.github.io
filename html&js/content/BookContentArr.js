@@ -251,6 +251,14 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "解构一下自己",
+    url: "content/write/deconstruct",
+    title: "解构一下自己",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
