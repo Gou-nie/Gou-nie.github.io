@@ -70,7 +70,7 @@ const siteCollections = [
       { name: "老游戏在线玩", content: "在线游戏站", url: "https://zaixianwan.app/" },
       { name: "AsciiMoon", content: "ascii码显示月相", url: "https://asciimoon.com/" },
       { name: "猎人wiki", content: "HunterXHunter的wiki百科", url: "https://hunterxhunter.fandom.com/zh/wiki/%E7%8D%B5%E4%BA%BA_wiki" },
-      { name: "", content: "", url: "" },
+      { name: "X岛", content: "匿名版", url: "https://www.nmbxd1.com/" },
 
     ]
   },
