@@ -548,9 +548,6 @@ You're not your job. You're not how much money you have in the bank. You're not 
 来源：知乎
 ```
 
-```
-自由是真的，自由落体也是真的
-```
 
 ```
 どこにでもある 偽りの色彩
@@ -798,4 +795,7 @@ The most challenging part of gathering evidence is organising it.
 
 
 
-
+```
+在出租屋与办公楼之间好像一直在下一场时间雨，我就麻木的踱步在这场永不停歇的雨中，渐渐的，我踱没了头发，踱暗了眼神，踱弯了脊梁，也踱没了我的青春.
+    -- X'Leopard
+```
