@@ -85,8 +85,49 @@ export default {
         }
     },
     mounted() {
+        this.getQAddress()
     },
     methods: {
+        getQAddress() {
+            fetch('https://pywebtest.aleahquagef.top/read_file/address.txt')
+                .then(response => response.json())
+                .then(data => {
+                    this.getInfoByStr(data.content);
+                })
+                .catch(error => {
+                    console.error('Error:', error)
+                    this.getInfoByStr(null)
+                });
+        },
+        getInfoByStr(content) {
+            let str;
+            if (content == null) {
+                str = "latitude=31°7'47N\nlongitude=121°22'1E"
+            } else {
+                str = content;
+            }
+
+            // 匹配纬度和经度
+            let regex = /latitude=(\d+)°(\d+)'(\d+)([NS])\nlongitude=(\d+)°(\d+)'(\d+)([EW])/;
+            let match = str.match(regex);
+
+            if (match) {
+                this.latitude2InD = parseInt(match[1], 10);
+                this.latitude2InF = parseInt(match[2], 10);
+                this.latitude2InM = parseInt(match[3], 10);
+                let latDir = match[4];
+
+                this.longitude2InD = parseInt(match[5], 10);
+                this.longitude2InF = parseInt(match[6], 10);
+                this.longitude2InM = parseInt(match[7], 10);
+                let lonDir = match[8];
+
+                console.log("纬度:", latDegree, latMinute, latSecond, latDir);
+                console.log("经度:", lonDegree, lonMinute, lonSecond, lonDir);
+            } else {
+                console.log("无法匹配经纬度");
+            }
+        },
         handleCalculate() {
             // console.log('lat:', parseInt(this.latitudeInD), this.latitudeInF, this.latitudeInM);
             // console.log('lon:', parseInt(this.longitudeInD), parseInt(this.longitudeInF), parseInt(this.longitudeInM));
