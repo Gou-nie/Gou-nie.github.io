@@ -27,21 +27,7 @@ category:
 <ProgressBar text="完成状态" :progress="justloveyou" :start-time="new Date('2025-11-18')" :end-time="new Date('2025-12-18')"/>
 
 
-
  
-```javascript
-fetch("https://pywebtest.aleahquagef.top/read_file/flags.txt", {
-    method: "GET",
-    headers: {
-        "Authorization": "Bearer your_token_here",
-        "Accept": "application/json"
-    }
-})
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.error(err));
-
-
 <script>
 export default {
   data(){
