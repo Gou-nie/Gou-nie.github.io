@@ -814,3 +814,9 @@ The most challenging part of gathering evidence is organising it.
     -- 嗅觉时而失灵
 ```
 
+
+```
+在隆冬，我终于知道，我身上有一个不可战胜的夏天。
+    -- 小柘 
+来源：linux.do
+```
