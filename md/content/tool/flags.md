@@ -35,9 +35,12 @@ export default {
       flowerdance: 0,
       justloveyou: 0
     }
-  }
+  },
+  mounted(){
+    this.getFlags()
+  },
   methods:{
-    getQAddress() {
+    getFlags() {
           fetch('https://pywebtest.aleahquagef.top/read_file/flags.txt')
               .then(response => response.json())
               .then(data => {
