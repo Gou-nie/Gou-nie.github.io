@@ -820,3 +820,9 @@ The most challenging part of gathering evidence is organising it.
     -- 小柘 
 来源：linux.do
 ```
+
+
+```
+人一旦迷醉于自身的软弱之中，便会一味软弱下去，会在众人的目光下倒在街头，倒在地上，倒在比地面更低的地方。
+    ——《不能承受的生命之轻》
+```
