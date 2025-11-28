@@ -31,8 +31,10 @@ category:
 <script>
 export default {
   data(){
-    flowerdance:0,
-    justloveyou:0
+    return:{
+      flowerdance: 0,
+      justloveyou: 0
+    }
   }
   methods:{
     getQAddress() {
