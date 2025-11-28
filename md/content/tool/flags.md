@@ -31,7 +31,7 @@ category:
 <script>
 export default {
   data(){
-    return:{
+    return{
       flowerdance: 0,
       justloveyou: 0
     }
