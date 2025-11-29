@@ -244,6 +244,14 @@ const bookArr = [
   },
   {
     fileUrl: commonFileUrl,
+    name: "thinkthink",
+    url: "content/write/thinkthink",
+    title: "醒来乱想",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
     name: "flags",
     url: "content/tool/flags",
     title: "Flags",
