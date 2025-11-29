@@ -40,3 +40,4 @@ category:
 ![图1](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/2f4fc67f86dd0f5981e327fe2b6ff58f.jpg "鱼石")
 ![图2](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/473621fff21bcfd36d69a24ec9bc7ba7.jpg "双鱼")
 ![图3](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/791c77df55314e53081c413e502071d3.jpg "刚到的小龟")
+![图4](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/269d9567b6808a1736be47479015fc63.jpg "23和冰糖")
