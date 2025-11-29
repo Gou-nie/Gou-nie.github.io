@@ -36,4 +36,7 @@ category:
 
 # 4. <a name='firth'></a> 附件
 0000000XX@#($*@(#@$&(@#*&@#(#&))))
-<br>&emsp;&emsp;想贴图但是还得传阿里云还得配地址好麻烦,记一下回头搞个APP来做自动化吧. 
+
+![图1](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/2f4fc67f86dd0f5981e327fe2b6ff58f.jpg "鱼石")
+![图2](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/473621fff21bcfd36d69a24ec9bc7ba7.jpg "双鱼")
+![图3](https://aleah.oss-cn-heyuan.aliyuncs.com/thinkthink/791c77df55314e53081c413e502071d3.jpg "刚到的小龟")
