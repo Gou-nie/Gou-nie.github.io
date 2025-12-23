@@ -15,3 +15,56 @@ scp /etc/kubernetes/pki/etcd/ca.key root@192.168.56.102:/etc/kubernetes/pki/etcd
 sed -i 's|--initial-cluster=master01=https://192.168.56.101:2380|--initial-cluster=master01=https://192.168.56.101:2380,master02=https://192.168.56.102:2380|' /etc/kubernetes/manifests/etcd.yaml
 
  
+
+
+1. 找到 Kaspersky 的 CLI 工具
+which kesl-control
+
+2. 添加路径排除（Path Exclusion）
+ kesl-control --add-exclusion --type Path --value "/proc/*"
+ kesl-control --add-exclusion --type Path --value "/sys/*"
+ kesl-control --add-exclusion --type Path --value "/sys/fs/bpf/*"
+ kesl-control --add-exclusion --type Path --value "/var/lib/bpf/*"
+
+3. 添加进程白名单（可选，但建议）
+kesl-control --add-exclusion --type Application --value "/usr/libexec/pcp/pmlogger"
+kesl-control --add-exclusion --type Application --value "/usr/bin/pmlogger"
+
+4. 重启 Kaspersky 服务使排除生效
+systemctl restart kesl 
+
+5. 验证排除是否生效
+kesl-control --get-settings --component RealTimeProtection
+kesl-control --get-statistics | grep -i exclusion
+
+ini
+
+[Exclusions]
+/sys/*
+/proc/*
+/sys/fs/bpf/**
+/var/lib/bpf/*
+ 
+ Application:/usr/libexec/pcp/pmlogger
+ Application:/usr/bin/pmlogger
+
+
+
+
+  {"vin":"LFVVA9E15R3000038",
+  "bleMac":"58D15AF0EE0E",
+  "accountId":"146592331322312",
+  "tokenType":"01","startTime":1764655361000,"endTime":4888792962000,
+  "keyId":"DE9CB2E7FE58748EFAA24DDBFBCF511C",
+  "keyOperationType":"1","priv":"4000000000",
+  "shareInfo":{"parentKey":"68356A7CCB722EB135683D1754F0030E",
+  "shareType":"01","friendAccountId":"153031913071080"}}
+
+
+
+
+
+
+
+
+NSString+DKUtility.m、UQDKUUID+Private.m、UQDKCharacteristicProfile.m、UQDKBleConstants.h、NSData+DKBase64.m、NSData+DKConver.m、UQDKPeripheral+Private.m、NSData+DKSM4.m、UQDKVersionSyncParse.m、UQDKRuntime.m、UQDKPeripheral.m、NSString+DKConver.m、UQDKDataManager.m、DKRandom.m、UQDKBleNotifyQueueData.m、UQKeyChainManager.m、UQDKCharacteristic.m、UQDKDescriptor+Private.m、DKXOREncryptUtil.m、UQDKDeviceHelper.m、NSDictionary+DKConver.m、UQDKMutableCharacteristic+Private.m、NSData+DKXOR.m、DKBaseModel.m、UQDKBleDataCustomizer.m、UQDKPeripheralManager.m、UQDKServiceProfile.m、DKBaseRequestModel.m、UQDKPeripheral+UQDK.m、UQDKService.m、UQDKService.m、UQDKDataModel.m、NSData+DKAES.m、DKBluetoothFileWriter.m、NSData+DKCrypto.m、CreateCSR.m、UQDKMutableCharacteristic.m、UQDKBleGATTHeader.m、UQDKCharacteristic+Private.m、NSData+DKPadding.m、DKHKDF.m、UQDKService+Private.m、sm3_hmac.c、UQDKBluetoothManager+Private.h、UQDKLog.m、NSString+DKBase64.m、DKRSAUtils.m、UQDKProfileManager.m、sm3.c、UQDKLock.m、UQDKApi.m、UQKeyChainManager+KeyPair.m、DKSM3.m、NSString+DKSHA3.m、UQDKBleGATTPacket.m、UQDKErrorCodeMapper.m、UQDKQueue.m、DKHttpClient.m、UQDKBleQueueData.m、NSData+DKCommonCrypto.m

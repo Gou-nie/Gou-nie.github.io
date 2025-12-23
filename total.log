@@ -1,0 +1,28 @@
+2025-12-05 15:14:02.925 DEBUG 8 --- [ XNIO-1 task-11] io.undertow.request.security             : Attempting to authenticate /dkc/v1/getKeyListInfoTsp, authentication required: false
+2025-12-05 15:14:02.925 DEBUG 8 --- [ XNIO-1 task-11] io.undertow.request.security             : Authentication outcome was NOT_ATTEMPTED with method io.undertow.security.impl.CachedAuthenticatedSessionMechanism@5887879d for /dkc/v1/getKeyListInfoTsp
+2025-12-05 15:14:02.925 DEBUG 8 --- [ XNIO-1 task-11] io.undertow.request.security             : Authentication result was ATTEMPTED for /dkc/v1/getKeyListInfoTsp
+2025-12-05 15:14:02.925 DEBUG 8 --- [ XNIO-1 task-11] o.s.security.web.FilterChainProxy        : Securing POST /dkc/v1/getKeyListInfoTsp
+2025-12-05 15:14:02.925 DEBUG 8 --- [ XNIO-1 task-11] s.s.w.c.SecurityContextPersistenceFilter : Set SecurityContextHolder to empty SecurityContext
+2025-12-05 15:14:02.926 DEBUG 8 --- [ XNIO-1 task-11] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-05 15:14:02.926 DEBUG 8 --- [ XNIO-1 task-11] o.s.s.w.a.i.FilterSecurityInterceptor    : Authorized filter invocation [POST /dkc/v1/getKeyListInfoTsp] with attributes [permitAll]
+2025-12-05 15:14:02.926 DEBUG 8 --- [ XNIO-1 task-11] o.s.security.web.FilterChainProxy        : Secured POST /dkc/v1/getKeyListInfoTsp
+2025-12-05 15:14:02.926 DEBUG 8 --- [ XNIO-1 task-11] o.s.web.servlet.DispatcherServlet        : POST "/dkc/v1/getKeyListInfoTsp", parameters={}
+2025-12-05 15:14:02.926 DEBUG 8 --- [ XNIO-1 task-11] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.uqcloud.uq.business.controller.pri.TspController#getKeyListTsp(HeaderParameter, String, HttpServletResponse)
+2025-12-05 15:14:02.927 DEBUG 8 --- [ XNIO-1 task-11] c.u.u.b.api.util.HeaderParamResolver     : ---resolveArgument,MethodParameter=method 'getKeyListTsp' parameter 0,class com.uqcloud.uq.common.core.util.HeaderParameter
+2025-12-05 15:14:02.927 DEBUG 8 --- [ XNIO-1 task-11] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to []
+2025-12-05 15:14:02.928 DEBUG 8 --- [ XNIO-1 task-11] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.uqcloud.uq.common.feign.sentinel.handle.GlobalBizExceptionHandler#handleGlobalException(Exception)
+2025-12-05 15:14:02.929 ERROR 8 --- [ XNIO-1 task-11] c.u.u.c.f.s.h.GlobalBizExceptionHandler  : 全局异常信息 ex=Required request body is missing: public java.lang.Object com.uqcloud.uq.business.controller.pri.TspController.getKeyListTsp(com.uqcloud.uq.common.core.util.HeaderParameter,java.lang.String,javax.servlet.http.HttpServletResponse)
+2025-12-05 15:14:02.931 DEBUG 8 --- [ XNIO-1 task-11] io.undertow.request.error-response       : Setting error code 500 for exchange HttpServerExchange{ POST /dkc/v1/getKeyListInfoTsp}
+2025-12-05 15:14:02.932 DEBUG 8 --- [ XNIO-1 task-11] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2025-12-05 15:14:02.932 DEBUG 8 --- [ XNIO-1 task-11] m.m.a.RequestResponseBodyMethodProcessor : Writing [R(code=1, msg=Required request body is missing: public java.lang.Object com.uqcloud.uq.business.cont (truncated)...]
+2025-12-05 15:14:02.932 DEBUG 8 --- [ XNIO-1 task-11] w.c.HttpSessionSecurityContextRepository : Did not store anonymous SecurityContext
+2025-12-05 15:14:02.933 DEBUG 8 --- [ XNIO-1 task-11] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.Object com.uqcloud.uq.business.controller.pri.TspController.getKeyListTsp(com.uqcloud.uq.common.core.util.HeaderParameter,java.lang.String,javax.servlet.http.HttpServletResponse)]
+2025-12-05 15:14:02.933 DEBUG 8 --- [ XNIO-1 task-11] o.s.web.servlet.DispatcherServlet        : Completed 500 INTERNAL_SERVER_ERROR
+2025-12-05 15:14:02.933 DEBUG 8 --- [ XNIO-1 task-11] w.c.HttpSessionSecurityContextRepository : Did not store anonymous SecurityContext
+2025-12-05 15:14:02.933 DEBUG 8 --- [ XNIO-1 task-11] s.s.w.c.SecurityContextPersistenceFilter : Cleared SecurityContextHolder to complete request
+2025-12-05 15:14:03.556 DEBUG 8 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-12-05 15:14:03.556 DEBUG 8 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2025-12-05 15:14:03.970 DEBUG 8 --- [rRegistryThread] c.x.j.c.thread.ExecutorRegistryThread    : >>>>>>>>>>> xxl-job registry success, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='uq-business-total', registryValue='http://172.27.0.75:9099/'}, registryResult:ReturnT [code=200, msg=null, content=null]
+2025-12-05 15:14:33.556 DEBUG 8 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-12-05 15:14:33.557 DEBUG 8 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2025-12-05 15:14:33.972 DEBUG 8 --- [rRegistryThread] c.x.j.c.thread.ExecutorRegistryThread    : >>>>>>>>>>> xxl-job registry success, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='uq-business-total', registryValue='http://172.27.0.75:9099/'}, registryResult:ReturnT [code=200, msg=null, content=null]

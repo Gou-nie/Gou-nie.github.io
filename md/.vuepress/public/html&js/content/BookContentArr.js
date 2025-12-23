@@ -259,6 +259,14 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "早起随便写一",
+    url: "content/write/thinkthink",
+    title: "早起随便写一",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
