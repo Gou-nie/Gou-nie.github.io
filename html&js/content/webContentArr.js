@@ -71,6 +71,9 @@ const siteCollections = [
       { name: "AsciiMoon", content: "ascii码显示月相", url: "https://asciimoon.com/" },
       { name: "猎人wiki", content: "HunterXHunter的wiki百科", url: "https://hunterxhunter.fandom.com/zh/wiki/%E7%8D%B5%E4%BA%BA_wiki" },
       { name: "X岛", content: "匿名版", url: "https://www.nmbxd1.com/" },
+      { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
+
 
     ]
   },
@@ -107,6 +110,8 @@ const siteCollections = [
       { name: "代理查询", content: "代理查询", url: "https://user-agents.net/" },
       { name: "lernAnything", content: "一堆项 然后检索跳转ai学习，主页设计的不错", url: "https://learn-anything.xyz/" },
       { name: "文件格式转换", content: "文件格式转换", url: "https://file-converter.io/" },
+      { name: "mapscii", content: "终端显示地图，执行命令 telnet mapscii.me", url: "https://github.com/rastapasta/mapscii" },
+      { name: "网站分流测试", content: "网站分流测试", url: "https://ip.skk.moe/split-tunnel" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
