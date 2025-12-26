@@ -112,7 +112,7 @@ const siteCollections = [
       { name: "文件格式转换", content: "文件格式转换", url: "https://file-converter.io/" },
       { name: "mapscii", content: "终端显示地图，执行命令 telnet mapscii.me", url: "https://github.com/rastapasta/mapscii" },
       { name: "网站分流测试", content: "网站分流测试", url: "https://ip.skk.moe/split-tunnel" },
-      { name: "", content: "", url: "" },
+      { name: "banana slides", content: "AI生成PPT", url: "https://github.com/Anionex/banana-slides?tab=readme-ov-file" },
       { name: "", content: "", url: "" },
     ]
   },
