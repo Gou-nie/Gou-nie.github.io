@@ -1009,3 +1009,23 @@ Their people are still transitioning from agrarian hardship to urban factory lif
 communists aren't communists because they study communism, but because they study capitalism and understand its true nature.
     -- millernerd
 ```
+
+
+
+```
+不用担心只看书不输出，因为水喝多了自然有尿。
+    -- Ravens
+```
+
+
+```
+你，男性，27岁，未婚。无女友。昨晚做梦，梦见自己养育两个男娃娃，周末带他们去水族馆看大马哈鱼。大厅湿冷，你带娃娃们摸展览用的鲨鱼卵，灯光把水波照到脚下，一堆小孩儿踩着彩色影子从你身边跑过去看下场演出。醒来后你发现毯子被蹬掉到地板上
+    -- 佚名
+```
+
+
+
+```
+你错了，咸鱼也要有梦想。你这鸟人，连我们的幻想也要剥夺。
+    -- sillydaddy
+```
