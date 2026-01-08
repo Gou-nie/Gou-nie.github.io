@@ -275,6 +275,14 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "忽略时间的千万次",
+    url: "content/write/millionsOfTimes",
+    title: "忽略时间的千万次",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
