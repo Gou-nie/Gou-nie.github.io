@@ -71,6 +71,7 @@ const siteCollections = [
       { name: "AsciiMoon", content: "ascii码显示月相", url: "https://asciimoon.com/" },
       { name: "猎人wiki", content: "HunterXHunter的wiki百科", url: "https://hunterxhunter.fandom.com/zh/wiki/%E7%8D%B5%E4%BA%BA_wiki" },
       { name: "X岛", content: "匿名版", url: "https://www.nmbxd1.com/" },
+      { name: "floor", content: "各种动漫人物格子房间", url: "https://floor796.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -113,6 +114,7 @@ const siteCollections = [
       { name: "mapscii", content: "终端显示地图，执行命令 telnet mapscii.me", url: "https://github.com/rastapasta/mapscii" },
       { name: "网站分流测试", content: "网站分流测试", url: "https://ip.skk.moe/split-tunnel" },
       { name: "banana slides", content: "AI生成PPT", url: "https://github.com/Anionex/banana-slides?tab=readme-ov-file" },
+      { name: "Ezgif", content: "gif处理工具网站", url: "https://ezgif.com/video-to-gif" },
       { name: "", content: "", url: "" },
     ]
   },
