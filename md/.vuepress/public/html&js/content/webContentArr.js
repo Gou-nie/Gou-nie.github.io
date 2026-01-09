@@ -72,7 +72,7 @@ const siteCollections = [
       { name: "猎人wiki", content: "HunterXHunter的wiki百科", url: "https://hunterxhunter.fandom.com/zh/wiki/%E7%8D%B5%E4%BA%BA_wiki" },
       { name: "X岛", content: "匿名版", url: "https://www.nmbxd1.com/" },
       { name: "floor", content: "各种动漫人物格子房间", url: "https://floor796.com/" },
-      { name: "", content: "", url: "" },
+      { name: "一本书就是一个网页", content: "一本书就是一个网页", url: "http://www.vibary.art/" },
       { name: "", content: "", url: "" },
 
 
