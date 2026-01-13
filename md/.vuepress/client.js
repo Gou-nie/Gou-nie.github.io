@@ -23,6 +23,9 @@ export default defineClientConfig({
 })
 
 function track(data) {
+  if (import.meta.env.DEV) {
+    return
+  }
   navigator.sendBeacon(
     'https://pywebtest.aleahquagef.top/track',
     JSON.stringify(data)
