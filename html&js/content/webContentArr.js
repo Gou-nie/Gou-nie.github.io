@@ -115,6 +115,9 @@ const siteCollections = [
       { name: "网站分流测试", content: "网站分流测试", url: "https://ip.skk.moe/split-tunnel" },
       { name: "banana slides", content: "AI生成PPT", url: "https://github.com/Anionex/banana-slides?tab=readme-ov-file" },
       { name: "Ezgif", content: "gif处理工具网站", url: "https://ezgif.com/video-to-gif" },
+      { name: "daisyUI", content: "提供大量现成 UI 组件（如按钮、卡片、表单等），并且可以轻松定义主题色彩。", url: "https://daisyui.com/theme-generator" },
+      { name: "itshover", content: "icon站，感觉静态icon死气沉沉的", url: "https://www.itshover.com/icons" },
+      { name: "HtmlDrag", content: "html抓取", url: "https://htmldrag.com/" },
       { name: "", content: "", url: "" },
     ]
   },
@@ -141,6 +144,7 @@ const siteCollections = [
       { name: "养鱼", content: "赛博养鱼", url: "https://drawafish.com/" },
       { name: "填词游戏", content: "填词游戏", url: "https://www.newyorker.com/puzzles-and-games-dept/shuffalo" },
       { name: "填词游戏", content: "填词游戏", url: "https://shuffalo.space/play" },
+      { name: "Burner Note", content: "阅后即焚的私密笔记，安全无忧。", url: "https://www.producthunt.com/r/Q6ZL4HAM3BC7TV" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
