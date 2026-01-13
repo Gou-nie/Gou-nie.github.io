@@ -23,11 +23,14 @@ export default defineClientConfig({
 })
 
 function track(data) {
+  var url 
   if (import.meta.env.DEV) {
-    return
+    url = 'http://localhost:5011/track'
+  }else{
+    url = 'https://pywebtest.aleahquagef.top/track'
   }
   navigator.sendBeacon(
-    'https://pywebtest.aleahquagef.top/track',
+    url,
     JSON.stringify(data)
   )
 }
