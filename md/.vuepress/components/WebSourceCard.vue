@@ -1,5 +1,8 @@
 <template>
-  <div class="container" style="background-image: url('/images/45-degree-fabric-dark.png');">
+  <div class="container" style="background-image: 
+        radial-gradient(ellipse at center, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 100%),
+        url('/images/45-degree-fabric-dark.png');
+    background-size: cover, auto;">
     <!-- 缩略图 -->
     <div class="preview" @click="clickOne(value)" v-for="(value, idx) in siteCollections" :key="idx">
       <div class="preview-content">

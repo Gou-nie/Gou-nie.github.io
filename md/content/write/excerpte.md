@@ -1095,3 +1095,10 @@ communists aren't communists because they study communism, but because they stud
 所有你遇到的人，是你百年孤独的根源。
     -- 东方四十一
 ```
+
+
+
+```
+盛世里也有人饿死，荒年里也有人撑死。
+    -- kristofer
+```

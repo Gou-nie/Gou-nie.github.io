@@ -74,6 +74,7 @@ const siteCollections = [
       { name: "floor", content: "各种动漫人物格子房间", url: "https://floor796.com/" },
       { name: "一本书就是一个网页", content: "一本书就是一个网页", url: "http://www.vibary.art/" },
       { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
 
 
     ]
@@ -119,6 +120,7 @@ const siteCollections = [
       { name: "itshover", content: "icon站，感觉静态icon死气沉沉的", url: "https://www.itshover.com/icons" },
       { name: "HtmlDrag", content: "html抓取", url: "https://htmldrag.com/" },
       { name: "串口工具", content: "串口工具", url: "https://portax.haxio.de/" },
+      { name: "reqable", content: "抓包工具", url: "https://reqable.com/zh-CN/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -147,6 +149,7 @@ const siteCollections = [
       { name: "填词游戏", content: "填词游戏", url: "https://www.newyorker.com/puzzles-and-games-dept/shuffalo" },
       { name: "填词游戏", content: "填词游戏", url: "https://shuffalo.space/play" },
       { name: "Burner Note", content: "阅后即焚的私密笔记，安全无忧。", url: "https://www.producthunt.com/r/Q6ZL4HAM3BC7TV" },
+      { name: "la-ola", content: "一个打字游戏", url: "https://conorwilson.itch.io/la-ola" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]

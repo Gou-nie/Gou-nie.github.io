@@ -1,75 +1,94 @@
 <template>
-  <div class="app">
-    <!-- 顶部栏 -->
-    <header class="topbar">
-      <div class="brand">
-        <span class="logo" aria-hidden="true">🔖</span>
-        <h1 class="title">我的收藏夹</h1>
-      </div>
-    </header>
+    <div class="app">
+        <!-- 顶部栏 -->
+        <header class="topbar">
+            <div class="brand">
+                <span class="logo" aria-hidden="true">🔖</span>
+                <h1 class="title">我的收藏夹</h1>
+            </div>
+        </header>
 
-    <div class="layout">
-      <!-- 主内容区域 -->
-      <main class="content" role="main">
-        <section class="section">
-          <header class="section-header">
-            <h3 class="section-title">常用</h3>
-          </header>
+        <div class="layout">
+            <!-- 主内容区域 -->
+            <main class="content" role="main">
+                <section class="section">
+                    <header class="section-header">
+                        <h3 class="section-title">常用</h3>
+                    </header>
 
-          <div class="bookmark-grid">
-            <article
-              class="bookmark-card"
-              v-for="(i, idx) in contentArr"
-              :key="idx"
-              @click="clickSource(i.url)"
-            >
-              <a class="card-link" :href="i.url" target="_blank">
-                <div class="card-meta">
-                  <img
-                    class="favicon"
-                    :src="`https://www.google.com/s2/favicons?domain=${getDomain(i.url)}`"
-                    alt="favicon"
-                  />
-                  <h4 class="card-title">{{ i.name }}</h4>
-                </div>
-                <p class="card-desc">{{ i.content }}</p>
-                <div class="card-tags">
-                  <span class="tag">工具</span>
-                  <span class="tag">常用</span>
-                </div>
-              </a>
-            </article>
-          </div>
-        </section>
-      </main>
+                    <div class="bookmark-grid">
+                        <article class="bookmark-card" v-for="(i, idx) in contentArr" :key="idx"
+                            @click="clickSource(i.url)">
+                            <a class="card-link" :href="i.url" target="_blank">
+                                <div class="card-meta">
+                                    <img class="favicon"
+                                        :src="`https://www.google.com/s2/favicons?domain=${getDomain(i.url)}`"
+                                        alt="favicon" />
+                                    <h4 class="card-title">{{ i.name }}</h4>
+                                </div>
+                                <p class="card-desc">{{ i.content }}</p>
+                                <div class="card-tags">
+                                    <span class="tag">工具</span>
+                                    <span class="tag">常用</span>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  name: "BookmarkPage",
-  props: {
-    contentArr: {
-      type: Array,
-      required: true,
-      default: () => []
-    }
-  },
-  methods: {
-    clickSource(url) {
-      console.log("url is:", url);
-      window.open(url, "_blank"); 
+    name: "BookmarkPage",
+    props: {
+        contentArr: {
+            type: Array,
+            required: true,
+            default: () => []
+        }
     },
-    getDomain(url) {
-      try {
-        return new URL(url).hostname;
-      } catch {
-        return "example.com";
-      }
+    mounted() {
+        this.$nextTick(() => {
+            this.applyRandomBg();
+        });
+    },
+    watch: {
+        // 如果 contentArr 可能后续变化（异步加载）
+        contentArr() {
+            this.$nextTick(() => {
+                this.applyRandomBg();
+            });
+        }
+    },
+    methods: {
+        clickSource(url) {
+            window.open(url, "_blank");
+        },
+        getDomain(url) {
+            try {
+                return new URL(url).hostname;
+            } catch {
+                return "example.com";
+            }
+        },
+        randomLightColor() {
+            const h = Math.floor(Math.random() * 360);
+            const s = 30 + Math.random() * 30;
+            const l = 85 + Math.random() * 10;
+            return `hsl(${h}, ${s}%, ${l}%)`;
+        },
+        applyRandomBg() {
+            const cards = this.$el.querySelectorAll('.bookmark-card');
+            cards.forEach(card => {
+                card.style.setProperty('--card-bg', this.randomLightColor());
+            });
+        }
     }
-  }
 };
+
 </script>
 
 <style scoped>
@@ -146,7 +165,7 @@ body {
 
 /* 布局 */
 .layout {
-    display: grid; 
+    display: grid;
     gap: 0;
     height: calc(100vh - 56px);
     overflow: hidden;
@@ -226,7 +245,7 @@ body {
 
 .bookmark-card {
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--card-bg, hsl(0, 30%, 92%));
     border-radius: 12px;
     overflow: hidden;
     transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
@@ -338,7 +357,7 @@ body {
     .bookmark-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .content {
         padding: 16px;
     }
