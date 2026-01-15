@@ -166,12 +166,18 @@ export default hopeTheme({
         revealjs: true,
     },
     plugins: {
-        blog: true,
+        blog: {
+            getInfo: ({ frontmatter, title, path }) => ({
+                title,
+                path,
+                date: frontmatter.date,
+                description: frontmatter.description,
+            }),
+        },
         search: true,
     },
     // 设置侧边栏显示位置为右侧
     // sidebarDisplay: "mobile",
     // sidebarSorter: ["readme", "order", "title"], 
 })
-
 

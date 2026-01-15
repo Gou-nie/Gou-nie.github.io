@@ -4,7 +4,7 @@
     "description": "GouNie",
     "scripts": {
         "dev": "vuepress dev md",
-        "build": "vuepress build md && node scripts/generate-rss.js"
+        "build": "vuepress build md"
     },
     "main": "index.js",
     "author": "LXS",

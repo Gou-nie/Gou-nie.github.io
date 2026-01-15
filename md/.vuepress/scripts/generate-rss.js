@@ -1,9 +1,8 @@
-import { Feed } from 'feed'
-import fs from 'fs'
-import path from 'path'
+const { Feed } = require('feed');
+const fs = require('fs');
+const path = require('path');
 
-// 站点信息
-const siteUrl = 'https://gou-nie.github.io/'
+const siteUrl = 'https://gou-nie.github.io/';
 
 const feed = new Feed({
   title: 'GouNie',
@@ -18,26 +17,33 @@ const feed = new Feed({
     name: 'gounie',
     link: siteUrl,
   },
-})
+});
 
-// 读取 VuePress build 后的页面数据
-const pagesPath = path.resolve('.vuepress/.temp/internal/pages.json')
-const pages = JSON.parse(fs.readFileSync(pagesPath, 'utf-8'))
+const pagesPath = path.resolve('.vuepress/.temp/internal/pages.json');
+const pages = JSON.parse(fs.readFileSync(pagesPath, 'utf-8'));
 
 pages
-  .filter(page => page.frontmatter?.date)
-  .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
-  .forEach(page => {
+  .filter((page) => page.frontmatter && page.frontmatter.date)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  )
+  .forEach((page) => {
     feed.addItem({
       title: page.title,
       id: siteUrl + page.path,
       link: siteUrl + page.path,
       description: page.frontmatter.description || '',
       date: new Date(page.frontmatter.date),
-    })
-  })
+    });
+  });
 
-// 输出 RSS
-fs.writeFileSync('dist/rss.xml', feed.rss2())
-fs.writeFileSync('dist/atom.xml', feed.atom1())
-fs.writeFileSync('dist/feed.json', feed.json1())
+const outDir = path.resolve('.vuepress/dist');
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir, { recursive: true });
+}
+
+fs.writeFileSync(path.join(outDir, 'rss.xml'), feed.rss2());
+fs.writeFileSync(path.join(outDir, 'atom.xml'), feed.atom1());
+fs.writeFileSync(path.join(outDir, 'feed.json'), feed.json1());
