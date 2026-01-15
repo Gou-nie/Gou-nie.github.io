@@ -1,4 +1,4 @@
----
+title: 缩写
 tags:
   - use
 category:
@@ -18,4 +18,3 @@ category:
 ```
 NSFW: Not Safe For Work。 干活时千万警惕
 ```
-

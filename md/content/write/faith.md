@@ -1,4 +1,4 @@
----
+title: 信仰
 tags:
   - write
 category:

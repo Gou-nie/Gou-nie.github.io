@@ -1,4 +1,5 @@
 ---
+title: 忽略时间的千万次
 tags:
   - write
 category:

@@ -1,4 +1,4 @@
----
+title: 坏蛋的自我修养
 tags:
   - write
 category:

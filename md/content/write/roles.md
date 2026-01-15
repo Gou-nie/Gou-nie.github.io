@@ -1,4 +1,5 @@
 ---
+title: 标准&规则思考
 tags:
   - write
 category:

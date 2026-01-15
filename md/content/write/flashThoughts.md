@@ -1,4 +1,4 @@
----
+title: 闪念
 tags:
   - write
 category:

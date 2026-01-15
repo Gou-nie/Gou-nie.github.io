@@ -1,4 +1,4 @@
----
+title: 乐谱
 layout: Slides
 tags:
   - music
@@ -69,5 +69,4 @@ category:
 end
 
 @slideend
-
 

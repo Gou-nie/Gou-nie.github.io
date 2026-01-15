@@ -1,4 +1,4 @@
----
+title: Flags
 tags:
   - tool
 category:

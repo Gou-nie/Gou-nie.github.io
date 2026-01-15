@@ -1,4 +1,5 @@
 ---
+title: 网站收集
 tags:
   - web
 category:
@@ -7,7 +8,6 @@ category:
 navbar: false
 sidebar: false
 pageClass: custom-page
-title: false
 
 
 ---

@@ -1,4 +1,5 @@
 ---
+title: 生命幻想集
 tags:
   - write
 category:
