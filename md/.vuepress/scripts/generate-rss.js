@@ -6,8 +6,8 @@ import path from 'path'
 const siteUrl = 'https://your-domain.com'
 
 const feed = new Feed({
-  title: '你的博客标题',
-  description: '博客 RSS 订阅',
+  title: 'GouNie',
+  description: 'GouNie',
   id: siteUrl,
   link: siteUrl,
   language: 'zh-CN',
@@ -15,7 +15,7 @@ const feed = new Feed({
   updated: new Date(),
   generator: 'VuePress 2 + feed',
   author: {
-    name: '作者名',
+    name: 'gounie',
     link: siteUrl,
   },
 })
