@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 // 站点信息
-const siteUrl = 'https://your-domain.com'
+const siteUrl = 'https://gou-nie.github.io/'
 
 const feed = new Feed({
   title: 'GouNie',
