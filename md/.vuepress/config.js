@@ -9,6 +9,7 @@ import  themeConfig  from './theme.js'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+import {blogPlugin} from '@vuepress/plugin-blog'
 
 import path from 'path'
 
@@ -41,6 +42,14 @@ export default defineUserConfig({
     googleAnalyticsPlugin({
       id: 'G-YZQGD3PJJ9',
       debug: true
+    }),
+    blogPlugin({
+      getInfo:({ frontmatter, title, path}) =>({
+        title,
+        path,
+        date: frontmatter.date,
+        description: frontmatter.description
+      })
     })
     
   ]

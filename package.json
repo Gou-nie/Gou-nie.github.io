@@ -4,14 +4,14 @@
     "description": "GouNie",
     "scripts": {
         "dev": "vuepress dev md",
-        "build": "vuepress build md"
+        "build": "vuepress build md && node scripts/generate-rss.js"
     },
     "main": "index.js",
     "author": "LXS",
     "license": "MIT",
     "devDependencies": {
         "@vuepress/bundler-vite": "2.0.0-rc.22",
-        "@vuepress/plugin-blog": "2.0.0-rc.102",
+        "@vuepress/plugin-blog": "^2.0.0-rc.102",
         "@vuepress/plugin-google-analytics": "2.0.0-rc.98",
         "@vuepress/plugin-register-components": "2.0.0-rc.98",
         "@vuepress/plugin-revealjs": "2.0.0-rc.102",
@@ -29,6 +29,7 @@
         "@tweenjs/tween.js": "^25.0.0",
         "axios": "^1.9.0",
         "epubjs": "^0.3.93",
+        "feed": "^5.2.0",
         "gif.js": "^0.2.0",
         "gifuct-js": "^2.1.2",
         "gsap": "^3.13.0",
