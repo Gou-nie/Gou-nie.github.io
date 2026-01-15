@@ -32,7 +32,7 @@ const siteCollections = [
     ]
   },
   {
-    tab: "博客&文章",
+    tab: "博客&文章&讨论",
     links: [
       { name: "博客收集贴", content: "有人在写非技术类的博客吗？来连结", url: "https://v2ex.com/t/1140518#reply37" },
       { name: "博客收集贴", content: "分享你的博客", url: "https://www.v2ex.com/t/1089949" },
@@ -44,6 +44,7 @@ const siteCollections = [
       { name: "Art by Oskar Stålberg", content: "Art by Oskar Stålberg", url: "https://oskarstalberg.tumblr.com/" },
       { name: "行走郑州", content: "行走郑州，一个美国人对郑州的印象", url: "https://walkingtheworld.substack.com/p/walking-zhengzhou-china" },
       { name: "A blog", content: "一个好看的博客页", url: "https://www.yysuni.com/" },
+      { name: "论坛贴", content: "你都知道哪些论坛", url: "https://2libra.com/post/interaction/NU8MyMP" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
