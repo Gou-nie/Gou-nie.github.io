@@ -118,6 +118,8 @@ const siteCollections = [
       { name: "daisyUI", content: "提供大量现成 UI 组件（如按钮、卡片、表单等），并且可以轻松定义主题色彩。", url: "https://daisyui.com/theme-generator" },
       { name: "itshover", content: "icon站，感觉静态icon死气沉沉的", url: "https://www.itshover.com/icons" },
       { name: "HtmlDrag", content: "html抓取", url: "https://htmldrag.com/" },
+      { name: "串口工具", content: "串口工具", url: "https://portax.haxio.de/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   },
