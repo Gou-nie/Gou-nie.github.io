@@ -1,3 +1,4 @@
+---
 title: 刚醒随便写写
 tags:
   - write

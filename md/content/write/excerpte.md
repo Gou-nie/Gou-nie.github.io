@@ -1,3 +1,4 @@
+---
 title: 摘抄
 tags:
   - write
@@ -1127,3 +1128,10 @@ communists aren't communists because they study communism, but because they stud
     -- 许三多
 ```
 
+
+
+
+```
+我们每个人都比我们自己想象的更为富有，然而别人却在训练我们去借助和乞求别人的帮助，他们其实是在引导我们去使用别人而不使用我们自己。在任何时候人都不会仅仅满足于自己的需要。有了快乐、财富、权力，他还想抓到他所抓不住的东西，他的贪婪是不可能得到节制的。 送你
+    -- mcgill
+```

@@ -1,3 +1,4 @@
+---
 title: 好心情
 tags:
   - write

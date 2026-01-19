@@ -1,3 +1,4 @@
+---
 title: 从格斗中学习
 tags:
   - play
