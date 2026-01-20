@@ -283,6 +283,22 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "旅程终点",
+    url: "content/write/theEndOfTheTour",
+    title: "旅程终点",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "雪",
+    url: "content/write/snow",
+    title: "雪",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
