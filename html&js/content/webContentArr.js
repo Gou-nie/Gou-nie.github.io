@@ -122,6 +122,7 @@ const siteCollections = [
       { name: "HtmlDrag", content: "html抓取", url: "https://htmldrag.com/" },
       { name: "串口工具", content: "串口工具", url: "https://portax.haxio.de/" },
       { name: "reqable", content: "抓包工具", url: "https://reqable.com/zh-CN/" },
+      { name: "拼图", content: "又又又又一个拼图工具", url: "https://photocollagepro.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
