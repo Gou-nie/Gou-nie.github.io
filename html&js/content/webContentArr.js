@@ -15,7 +15,7 @@ const siteCollections = [
       { name: "tsparticles", content: "一些动画效果演示", url: "https://particles.js.org/" },
       { name: "霂明坊", content: "一些前端样式展示，我要抄这个多做做", url: "https://mumingfang.com/" },
       { name: "cloudflare/sandbox", content: "cloudflare/sandBox的 使用说明，网站风格不错", url: "https://sandbox.cloudflare.com/" },
-      { name: "", content: "", url: "" },
+      { name: "ractbits", content: "花里胡哨的特效", url: "https://www.reactbits.dev/get-started/index" },
       { name: "", content: "", url: "" },
     ]
   },
