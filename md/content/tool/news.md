@@ -1,3 +1,4 @@
+---
 title: 每日新闻
 tags:
   - tool
