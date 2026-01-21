@@ -11,12 +11,16 @@ title: 旅程终点
 ***key words***
 ***《Infinite Jest》***
 ***->***
-***true things ***
+***true things***
 ***->***
 ***《Although of Course You End Up Becoming Yourself》***
 ***->***
 ***the end of the tour***
+<br>
+
 ***DFW <=> David Foster Wallace***
+<br>
+
 ***DL <=> David Lipsky***
 
 ![图1](https://aleah.oss-cn-heyuan.aliyuncs.com/images/endTheTurn.webp "the end of the tour")
