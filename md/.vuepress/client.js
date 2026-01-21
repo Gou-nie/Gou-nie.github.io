@@ -25,9 +25,9 @@ export default defineClientConfig({
 function track(data) {
   var url 
   if (import.meta.env.DEV) {
-    url = 'http://localhost:5011/track'
+    url = 'http://localhost:5011/kcart'
   }else{
-    url = 'https://pywebtest.aleahquagef.top/track'
+    url = 'https://pywebtest.aleahquagef.top/kcart'
   }
   navigator.sendBeacon(
     url,
