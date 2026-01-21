@@ -25,6 +25,10 @@ jobs:
 
       - name: Build VuePress site
         run: npm run build
+        
+      - name: Add CNAME for custom domain
+        run: |
+          echo "blog.example.com" > ./md/.vuepress/dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
