@@ -299,6 +299,14 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "迭代和闭合",
+    url: "content/write/IteratioAndClosure",
+    title: "迭代和闭合",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",

@@ -74,6 +74,7 @@ const siteCollections = [
       { name: "X岛", content: "匿名版", url: "https://www.nmbxd1.com/" },
       { name: "floor", content: "各种动漫人物格子房间", url: "https://floor796.com/" },
       { name: "一本书就是一个网页", content: "一本书就是一个网页", url: "http://www.vibary.art/" },
+      { name: "小鱼播客", content: "小鱼播客，亲子十万个为什么", url: "https://www.xiaoyuzhoufm.com/podcast/672cb57c41963c65b0bd9cd5" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -152,7 +153,7 @@ const siteCollections = [
       { name: "填词游戏", content: "填词游戏", url: "https://shuffalo.space/play" },
       { name: "Burner Note", content: "阅后即焚的私密笔记，安全无忧。", url: "https://www.producthunt.com/r/Q6ZL4HAM3BC7TV" },
       { name: "la-ola", content: "一个打字游戏", url: "https://conorwilson.itch.io/la-ola" },
-      { name: "", content: "", url: "" },
+      { name: "ooqo", content: "小游戏吃鱼", url: "https://aznoqmous.itch.io/ooqo" },
       { name: "", content: "", url: "" },
     ]
   }
