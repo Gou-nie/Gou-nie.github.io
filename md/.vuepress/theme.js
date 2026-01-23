@@ -175,6 +175,9 @@ export default hopeTheme({
             }),
         },
         search: true,
+        mdEnhance: {
+            mermaid: true,
+        },
     },
     // 设置侧边栏显示位置为右侧
     // sidebarDisplay: "mobile",
