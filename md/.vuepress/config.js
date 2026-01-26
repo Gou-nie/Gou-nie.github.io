@@ -35,7 +35,7 @@ export default defineUserConfig({
   plugins: [
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
-      componentsPatterns: ['**/*.vue', '!**/3D/**'],
+      componentsPatterns: ['**/*.vue', '!**/3D/**', '!GifEditor.vue', '!MatterJSTest*.vue', '!ThreeTest*.vue'],
       
     }),
     googleAnalyticsPlugin({

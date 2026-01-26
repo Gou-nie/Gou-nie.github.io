@@ -1162,3 +1162,10 @@ communists aren't communists because they study communism, but because they stud
 ```
 
 
+```
+我会把我绞尽脑汁解决的偏门问题存起来，
+然后在一个合适的时间点假装提问，然后给出乱七八糟的信息，
+然后声称解决了这个问题，
+然后看看哪个孙子会被 AI 坑死（
+    -- Cooky 
+```
