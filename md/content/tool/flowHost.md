@@ -88,3 +88,36 @@ sequenceDiagram
 ## 2.  <a name='second'></a> 功能
 ### 2.1. <a name='secondPOne'></a> 物理串口通讯
 ### 2.2. <a name='secondPTwo'></a> 工作流编辑
+
+
+```mermaid
+graph TD
+    1(("START"))
+    2{{"PARALLEL"}}
+    10["Set count = 0"]
+    11["Log: Loop Start"]
+    12["Set count = count + 1"]
+    13{"IF: count < 3"}
+    14["Log: Loop Finished"]
+    20["Log: Waiting for data..."]
+    21{"Wait Receive"}
+    22["Send: RECEIVED_GO"]
+    23["Log: Branch B Done"]
+    24["Log: User Stopped Branch B"]
+    25["Log: Receive Timeout in Branch B"]
+    1 --> 2
+    2 --> 10
+    2 --> 20
+    10 --> 11
+    11 --> 12
+    12 --> 13
+    13 -->|True| 11
+    13 -->|False| 14
+    20 --> 21
+    21 -->|GO| 22
+    21 -->|STOP| 24
+    21 -->|Timeout| 25
+    22 --> 23
+
+
+```
