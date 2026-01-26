@@ -164,6 +164,9 @@ export default hopeTheme({
     // ],
     markdown: {
         revealjs: true,
+        mermaid: true,
+        tabs: true,
+        spoiler: true,
     },
     plugins: {
         blog: {

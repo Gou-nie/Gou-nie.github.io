@@ -28,8 +28,6 @@ export default defineUserConfig({
   ], 
   markdown:{
     component: true,
-    tabs: true,
-    spoiler: true,
   },
   theme: themeConfig,
   plugins: [
