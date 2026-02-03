@@ -14,7 +14,7 @@ category:
 * 2. [功能](#second)
     * 2.1. [物理串口通讯](#secondPOne)
     * 2.2. [工作流编辑](#secondPTwo)
-
+* 3. [随记](#third)
 
 *项目地址： https://github.com/Gou-nie/flowHost*
 
@@ -121,3 +121,14 @@ graph TD
 
 
 ```
+
+
+
+
+## 3.  <a name='third'></a> 随记
+<br>&emsp;&emsp;这个想法是由下面多个小事情串起来的：
+<br>&emsp;&emsp;&emsp;&emsp;1、HaxIOX / Portax项目，来自C语言群群友分享。知道了浏览器 Web Serial API里开放了USB串口的权限。 
+<br>&emsp;&emsp;&emsp;&emsp;2、Mermaid流程图绘制框架，这个是写文档时组长推荐的。
+<br>&emsp;&emsp;&emsp;&emsp;3、工作的时候看到pipeline的工作流。
+<br>&emsp;&emsp;于是做了这个专为串口通信任务设计的工作流自动化引擎。使用trae的周年福利问了AI来做，几个小事件激发一个想法然后在AI加持下两周摸鱼时间摸出来，感觉还是挺有成就感的。推荐大家了解一下vibeCoding。
+

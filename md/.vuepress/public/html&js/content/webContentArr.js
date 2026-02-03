@@ -124,6 +124,8 @@ const siteCollections = [
       { name: "串口工具", content: "串口工具", url: "https://portax.haxio.de/" },
       { name: "reqable", content: "抓包工具", url: "https://reqable.com/zh-CN/" },
       { name: "拼图", content: "又又又又一个拼图工具", url: "https://photocollagepro.com/" },
+      { name: "除法算式", content: "除法算式", url: "https://www.long-division-calculator.com/" },
+      { name: "卫星星图", content: "查看卫星星图", url: "https://satellitemap.space/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -154,6 +156,8 @@ const siteCollections = [
       { name: "Burner Note", content: "阅后即焚的私密笔记，安全无忧。", url: "https://www.producthunt.com/r/Q6ZL4HAM3BC7TV" },
       { name: "la-ola", content: "一个打字游戏", url: "https://conorwilson.itch.io/la-ola" },
       { name: "ooqo", content: "小游戏吃鱼", url: "https://aznoqmous.itch.io/ooqo" },
+      { name: "宝可梦性格雷达", content: "宝可梦性格雷达", url: "https://2dv6zpz7mq.coze.site/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   }
