@@ -10,11 +10,16 @@ category:
 # lifeFantasy
 
 * 1. [第一部](#first) 
-* 1.1. [经历](#firstOne)
+* 1.1. [积雪十年](#firstOne)
 * 1.2. [心理变化](#firstTwo)
 
-**
+*“忘了是怎么开始～”*
 
-## 1. <a name='first'></a> 街霸6
+## 1. <a name='first'></a> 第一部
 
-### 1.1. <a name='firstOne'></a> 经历&想法
+### 1.1. <a name='firstOne'></a> 积雪十年
+<br>
+<br>
+<br>
+<br>
+<br>
