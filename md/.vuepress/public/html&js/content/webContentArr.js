@@ -127,6 +127,7 @@ const siteCollections = [
       { name: "除法算式", content: "除法算式", url: "https://www.long-division-calculator.com/" },
       { name: "卫星星图", content: "查看卫星星图", url: "https://satellitemap.space/" },
       { name: "live", content: "直播&电视", url: "https://github.com/fanmingming/live" },
+      { name: "TableConvert", content: "关于表格的格式转换", url: "https://tableconvert.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -159,6 +160,8 @@ const siteCollections = [
       { name: "ooqo", content: "小游戏吃鱼", url: "https://aznoqmous.itch.io/ooqo" },
       { name: "宝可梦性格雷达", content: "宝可梦性格雷达", url: "https://2dv6zpz7mq.coze.site/" },
       { name: "拼图", content: "在线拼图", url: "https://jigsawpuzzle.pro/" },
+      { name: "图片转3d视角", content: "图片转3d视角", url: "https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   }

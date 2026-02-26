@@ -1218,3 +1218,9 @@ communists aren't communists because they study communism, but because they stud
 当一个人有灵魂时，总会将让自己受挫的事情称作清醒，而将不利自己的事情视为真相。但这种清醒和其他任何事物一样，依然是盲目的。
     -- 阿尔贝·加缪
 ```
+
+
+```
+最无聊，莫过于与一些话不投机，又毫无趣味、学识、个性品味的人硬塞在一起完成“聊天任务”。
+    -- 东方四十二
+```
