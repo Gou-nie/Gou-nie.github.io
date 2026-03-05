@@ -17,6 +17,7 @@ const siteCollections = [
       { name: "cloudflare/sandbox", content: "cloudflare/sandBox的 使用说明，网站风格不错", url: "https://sandbox.cloudflare.com/" },
       { name: "ractbits", content: "花里胡哨的特效", url: "https://www.reactbits.dev/get-started/index" },
       { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
     ]
   },
   {
@@ -45,6 +46,8 @@ const siteCollections = [
       { name: "行走郑州", content: "行走郑州，一个美国人对郑州的印象", url: "https://walkingtheworld.substack.com/p/walking-zhengzhou-china" },
       { name: "A blog", content: "一个好看的博客页", url: "https://www.yysuni.com/" },
       { name: "论坛贴", content: "你都知道哪些论坛", url: "https://2libra.com/post/interaction/NU8MyMP" },
+      { name: "10", content: "-2026年02月27日 -苏明砚", url: "https://www.essay.ink/essays/jvnxdufrxnqomdmcvjib" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -128,6 +131,8 @@ const siteCollections = [
       { name: "卫星星图", content: "查看卫星星图", url: "https://satellitemap.space/" },
       { name: "live", content: "直播&电视", url: "https://github.com/fanmingming/live" },
       { name: "TableConvert", content: "关于表格的格式转换", url: "https://tableconvert.com/" },
+      { name: "floorsjs", content: "3d房间 实时聊天窗口", url: "https://floorsjs.com/?ref=producthunt" },
+      { name: "Vue-Print-Designer", content: "可视化打印设计器", url: "https://0ldfive.github.io/Vue-Print-Designer/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -161,6 +166,8 @@ const siteCollections = [
       { name: "宝可梦性格雷达", content: "宝可梦性格雷达", url: "https://2dv6zpz7mq.coze.site/" },
       { name: "拼图", content: "在线拼图", url: "https://jigsawpuzzle.pro/" },
       { name: "图片转3d视角", content: "图片转3d视角", url: "https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera" },
+      { name: "diode", content: "3d在线面包板", url: "https://www.withdiode.com/" },
+      { name: "AI诸棋", content: "llm对战llm下棋", url: "https://github.com/murongg/ai-zhuqi-battle" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
