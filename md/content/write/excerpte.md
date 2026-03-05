@@ -1224,3 +1224,9 @@ communists aren't communists because they study communism, but because they stud
 最无聊，莫过于与一些话不投机，又毫无趣味、学识、个性品味的人硬塞在一起完成“聊天任务”。
     -- 东方四十二
 ```
+
+
+```
+这尘世纷纷扰扰的相遇，不停重复俗气又沉重的春天。
+    -- 苏明砚
+```
