@@ -42,7 +42,7 @@ export default {
   },
   methods:{
     getFlags() {
-          fetch('https://pywebtest.aleahquagef.top/read_file/flags.txt')
+          fetch(import.meta.env.VITE_API_URL+'/read_file/flags.txt')
               .then(response => response.json())
               .then(data => {
                   this.getInfoByStr(data.content);

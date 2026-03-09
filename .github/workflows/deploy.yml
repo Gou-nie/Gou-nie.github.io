@@ -24,6 +24,8 @@ jobs:
         run: npm install
 
       - name: Build VuePress site
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: npm run build
         
       - name: Add CNAME for custom domain

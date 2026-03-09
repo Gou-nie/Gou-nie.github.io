@@ -27,7 +27,7 @@ function track(data) {
   if (import.meta.env.DEV) {
     url = 'http://localhost:5011/kcart'
   }else{
-    url = 'https://pywebtest.aleahquagef.top/kcart'
+    url = import.meta.env.VITE_API_URL+'/kcart'
   }
   navigator.sendBeacon(
     url,

@@ -89,7 +89,7 @@ export default {
     },
     methods: {
         getQAddress() {
-            fetch('https://pywebtest.aleahquagef.top/read_file/address.txt')
+            fetch(import.meta.env.VITE_API_URL+'/read_file/address.txt')
                 .then(response => response.json())
                 .then(data => {
                     this.getInfoByStr(data.content);

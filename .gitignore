@@ -5,4 +5,4 @@ md/.vuepress/.temp/
 md/.vuepress/.cache/
 test.sql
 test.tt
-
+.env
