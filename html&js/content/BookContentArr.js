@@ -307,6 +307,46 @@ const bookArr = [
     isShow: true
   },
   {
+    fileUrl: commonFileUrl,
+    name: "FlowHost",
+    url: "content/tool/flowHost",
+    title: "FlowHost",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "GIFT",
+    url: "content/write/GIFT",
+    title: "GIFT",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "_2025",
+    url: "content/write/2025",
+    title: "2025总结",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "理想中的过年",
+    url: "content/write/IdealizedNewYear",
+    title: "理想中的过年",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "列车记录-26",
+    url: "content/write/backHome26",
+    title: "列车记录-26",
+    locked: true,
+    isShow: true
+  }, 
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
