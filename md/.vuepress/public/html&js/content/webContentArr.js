@@ -47,7 +47,7 @@ const siteCollections = [
       { name: "A blog", content: "一个好看的博客页", url: "https://www.yysuni.com/" },
       { name: "论坛贴", content: "你都知道哪些论坛", url: "https://2libra.com/post/interaction/NU8MyMP" },
       { name: "10", content: "-2026年02月27日 -苏明砚", url: "https://www.essay.ink/essays/jvnxdufrxnqomdmcvjib" },
-      { name: "", content: "", url: "" },
+      { name: "beyond-slop", content: "关于ai在艺术层面的创造", url: "https://www.joelsimon.net/beyond-slop" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -78,6 +78,7 @@ const siteCollections = [
       { name: "floor", content: "各种动漫人物格子房间", url: "https://floor796.com/" },
       { name: "一本书就是一个网页", content: "一本书就是一个网页", url: "http://www.vibary.art/" },
       { name: "小鱼播客", content: "小鱼播客，亲子十万个为什么", url: "https://www.xiaoyuzhoufm.com/podcast/672cb57c41963c65b0bd9cd5" },
+      { name: "worldonitor", content: "世界监控", url: "https://www.worldmonitor.app/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -133,6 +134,7 @@ const siteCollections = [
       { name: "TableConvert", content: "关于表格的格式转换", url: "https://tableconvert.com/" },
       { name: "floorsjs", content: "3d房间 实时聊天窗口", url: "https://floorsjs.com/?ref=producthunt" },
       { name: "Vue-Print-Designer", content: "可视化打印设计器", url: "https://0ldfive.github.io/Vue-Print-Designer/" },
+      { name: "GitNexus", content: " 可以给项目生成知识图谱看看项目的复杂度", url: "https://github.com/abhigyanpatwari/GitNexus" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -168,6 +170,8 @@ const siteCollections = [
       { name: "图片转3d视角", content: "图片转3d视角", url: "https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera" },
       { name: "diode", content: "3d在线面包板", url: "https://www.withdiode.com/" },
       { name: "AI诸棋", content: "llm对战llm下棋", url: "https://github.com/murongg/ai-zhuqi-battle" },
+      { name: "puppets", content: "浏览器木偶场", url: "https://puppets.app/" },
+      { name: "Mechanical-pencil", content: "弹簧笔、打火机等生活小物品的机械装置动画。", url: "https://mechanical-pencil.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
