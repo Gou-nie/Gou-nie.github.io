@@ -135,6 +135,7 @@ const siteCollections = [
       { name: "floorsjs", content: "3d房间 实时聊天窗口", url: "https://floorsjs.com/?ref=producthunt" },
       { name: "Vue-Print-Designer", content: "可视化打印设计器", url: "https://0ldfive.github.io/Vue-Print-Designer/" },
       { name: "GitNexus", content: " 可以给项目生成知识图谱看看项目的复杂度", url: "https://github.com/abhigyanpatwari/GitNexus" },
+      { name: "云便签", content: "文本中转站，支持加密传输文本", url: "https://webnote.cc/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]

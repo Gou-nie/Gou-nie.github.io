@@ -1301,3 +1301,15 @@ When we lock artists inside predetermined styles we're not just limiting what th
 说到底，工具升维了人没升维，出事就甩锅工具，这逻辑本身就是个 bug 。。。
     -- germain
 ```
+
+
+```
+这里的问题是 前端跨后端, 后端跨前端, 前后端一起跨产品跨测试, 到底哪个容易一些. 所有人都变成同一个岗位了, 吃鸡大赛就要开始了.
+    -- ujiaosama 2026/3/23 10:14
+```
+
+
+```
+所有漂泊的人生都梦想着平静、童年和杜鹃花，正如所有平静的人生都幻想伏特加、乐队和醉生梦死。
+    -- Françoise Sagan
+```
