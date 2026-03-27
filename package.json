@@ -29,6 +29,7 @@
     "dependencies": {
         "@tweenjs/tween.js": "^25.0.0",
         "axios": "^1.9.0",
+        "cobe": "^2.0.1",
         "epubjs": "^0.3.93",
         "feed": "^5.2.0",
         "gif.js": "^0.2.0",
