@@ -136,6 +136,8 @@ const siteCollections = [
       { name: "Vue-Print-Designer", content: "可视化打印设计器", url: "https://0ldfive.github.io/Vue-Print-Designer/" },
       { name: "GitNexus", content: " 可以给项目生成知识图谱看看项目的复杂度", url: "https://github.com/abhigyanpatwari/GitNexus" },
       { name: "云便签", content: "文本中转站，支持加密传输文本", url: "https://webnote.cc/" },
+      { name: "imjoy", content: "在线imageJ工具", url: "https://ij.imjoy.io" },
+      { name: "imjoy", content: "在线imageJ工具 中国站", url: "http://cnij.imjoy.io/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -176,6 +178,16 @@ const siteCollections = [
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
+  },
+    {
+    tab: "AI大模型",
+    links: [
+      { name: "数据库", content: "模型数据库 收集更新模型版本", url: "https://models.dev/" },
+      { name: "ccleaks", content: "claudecode隐藏功能", url: "https://www.ccleaks.com/" }, 
+      { name: "", content: "", url: "" },
+      { name: "", content: "", url: "" },
+    ]
   }
+
 ];
 export default siteCollections;
