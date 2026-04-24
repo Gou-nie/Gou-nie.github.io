@@ -1,6 +1,7 @@
 // docs/.vuepress/client.js
 import { defineClientConfig } from '@vuepress/client'
 import { useRouter } from 'vue-router'
+import './styles/index.css'
 
 export default defineClientConfig({
   setup() {

@@ -3,6 +3,7 @@ node_modules/
 dist/
 md/.vuepress/.temp/
 md/.vuepress/.cache/
-test.sql
-test.tt
 .env
+*.py
+test.*
+*.log

@@ -13,12 +13,12 @@
     overflow-y: auto;
     transition: transform 0.3s ease;
   }
-  
+
   /* 内容区域偏移，避免被侧边栏遮挡 */
   .content:not(.custom) {
     margin-left: 16rem;
   }
-  
+
   /* 响应式处理 - 小屏幕隐藏侧边栏 */
   @media (max-width: 959px) {
     .sidebar {
@@ -28,7 +28,7 @@
       margin-left: 0;
     }
   }
-  
+
   /* 侧边栏滚动条样式 */
   .sidebar::-webkit-scrollbar {
     width: 3px;
@@ -39,3 +39,127 @@
   .sidebar::-webkit-scrollbar-thumb {
     background: #888;
   }
+
+/* ========== 闪念页面专用样式 ========== */
+/* 闪念标题 */
+.page-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* 闪念子标题——那几句诗 */
+.page-intro {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  line-height: 2;
+  margin-bottom: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+/* 主标题 "闪念" */
+h1#闪念 {
+  text-align: center;
+  font-size: 2.2rem;
+  letter-spacing: 0.3em;
+  margin: 0 0 0.5rem;
+  color: #2c3e50;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+h1#闪念::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(58, 100, 149), transparent);
+  margin: 0.5rem auto 0;
+}
+
+/* ===== details / summary 卡片 ===== */
+.theme-hope-content details {
+  background: #fafbfc;
+  border: 1px solid #e8ecf1;
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.theme-hope-content details:hover {
+  border-color: #c8d0db;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.theme-hope-content details[open] {
+  background: #fff;
+  border-color: rgb(58, 100, 149, 0.25);
+}
+
+.theme-hope-content details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2c3e50;
+  padding: 0.3rem 0;
+  outline: none;
+  user-select: none;
+}
+.theme-hope-content details summary::marker {
+  color: rgb(58, 100, 149);
+}
+.theme-hope-content details summary::-webkit-details-marker {
+  color: rgb(58, 100, 149);
+}
+
+/* details 内部的 h3 条目 —— 每条闪念卡片 */
+.theme-hope-content details h3 {
+  font-size: 1.05rem;
+  margin: 1.2rem 0 0.3rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px dashed #e0e4ea;
+  color: #2c3e50;
+}
+
+/* h3 后面紧跟的斜体引用（***xxx*** 渲染的 <em>） */
+.theme-hope-content details h3 + p > em:first-child,
+.theme-hope-content details h3 + em {
+  display: block;
+  font-size: 0.9rem;
+  color: #8a9aa8;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid rgb(58, 100, 149, 0.3);
+}
+
+/* 条目正文 */
+.theme-hope-content details h3 + p,
+.theme-hope-content details h3 + em + p,
+.theme-hope-content details h3 + p > em:first-child + br + strong + br + code {
+  line-height: 1.75;
+  color: #444;
+}
+
+/* 分隔空白精简 — 去掉过多空行 */
+.theme-hope-content details h3 + p { margin-top: 0.3rem; }
+
+/* ----- 页面小标题样式 (h2) ----- */
+.theme-hope-content h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgb(58, 100, 149, 0.15);
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+/* 响应式优化 */
+@media (max-width: 719px) {
+  .theme-hope-content details {
+    padding: 0.6rem 0.8rem 1rem;
+  }
+  h1#闪念 {
+    font-size: 1.6rem;
+  }
+}
