@@ -175,6 +175,7 @@ const siteCollections = [
       { name: "AI诸棋", content: "llm对战llm下棋", url: "https://github.com/murongg/ai-zhuqi-battle" },
       { name: "puppets", content: "浏览器木偶场", url: "https://puppets.app/" },
       { name: "Mechanical-pencil", content: "弹簧笔、打火机等生活小物品的机械装置动画。", url: "https://mechanical-pencil.com/" },
+      { name: "gachago", content: "小游戏网站", url: "https://www.gachago.net/en" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
