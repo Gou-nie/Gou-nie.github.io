@@ -22,18 +22,18 @@ const tapeArr=[
         name: "tape2",
         path:tapePath,
         // url:"https://dn721908.ca.archive.org/0/items/youtube-yl3TsqL0ZPw/yl3TsqL0ZPw.mp4"
-        url:"/music/BohemianRhapsody.mp4",
+        url:"/music/BohemianRhapsody.mp3",
         type:"tape"
     },{
         name: "tape3",
         path:tapePath,
         // url:"https://dn721908.ca.archive.org/0/items/youtube-yl3TsqL0ZPw/yl3TsqL0ZPw.mp4"
-        url:"/music/LongingIsAKindOfDisease.mp4",
+        url:"/music/LongingIsAKindOfDisease.mp3",
         type:"tape"
     },{
         name: "tape4",
         path:tapePath,
-        url:"/music/IBetSheKnows.mp4",
+        url:"/music/IBetSheKnows.mp3",
         type:"tape"
     },{
         name: "tape5",
