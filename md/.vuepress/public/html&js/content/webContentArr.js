@@ -79,6 +79,7 @@ const siteCollections = [
       { name: "一本书就是一个网页", content: "一本书就是一个网页", url: "http://www.vibary.art/" },
       { name: "小鱼播客", content: "小鱼播客，亲子十万个为什么", url: "https://www.xiaoyuzhoufm.com/podcast/672cb57c41963c65b0bd9cd5" },
       { name: "worldonitor", content: "世界监控", url: "https://www.worldmonitor.app/" },
+      { name: "mathnet", content: "数学题收集站", url: "https://mathnet.mit.edu/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -176,7 +177,7 @@ const siteCollections = [
       { name: "puppets", content: "浏览器木偶场", url: "https://puppets.app/" },
       { name: "Mechanical-pencil", content: "弹簧笔、打火机等生活小物品的机械装置动画。", url: "https://mechanical-pencil.com/" },
       { name: "gachago", content: "小游戏网站", url: "https://www.gachago.net/en" },
-      { name: "", content: "", url: "" },
+      { name: "icodestar", content: "真实比例太阳系", url: "https://sw.icodestar.net/" },
       { name: "", content: "", url: "" },
     ]
   },

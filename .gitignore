@@ -7,3 +7,4 @@ md/.vuepress/.cache/
 *.py
 test.*
 *.log
+test/*
