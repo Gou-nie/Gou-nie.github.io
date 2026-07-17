@@ -2,6 +2,12 @@
 // 格式：{ date: 'YYYY-MM-DD', title: '标题', url: 'OSS mp3链接', desc: '简介（可选）' }
 const musicList = [
     {
+        date: '2026-07-17',
+        title: '哪就这样吧',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E9%82%A3%E5%B0%B1%E8%BF%99%E6%A0%B7%E5%90%A7-%E5%8A%A8%E5%8A%9B%E7%81%AB%E8%BD%A6%2397PS.mp3',
+        desc: '到了记得要给我通电话～ 分离，含蓄的不舍，扭捏的洒脱。除了这样还能怎样呢？'
+    },    
+    {
         date: '2026-07-14',
         title: '银色飞行船',
         url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/%E9%93%B6%E8%89%B2%E9%A3%9E%E8%A1%8C%E8%88%B9.mp3',
