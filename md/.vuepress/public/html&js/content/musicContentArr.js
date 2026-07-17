@@ -3,6 +3,12 @@
 const musicList = [
     {
         date: '2026-07-17',
+        title: 'Don‘t Look Back In Anger',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/Don%27t%20Look%20Back%20In%20Anger%20-%E7%BE%8A%E6%AF%9B%E4%B8%8E%E8%8A%B1.mp3',
+        desc: 'Her soul slides away～ But don‘t look back in anger I heard you say。 她的发音好美 总是让我感觉嘴里有什么粘粘的 但是真的很好听。'
+    },  
+    {
+        date: '2026-07-16',
         title: '哪就这样吧',
         url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E9%82%A3%E5%B0%B1%E8%BF%99%E6%A0%B7%E5%90%A7-%E5%8A%A8%E5%8A%9B%E7%81%AB%E8%BD%A6%2397PS.mp3',
         desc: '到了记得要给我通电话～ 分离，含蓄的不舍，扭捏的洒脱。除了这样还能怎样呢？'
