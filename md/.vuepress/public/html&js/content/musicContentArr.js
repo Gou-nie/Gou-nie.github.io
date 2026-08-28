@@ -2,6 +2,24 @@
 // 格式：{ date: 'YYYY-MM-DD', title: '标题', url: 'OSS mp3链接', desc: '简介（可选）' }
 const musicList = [
     {
+        date: '2026-08-28',
+        title: '十点半的地铁-李建',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E5%8D%81%E7%82%B9%E5%8D%8A%E7%9A%84%E5%9C%B0%E9%93%81.Live.-%E6%9D%8E%E5%81%A5%23f6JL2.mp3',
+        desc: '不去想 管它呢 让风吹在我脸上～。平常又生动的讲出十点半的地铁场景。 开头一个  终于  有种卸下劳累的感觉。这里是李建的版本。相对比原版更像是一个客观角度但声音将那种疲惫心累和一些安慰全都展开再叠好。原版更像一个亲历者，个中味道 都值得品味。'
+    },  
+    {
+        date: '2026-08-11',
+        title: 'seesaw',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/toconoma%20-%20seesaw.mp3',
+        desc: '刚开始听模糊处理的声音有些莫名其妙，在一段安静后的35s鼓一切开始清晰的演奏，然后就是贝斯进来就抓住脑袋开始摇。'
+    },  
+    {
+        date: '2026-07-22',
+        title: '都选C',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E9%83%BD%E9%80%89C.Demo.-%E8%B5%B5%E8%8B%B1%E4%BF%8A%23fu3mj.mp3',
+        desc: '你总是提出问题～后面挂着ABC～ 乍听单调仔细听抓耳的配乐，加上潇洒如诗的歌词，既能轻松让人吟唱又富有内涵。都选C！'
+    },  
+    {
         date: '2026-07-17',
         title: 'Don‘t Look Back In Anger',
         url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/Don%27t%20Look%20Back%20In%20Anger%20-%E7%BE%8A%E6%AF%9B%E4%B8%8E%E8%8A%B1.mp3',
