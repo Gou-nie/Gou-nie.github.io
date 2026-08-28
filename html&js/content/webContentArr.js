@@ -80,6 +80,7 @@ const siteCollections = [
       { name: "小鱼播客", content: "小鱼播客，亲子十万个为什么", url: "https://www.xiaoyuzhoufm.com/podcast/672cb57c41963c65b0bd9cd5" },
       { name: "worldonitor", content: "世界监控", url: "https://www.worldmonitor.app/" },
       { name: "mathnet", content: "数学题收集站", url: "https://mathnet.mit.edu/" },
+      { name: "flash档案馆", content: "flash档案馆", url: "https://flash.homes/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
@@ -139,6 +140,7 @@ const siteCollections = [
       { name: "云便签", content: "文本中转站，支持加密传输文本", url: "https://webnote.cc/" },
       { name: "imjoy", content: "在线imageJ工具", url: "https://ij.imjoy.io" },
       { name: "imjoy", content: "在线imageJ工具 中国站", url: "http://cnij.imjoy.io/" },
+      { name: "Scriptyard", content: "编剧和故事创作者的免费利器。Scriptyard 提供一个无限画布，让你随心所欲地绘制角色、地点、场景和故事结构，然后一键导出为 Markdown、Fountain 或 Final Draft 格式。从灵感到剧本，一个空间搞定。", url: "https://scriptyard.minimalhumans.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
@@ -178,6 +180,7 @@ const siteCollections = [
       { name: "Mechanical-pencil", content: "弹簧笔、打火机等生活小物品的机械装置动画。", url: "https://mechanical-pencil.com/" },
       { name: "gachago", content: "小游戏网站", url: "https://www.gachago.net/en" },
       { name: "icodestar", content: "真实比例太阳系", url: "https://sw.icodestar.net/" },
+      { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
     ]
   },
