@@ -1,6 +1,6 @@
 <template>
   <div class="book-shelf-container">
-    <StarrySky :stars-count="1000" :distance="1000" />
+    <!-- <StarrySky :stars-count="1000" :distance="1000" /> -->
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}
@@ -46,6 +46,7 @@ export default {
       totalheight:0,
       whiteFadeOpacity: 0, // 白色渐变的透明度
       isChoisePlayer: false,
+      isHoverMimikyu: false, // 是否悬停在 mimikyu 上
       isPlaying: false,
       musicUrl: '/music/ItOnlyGetsMuchWorse.mp3',
       audio: null,
@@ -104,6 +105,11 @@ export default {
     this.books = [];
     this.selectedBook = null;
     this.animationFrameId = null;
+    this.mimikyuBones = null;
+    this.mimikyuBoneRest = null;
+    this.mimikyuScene = null;
+    this.mimikyuHome = null;
+    this.mimikyuTimeline = null;
   },
   methods: {
     initParam() {
@@ -559,7 +565,113 @@ export default {
       Minikyu.scene.position.set(3, this.totalheight - this.shelfBoard.spacing, 0);
       Minikyu.scene.rotation.set(0, 0, 0);
 
+      this.mimikyuScene = Minikyu.scene;
+      this.mimikyuHome = Minikyu.scene.position.clone(); // 记录初始位置，用于最后传送回位
+
+      // 提取骨骼，按名字存成字典，并记录每根骨骼的初始姿态（rest pose）
+      this.mimikyuBones = {};
+      this.mimikyuBoneRest = {};
+      Minikyu.scene.traverse((obj) => {
+        if (obj.isBone) {
+          this.mimikyuBones[obj.name] = obj;
+          this.mimikyuBoneRest[obj.name] = obj.rotation.clone();
+        }
+        // 给 mesh 打标识，方便射线检测命中的是不是 mimikyu
+        if (obj.isMesh) {
+          obj.userData.isMimikyu = true;
+        }
+      });
+      console.log("mimikyu 骨骼：", Object.keys(this.mimikyuBones));
+
       this.scene.add(Minikyu.scene);
+    },
+    // 点击 mimikyu 的完整动作序列：抖动 → 转身 → 扑向摄像头 → 下坠 → 传送回位
+    mimikyuAttack() {
+      const b = this.mimikyuBones;
+      const rest = this.mimikyuBoneRest;
+      const scene = this.mimikyuScene;
+      // 注意：GLTFLoader 会把骨骼名里的 . 删掉（Ear.L → EarL）
+      if (!b || !rest || !b["EarL_Armature"] || !scene) return;
+
+      // 打断上一次还没播完的动画，避免连续点击叠加
+      if (this.mimikyuTimeline) this.mimikyuTimeline.kill();
+
+      // 复位到初始姿态、位置和朝向
+      Object.keys(rest).forEach((name) => {
+        const bone = b[name];
+        if (bone) bone.rotation.copy(rest[name]);
+      });
+      const home = this.mimikyuHome ? this.mimikyuHome.clone() : scene.position.clone();
+      scene.position.copy(home);
+      scene.rotation.set(0, 0, 0);
+      scene.scale.set(3, 3, 3);
+
+      const tl = gsap.timeline();
+      this.mimikyuTimeline = tl;
+
+      // 阶段1：抖动一下（0 ~ 0.55s）
+      tl.to(scene.scale, { x: 3.08, y: 3.08, z: 3.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power1.out" }, 0);
+      tl.to(b["EarL_Armature"].rotation, { z: rest["EarL_Armature"].z + 0.12, duration: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0);
+      tl.to(b["EarR_Armature"].rotation, { z: rest["EarR_Armature"].z - 0.12, duration: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0);
+      tl.to(b["Tail_Armature"].rotation, { y: rest["Tail_Armature"].y + 0.2, duration: 0.14, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0);
+      tl.to(b["Tail_tip_Armature"].rotation, { y: rest["Tail_tip_Armature"].y + 0.25, duration: 0.14, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0);
+
+      // 阶段2：先转身面向相机，再扑过去
+      // 相机可移动，动态读取实时位置
+      const camPos = this.camera.position;
+      const dir = new THREE.Vector3();
+      this.camera.getWorldDirection(dir);
+      const offset = 2; // 扑到相机正前方多少单位，越小越贴脸
+      const faceTarget = camPos.clone().add(dir.clone().multiplyScalar(offset));
+
+      // 计算面向相机的目标朝向（用 lookAt 临时算一次，再恢复）
+      scene.lookAt(camPos);
+      const faceRotation = scene.rotation.clone();
+      scene.rotation.set(0, 0, 0);
+
+      // 2a：转身（0.55 ~ 0.8s）
+      tl.to(scene.rotation, {
+        x: faceRotation.x, y: faceRotation.y, z: faceRotation.z,
+        duration: 0.25, ease: "power2.out",
+      }, 0.55);
+
+      // 2b：扑向（0.8 ~ 1.25s）
+      tl.to(scene.position, {
+        x: faceTarget.x, y: faceTarget.y, z: faceTarget.z,
+        duration: 0.45, ease: "power2.in",
+      }, 0.8);
+      tl.to(scene.scale, { x: 8, y: 8, z: 8, duration: 0.45, ease: "power2.in" }, 0.4);
+
+      // 在屏幕上停留 0.8s（1.25 ~ 2.05s 静止）
+
+      // 阶段3：下坠落地（2.05 ~ 2.55s），垂直落到相机正下方的地面（保持扑向后的 x/z）
+      tl.to(scene.position, { y: 0.3, duration: 0.5, ease: "power2.in" }, 2.05);
+
+      // 落地压扁
+      tl.to(scene.scale, { x: 6, y: 3, z: 6, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.out" }, 2.55);
+
+      // 落地后缩小回正常大小
+      tl.to(scene.scale, { x: 3, y: 3, z: 3, duration: 0.3, ease: "power1.out" }, 2.8);
+
+      // 落地后停 1s，走回书架左侧站好（4.1s 起）
+      // x/z 平移，y 上升并叠加走路起伏（bobbing）
+      const walkObj = { t: 0 };
+      const walkStartY = 0.3; // 落地后的高度（与下坠阶段一致）
+      tl.to(scene.position, { x: 3, z: home.z, duration: 1.5, ease: "power1.inOut" }, 4.1);
+      tl.to(walkObj, {
+        t: 1,
+        duration: 1.5,
+        ease: "power1.inOut",
+        onUpdate: () => {
+          const baseY = walkStartY + (home.y - walkStartY) * walkObj.t;
+          const bob = Math.sin(walkObj.t * Math.PI * 8) * 0.12;
+          scene.position.y = baseY + bob;
+        },
+      }, 4.1);
+      // 走回开始时转身背对相机（面向书架方向 -z）
+      tl.to(scene.rotation, { x: 0, y: Math.PI, z: 0, duration: 0.3, ease: "power1.out" }, 4.1);
+      // 走到位后转正面向观众（+z）
+      tl.to(scene.rotation, { x: 0, y: 0, z: 0, duration: 0.4, ease: "power1.out" }, 5.6);
     },
     async loadMagikarp() {
       // 鲤鱼王
@@ -632,10 +744,16 @@ export default {
         } else {
           this.isChoisePlayer = false
         }
+        if (intersects[0].object.userData.isMimikyu) {
+          this.isHoverMimikyu = true;
+        } else {
+          this.isHoverMimikyu = false;
+        }
       } else {
         // 没有选中书籍，取消高亮
         this.unhighlightBook();
         this.unchoiseHole();
+        this.isHoverMimikyu = false;
       }
     },
     onMouseClick() {
@@ -677,6 +795,9 @@ export default {
           this.audio.play();
           this.isPlaying = true;
         }
+      }
+      if (this.isHoverMimikyu) {
+        this.mimikyuAttack();
       }
     },
     onWindowResize() {
