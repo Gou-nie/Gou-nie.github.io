@@ -1,6 +1,6 @@
 <template>
   <div class="book-shelf-container">
-    <!-- <StarrySky :stars-count="1000" :distance="1000" /> -->
+    <StarrySky :stars-count="1000" :distance="1000" />
     <canvas ref="canvas" class="book-shelf-canvas"></canvas>
     <div class="overlay-text">
       {{ dynamicText }}

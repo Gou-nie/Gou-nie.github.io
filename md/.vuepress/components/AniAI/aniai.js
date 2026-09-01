@@ -76,6 +76,8 @@ export class AniAI {
       names: () => this.poseStore.names(),
       has: (name) => this.poseStore.has(name),
       delete: (name) => this.poseStore.delete(name),
+      serialize: () => this.poseStore.serialize(),
+      hydrate: (data) => this.poseStore.hydrate(data),
     };
   }
 

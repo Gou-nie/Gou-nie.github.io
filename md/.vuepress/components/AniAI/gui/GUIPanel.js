@@ -1,24 +1,39 @@
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { KeyBindingGUI } from "./KeyBindingGUI.js";
+import { CustomActionGUI } from "./CustomActionGUI.js";
 import { SkeletonLines } from "../core/SkeletonLines.js";
+import { ConfigStore } from "../core/ConfigStore.js";
 
 /**
- * AniAI 的 lil-gui 面板，分三个文件夹：
- * 1. 模型 Model：显示骨骼（SkeletonLines，蓝绿线、选中标红）、重置视角
- * 2. 骨骼 Skeleton：下拉选骨骼 → 拖动旋转滑杆（度）实时微调
- * 3. 键位 Key Bindings：预置指令 + 触发方式 + 绑定/解绑按键
+ * AniAI 的 lil-gui 面板，左右各挂一个 GUI 实例，避免所有折叠面板堆在同一个下拉里：
+ * 左侧「查看/编辑」：模型 Model、骨骼 Skeleton、姿态 Pose
+ * 右侧「动作/键位」：自定义动作 Custom Actions、键位 Key Bindings
+ *
+ * 键位 / 自定义动作 / 已保存姿态会缓存到 localStorage（按模型分桶），下次打开自动恢复。
  *
  * @param {import('../aniai.js').AniAI} aniai
  * @param {{scene?: object, camera?: object, controls?: object}} context 可选的三件套，用于「显示骨骼」「重置视角」
+ * @param {{onImport?: Function}} handlers
+ * @param {{leftContainer?: HTMLElement, rightContainer?: HTMLElement}} mount 面板挂载容器，缺省时回退到 lil-gui 默认的右上角悬浮
  */
 export class GUIPanel {
-  constructor(aniai, context = {}, handlers = {}) {
+  constructor(aniai, context = {}, handlers = {}, mount = {}) {
     this.aniai = aniai;
     this.context = context;
     this.handlers = handlers;
 
-    this.gui = new GUI({ title: "AniAI 控制面板" });
+    // 配置缓存：按模型名分桶，避免不同 GLB 的骨骼名互相污染
+    this.configStore = new ConfigStore(aniai.modelName || "default");
+    this.config = this.configStore.load();
+
+    const leftOpts = { title: "查看 / 编辑" };
+    const rightOpts = { title: "动作 / 键位" };
+    if (mount.leftContainer) leftOpts.container = mount.leftContainer;
+    if (mount.rightContainer) rightOpts.container = mount.rightContainer;
+    this.guiLeft = new GUI(leftOpts);
+    this.guiRight = new GUI(rightOpts);
+    this.gui = this.guiLeft; // 兼容旧引用（dispose 等）
     // lil-gui 0.21 无 gui.keyboard.disable()；其 DOM 内已 stopPropagation，配合 InputManager 捕获阶段监听即可
 
     this._skeletonCtrls = null;
@@ -34,18 +49,44 @@ export class GUIPanel {
     if (context.camera) this.homeCamera = context.camera.position.clone();
     this.homeTarget = context.controls?.target ? context.controls.target.clone() : new THREE.Vector3();
 
+    // 先恢复姿态：自定义动作里的「应用姿态」要能在下拉里选到它们
+    const restored = this.aniai.pose.hydrate(this.config.poses);
+    if (restored) console.log(`[AniAI] 已从本地缓存恢复 ${restored} 个姿态`);
+
     this._buildModel();
     this._buildSkeleton();
     this._buildPose();
-    this.keyBindings = new KeyBindingGUI(aniai, this.gui);
+
+    const persist = () => this._persist();
+    this.keyBindings = new KeyBindingGUI(aniai, this.guiRight, {
+      savedBindings: this.config.bindings,
+      onChange: persist,
+    });
     this._buildPresetBindings();
+    this.customActions = new CustomActionGUI(aniai, this.guiRight, this.keyBindings, {
+      onSelectBone: (name) => this._highlightBone(name),
+      savedActions: this.config.actions,
+      onChange: persist,
+    });
+    this._buildConfigFolder();
+  }
+
+  /** 把当前键位 / 动作 / 姿态写入 localStorage */
+  _persist() {
+    if (!this.keyBindings) return;
+    this.configStore.save({
+      bindings: this.keyBindings.serialize(),
+      actions: this.customActions?.serialize() || [],
+      poses: this.aniai.pose.serialize(),
+    });
   }
 
   dispose() {
     this._fileInput?.remove();
     this._fileInput = null;
     this.skeletonLines?.dispose();
-    this.gui.destroy();
+    this.guiLeft.destroy();
+    this.guiRight.destroy();
   }
 
   /** 每帧调用：驱动骨骼线跟随骨骼动画 */
@@ -165,15 +206,16 @@ export class GUIPanel {
     this._syncBoneSliders();
   }
 
-  /** 选中骨骼 → 对应骨骼线段标红（必要时自动显示骨骼线） */
-  _highlightBone() {
-    if (!this.skeletonLines || !this._skeletonState) return;
+  /** 选中骨骼 → 对应骨骼线段标红（必要时自动显示骨骼线）；不传 name 时用骨骼面板当前选中项 */
+  _highlightBone(name) {
+    const boneName = name ?? this._skeletonState?.bone;
+    if (!this.skeletonLines || !boneName) return;
     if (!this.skeletonLines.visible) {
       this.skeletonLines.setVisible(true);
       if (this._modelState) this._modelState.showSkeleton = true;
       this._showSkeletonCtrl?.updateDisplay();
     }
-    this.skeletonLines.highlight(this._skeletonState.bone);
+    this.skeletonLines.highlight(boneName);
   }
 
   // ---- 姿态 ----
@@ -185,19 +227,57 @@ export class GUIPanel {
     }
     const state = {
       poseName: "idle",
-      save: () => this.aniai.pose.save(state.poseName),
+      save: () => {
+        this.aniai.pose.save(state.poseName);
+        this.customActions?.refreshPoseOptions();
+        state.saved = this._poseListText();
+        this._savedCtrl?.updateDisplay();
+        this._persist();
+      },
       apply: () => this.aniai.pose.apply(state.poseName, { duration: 0.5 }),
+      remove: () => {
+        if (!this.aniai.pose.delete(state.poseName)) {
+          console.warn(`[AniAI] 姿态「${state.poseName}」不存在`);
+          return;
+        }
+        this.customActions?.refreshPoseOptions();
+        state.saved = this._poseListText();
+        this._savedCtrl?.updateDisplay();
+        this._persist();
+      },
       saved: "",
     };
     f.add(state, "poseName").name("姿态名");
     f.add(state, "save").name("保存当前姿态");
     f.add(state, "apply").name("应用姿态");
-    f.add(state, "saved").name("已保存").disable();
+    f.add(state, "remove").name("删除姿态");
+    this._savedCtrl = f.add(state, "saved").name("已保存").disable();
+    f.add({ refresh: () => (state.saved = this._poseListText()) }, "refresh").name("刷新列表");
+    state.saved = this._poseListText();
+  }
+
+  _poseListText() {
+    return this.aniai.pose.names().join(", ") || "(无)";
+  }
+
+  // ---- 配置缓存 ----
+  _buildConfigFolder() {
+    const f = this.guiRight.addFolder("配置 Config").close();
     f.add(
-      { refresh: () => (state.saved = this.aniai.pose.names().join(", ") || "(无)") },
-      "refresh"
-    ).name("刷新列表");
-    state.saved = this.aniai.pose.names().join(", ") || "(无)";
+      { msg: this.configStore.storageKey.replace("aniai:config:v1:", "") },
+      "msg"
+    )
+      .name("缓存槽位")
+      .disable();
+    f.add(
+      {
+        clear: () => {
+          this.configStore.clear();
+          console.log("[AniAI] 已清除本地配置，刷新页面后恢复默认键位");
+        },
+      },
+      "clear"
+    ).name("清除本地配置");
   }
 
   // ---- 预置指令 + 键位 ----

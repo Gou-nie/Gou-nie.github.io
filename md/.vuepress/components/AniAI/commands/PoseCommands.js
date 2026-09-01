@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import * as THREE from "three";
 import { Command } from "./Command.js";
 
 /**
@@ -37,6 +38,39 @@ export class PoseStore {
     }
     this.poses.set(name, snap);
     return snap;
+  }
+
+  /** 导出为纯 JSON（供 localStorage 缓存）：{ 姿态名: { 骨骼名: [x, y, z, order] } } */
+  serialize() {
+    const out = {};
+    for (const [poseName, snap] of this.poses) {
+      const bones = {};
+      for (const [boneName, rot] of snap) {
+        bones[boneName] = [rot.x, rot.y, rot.z, rot.order];
+      }
+      out[poseName] = bones;
+    }
+    return out;
+  }
+
+  /** 从 serialize() 的结果恢复；已存在的同名姿态会被覆盖 */
+  hydrate(data) {
+    if (!data || typeof data !== "object") return 0;
+    let count = 0;
+    for (const [poseName, bones] of Object.entries(data)) {
+      if (!bones || typeof bones !== "object") continue;
+      const snap = new Map();
+      for (const [boneName, arr] of Object.entries(bones)) {
+        if (!Array.isArray(arr) || arr.length < 3) continue;
+        const [x, y, z, order] = arr;
+        snap.set(boneName, new THREE.Euler(x, y, z, order || "XYZ"));
+      }
+      if (snap.size) {
+        this.poses.set(poseName, snap);
+        count++;
+      }
+    }
+    return count;
   }
 }
 

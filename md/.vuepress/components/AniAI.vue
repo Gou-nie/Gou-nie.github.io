@@ -1,7 +1,9 @@
 <template>
   <div class="aniai-container">
     <canvas ref="canvas" class="aniai-canvas"></canvas>
-    <div class="aniai-hint">右侧面板设置键位 · 默认：r=复位 b=弹跳 t=左耳摆动 d=尾巴(按住)</div>
+    <div ref="guiLeft" class="aniai-gui aniai-gui-left"></div>
+    <div ref="guiRight" class="aniai-gui aniai-gui-right"></div>
+    <div class="aniai-hint">左侧面板选模型/骨骼/姿态 · 右侧面板设置动作与键位 · 默认：r=复位 b=弹跳 t=左耳摆动 d=尾巴(按住)</div>
   </div>
 </template>
 
@@ -72,6 +74,8 @@ export default {
       this.ai = new AniAI();
       try {
         await this.ai.loadModel(this.modelUrl);
+        // 作为配置缓存的分桶标识（GUIPanel 用它区分不同模型的键位配置）
+        this.ai.modelName = this.modelUrl.split("/").pop();
         this.scene.add(this.ai.model);
         this.ai.showSkeleton();
 
@@ -120,7 +124,8 @@ export default {
       return new GUIPanel(
         this.ai,
         { scene: this.scene, camera: this.camera, controls: this.controls },
-        { onImport: (file) => this.reloadModel(file) }
+        { onImport: (file) => this.reloadModel(file) },
+        { leftContainer: this.$refs.guiLeft, rightContainer: this.$refs.guiRight }
       );
     },
     /** 把相机框到当前模型包围盒 */
@@ -186,10 +191,16 @@ export default {
 </script>
 
 <style scoped>
+/* 全屏平铺，覆盖 VuePress 页面其余内容（同 ShelfShow 的思路） */
 .aniai-container {
-  position: relative;
-  width: 100%;
-  height: 520px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: 101;
+  background: #1a1a2e;
 }
 .aniai-canvas {
   display: block;
@@ -198,7 +209,7 @@ export default {
 }
 .aniai-hint {
   position: absolute;
-  top: 12px;
+  bottom: 12px;
   left: 12px;
   color: #fff;
   font-size: 13px;
@@ -206,5 +217,18 @@ export default {
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
+}
+.aniai-gui {
+  position: absolute;
+  top: 12px;
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  z-index: 10;
+}
+.aniai-gui-left {
+  left: 12px;
+}
+.aniai-gui-right {
+  right: 12px;
 }
 </style>
