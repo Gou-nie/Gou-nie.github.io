@@ -36,7 +36,8 @@ import { Sequence, Parallel, Loop } from "./commands/CompositeCommands.js";
 export class AniAI {
   constructor(options = {}) {
     this.loader = options.loader || new ModelLoader();
-    this.input = new InputManager(options.target);
+    // InputManager 的签名是 (options) 且读 options.target；传裸值会被静默忽略
+    this.input = new InputManager({ target: options.target });
 
     this.gltf = null; // 原始 gltf
     this.model = null; // gltf.scene（模型根节点）

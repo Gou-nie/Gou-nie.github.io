@@ -19,13 +19,13 @@ export class CustomActionGUI {
     this.keyBindings = keyBindings;
     this.handlers = handlers;
     this.onChange = handlers.onChange || null;
-    this.folder = gui.addFolder("自定义动作 Custom Actions");
+    this.folder = gui.addFolder("🎬 自定义动作");
     this._count = 0;
     this._entries = new Map(); // id -> lil-gui controller（列表里的删除条目）
     this._defs = new Map(); // id -> 动作定义（可序列化）
 
     this._buildCreator();
-    this.listFolder = this.folder.addFolder("已创建的动作");
+    this.listFolder = this.folder.addFolder("我的动作").open();
     this._restore(handlers.savedActions || []);
   }
 
@@ -44,11 +44,11 @@ export class CustomActionGUI {
     };
     this._state = state;
 
-    const f = this.folder.addFolder("新建动作").open();
-    f.add(state, "type", { 应用姿态: "pose", 骨骼摆动: "sway", 骨骼旋转: "rotate" })
+    const f = this.folder.addFolder("➕ 新建").close();
+    f.add(state, "type", { 姿态: "pose", 摆动: "sway", 旋转: "rotate" })
       .name("类型")
       .onChange(() => this._refreshFields());
-    f.add(state, "name").name("动作名称");
+    f.add(state, "name").name("名称");
 
     this._boneCtrl = f
       .add(state, "bone", boneNames.length ? boneNames : [""])
@@ -56,10 +56,10 @@ export class CustomActionGUI {
       .onChange((name) => this.handlers.onSelectBone?.(name));
     this._axisCtrl = f.add(state, "axis", ["x", "y", "z"]).name("轴");
     this._angleCtrl = f.add(state, "angle", -180, 180, 1).name("角度°");
-    this._speedCtrl = f.add(state, "speed", 0.1, 10, 0.1).name("速度(次/秒)");
+    this._speedCtrl = f.add(state, "speed", 0.1, 10, 0.1).name("速度");
     this._durationCtrl = f.add(state, "duration", 0.05, 2, 0.05).name("时长(秒)");
     this._poseCtrl = f.add(state, "poseName", this._poseOptions()).name("姿态");
-    f.add(state, "create").name("+ 创建动作");
+    f.add(state, "create").name("✅ 创建");
 
     this._refreshFields();
   }

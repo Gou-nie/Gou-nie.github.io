@@ -23,9 +23,9 @@ export class KeyBindingGUI {
     this.gui = gui;
     this.saved = options.savedBindings || {};
     this.onChange = options.onChange || null;
-    this.folder = gui.addFolder("键位 Key Bindings");
-    this.listFolder = this.folder.addFolder("当前绑定一览");
-    this.settingsFolder = this.folder.addFolder("绑定设置").close();
+    this.folder = gui.addFolder("⌨️ 键位绑定");
+    this.listFolder = this.folder.addFolder("当前键位").open();
+    this.settingsFolder = this.folder.addFolder("⚙️ 设置").close();
     this.listState = {};
     this.slots = new Map(); // id -> slot
     this._capturing = false;
@@ -61,14 +61,14 @@ export class KeyBindingGUI {
 
     slotFolder
       .add(state, "mode", ["press", "hold", "toggle"])
-      .name("触发方式")
+      .name("模式")
       .onChange((v) => {
         slot.mode = v;
         if (slot.key) this._bind(slot, slot.key); // 用新模式重绑
         this._persist();
       });
-    slotFolder.add({ bind: () => this._startCapture(slot) }, "bind").name("绑定按键");
-    slotFolder.add({ clear: () => this._clear(slot) }, "clear").name("解绑");
+    slotFolder.add({ bind: () => this._startCapture(slot) }, "bind").name("🔑 绑定");
+    slotFolder.add({ clear: () => this._clear(slot) }, "clear").name("✕ 清除");
 
     // 一览：只读展示「动作 -> 键」，与上面的设置区分开
     this.listState[id] = "未绑定";
