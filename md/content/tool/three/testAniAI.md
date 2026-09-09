@@ -14,12 +14,3 @@ layout: false
 打开浏览器控制台（F12）查看骨骼树与 rest pose。
 
 <AniAI />
-
-<style>
-body, html {
-  background: #1a1a2e;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-</style>

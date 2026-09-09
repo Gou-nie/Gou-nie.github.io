@@ -6,32 +6,32 @@
     <div class="aniai-menubar" :style="{ borderBottomColor: getThemeColors().primary + '66' }">
       <div class="aniai-menu-left">
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'model' }" @click="toggleMenu('model')" data-menu="model">
-          <span class="menu-icon">📦</span>
+          <span class="aniai-menu-icon">📦</span>
           <span>模型</span>
         </div>
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'skeleton' }" @click="toggleMenu('skeleton')" data-menu="skeleton">
-          <span class="menu-icon">🦴</span>
+          <span class="aniai-menu-icon">🦴</span>
           <span>骨骼</span>
         </div>
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'pose' }" @click="toggleMenu('pose')" data-menu="pose">
-          <span class="menu-icon">💾</span>
+          <span class="aniai-menu-icon">💾</span>
           <span>姿态</span>
         </div>
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'action' }" @click="toggleMenu('action')" data-menu="action">
-          <span class="menu-icon">🎬</span>
+          <span class="aniai-menu-icon">🎬</span>
           <span>动作</span>
         </div>
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'keys' }" @click="toggleMenu('keys')" data-menu="keys">
-          <span class="menu-icon">⌨️</span>
+          <span class="aniai-menu-icon">⌨️</span>
           <span>键位</span>
         </div>
       </div>
       <div class="aniai-menu-right">
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'theme' }" @click="toggleMenu('theme')" data-menu="theme">
-          <span class="menu-icon">🎨</span>
+          <span class="aniai-menu-icon">🎨</span>
         </div>
         <div class="aniai-menu-item" :class="{ active: activeMenu === 'config' }" @click="toggleMenu('config')" data-menu="config">
-          <span class="menu-icon">⚙️</span>
+          <span class="aniai-menu-icon">⚙️</span>
         </div>
       </div>
     </div>
@@ -41,67 +41,67 @@
 
     <!-- 主题选择器（自定义面板） -->
     <div v-if="activeMenu === 'theme'" class="aniai-theme-panel" :style="{ left: themeButtonLeft }">
-      <div class="theme-item" @click="changeTheme('blue')">
-        <div class="theme-preview blue"></div>
+      <div class="aniai-theme-item" @click="changeTheme('blue')">
+        <div class="aniai-theme-preview aniai-blue"></div>
         <span>蓝色</span>
-        <span v-if="theme === 'blue'" class="theme-check">✓</span>
+        <span v-if="theme === 'blue'" class="aniai-theme-check">✓</span>
       </div>
-      <div class="theme-item" @click="changeTheme('purple')">
-        <div class="theme-preview purple"></div>
+      <div class="aniai-theme-item" @click="changeTheme('purple')">
+        <div class="aniai-theme-preview aniai-purple"></div>
         <span>紫色</span>
-        <span v-if="theme === 'purple'" class="theme-check">✓</span>
+        <span v-if="theme === 'purple'" class="aniai-theme-check">✓</span>
       </div>
-      <div class="theme-item" @click="changeTheme('green')">
-        <div class="theme-preview green"></div>
+      <div class="aniai-theme-item" @click="changeTheme('green')">
+        <div class="aniai-theme-preview aniai-green"></div>
         <span>绿色</span>
-        <span v-if="theme === 'green'" class="theme-check">✓</span>
+        <span v-if="theme === 'green'" class="aniai-theme-check">✓</span>
       </div>
-      <div class="theme-item" @click="changeTheme('orange')">
-        <div class="theme-preview orange"></div>
+      <div class="aniai-theme-item" @click="changeTheme('orange')">
+        <div class="aniai-theme-preview aniai-orange"></div>
         <span>橙色</span>
-        <span v-if="theme === 'orange'" class="theme-check">✓</span>
+        <span v-if="theme === 'orange'" class="aniai-theme-check">✓</span>
       </div>
-      <div class="theme-item" @click="changeTheme('dark')">
-        <div class="theme-preview dark"></div>
+      <div class="aniai-theme-item" @click="changeTheme('dark')">
+        <div class="aniai-theme-preview aniai-dark"></div>
         <span>暗黑</span>
-        <span v-if="theme === 'dark'" class="theme-check">✓</span>
+        <span v-if="theme === 'dark'" class="aniai-theme-check">✓</span>
       </div>
 
-      <div class="theme-divider"></div>
+      <div class="aniai-theme-divider"></div>
 
-      <div class="theme-item" @click="changeTheme('custom')">
-        <div class="theme-preview custom" :style="{ background: `linear-gradient(135deg, ${customPrimaryColor}, ${customSecondaryColor})` }"></div>
+      <div class="aniai-theme-item" @click="changeTheme('custom')">
+        <div class="aniai-theme-preview aniai-custom" :style="{ background: `linear-gradient(135deg, ${customPrimaryColor}, ${customSecondaryColor})` }"></div>
         <span>自定义</span>
-        <span v-if="theme === 'custom'" class="theme-check">✓</span>
+        <span v-if="theme === 'custom'" class="aniai-theme-check">✓</span>
       </div>
 
-      <div v-if="theme === 'custom'" class="custom-color-picker">
-        <div class="color-row">
+      <div v-if="theme === 'custom'" class="aniai-custom-color-picker">
+        <div class="aniai-color-row">
           <label>背景起始</label>
-          <div class="color-input-group">
+          <div class="aniai-color-input-group">
             <input type="color" v-model="customBgColor1" @input="onCustomColorChange" />
-            <span class="color-value">{{ customBgColor1 }}</span>
+            <span class="aniai-color-value">{{ customBgColor1 }}</span>
           </div>
         </div>
-        <div class="color-row">
+        <div class="aniai-color-row">
           <label>背景结束</label>
-          <div class="color-input-group">
+          <div class="aniai-color-input-group">
             <input type="color" v-model="customBgColor2" @input="onCustomColorChange" />
-            <span class="color-value">{{ customBgColor2 }}</span>
+            <span class="aniai-color-value">{{ customBgColor2 }}</span>
           </div>
         </div>
-        <div class="color-row">
+        <div class="aniai-color-row">
           <label>主题色1</label>
-          <div class="color-input-group">
+          <div class="aniai-color-input-group">
             <input type="color" v-model="customPrimaryColor" @input="onCustomColorChange" />
-            <span class="color-value">{{ customPrimaryColor }}</span>
+            <span class="aniai-color-value">{{ customPrimaryColor }}</span>
           </div>
         </div>
-        <div class="color-row">
+        <div class="aniai-color-row">
           <label>主题色2</label>
-          <div class="color-input-group">
+          <div class="aniai-color-input-group">
             <input type="color" v-model="customSecondaryColor" @input="onCustomColorChange" />
-            <span class="color-value">{{ customSecondaryColor }}</span>
+            <span class="aniai-color-value">{{ customSecondaryColor }}</span>
           </div>
         </div>
       </div>
@@ -466,7 +466,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* CSS变量 - 通过JS动态更新 */
 .aniai-container {
   --theme-primary: #3b82f6;
@@ -557,7 +557,7 @@ export default {
   box-shadow: 0 0 20px var(--theme-primary-glow, rgba(59, 130, 246, 0.4));
 }
 
-.menu-icon {
+.aniai-menu-icon {
   font-size: 17px;
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
@@ -612,7 +612,7 @@ export default {
   transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-item {
+.aniai-theme-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -626,12 +626,12 @@ export default {
   position: relative;
 }
 
-.theme-item:hover {
+.aniai-theme-item:hover {
   background: rgba(59, 130, 246, 0.15);
   color: #ffffff;
 }
 
-.theme-preview {
+.aniai-theme-preview {
   width: 28px;
   height: 28px;
   border-radius: 6px;
@@ -639,46 +639,46 @@ export default {
   flex-shrink: 0;
 }
 
-.theme-preview.blue {
+.aniai-theme-preview.aniai-blue {
   background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
 }
 
-.theme-preview.purple {
+.aniai-theme-preview.aniai-purple {
   background: linear-gradient(135deg, #a855f7 0%, #c026d3 100%);
 }
 
-.theme-preview.green {
+.aniai-theme-preview.aniai-green {
   background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
 }
 
-.theme-preview.orange {
+.aniai-theme-preview.aniai-orange {
   background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
 }
 
-.theme-preview.dark {
+.aniai-theme-preview.aniai-dark {
   background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
 }
 
-.theme-check {
+.aniai-theme-check {
   margin-left: auto;
   color: #10b981;
   font-size: 16px;
   font-weight: 700;
 }
 
-.theme-divider {
+.aniai-theme-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
   margin: 8px 0;
 }
 
 /* 自定义颜色选择器 */
-.custom-color-picker {
+.aniai-custom-color-picker {
   padding: 8px 0;
   margin-top: 8px;
 }
 
-.color-row {
+.aniai-color-row {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -687,7 +687,7 @@ export default {
   justify-content: space-between;
 }
 
-.color-row label {
+.aniai-color-row label {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
   min-width: 65px;
@@ -695,14 +695,14 @@ export default {
   flex-shrink: 0;
 }
 
-.color-input-group {
+.aniai-color-input-group {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-left: auto;
 }
 
-.color-row input[type="color"] {
+.aniai-color-row input[type="color"] {
   width: 40px;
   height: 32px;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -712,12 +712,12 @@ export default {
   transition: all 0.2s ease;
 }
 
-.color-row input[type="color"]:hover {
+.aniai-color-row input[type="color"]:hover {
   border-color: rgba(255, 255, 255, 0.4);
   transform: scale(1.05);
 }
 
-.color-value {
+.aniai-color-value {
   font-size: 11px;
   color: rgba(255, 255, 255, 0.5);
   font-family: monospace;
@@ -994,7 +994,7 @@ export default {
     gap: 4px;
   }
 
-  .menu-icon {
+  .aniai-menu-icon {
     font-size: 14px;
   }
 
