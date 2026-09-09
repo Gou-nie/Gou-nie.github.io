@@ -17,7 +17,8 @@
       "Read(//tmp/**)",
       "Bash(git mv *)",
       "Bash(cd *)",
-      "Bash(grep -o \"keyboard[=:][^,;]\\\\{0,80\\\\}\" node_modules/lil-gui/dist/lil-gui.esm.js)"
+      "Bash(grep -o \"keyboard[=:][^,;]\\\\{0,80\\\\}\" node_modules/lil-gui/dist/lil-gui.esm.js)",
+      "Bash(grep -rn -E \"^\\\\s*\\(body|html\\)[, {]\" md --include=\"*.md\" --include=\"*.vue\" --include=\"*.css\" --include=\"*.styl\")"
     ],
     "deny": []
   }

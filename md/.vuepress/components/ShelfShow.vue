@@ -974,6 +974,7 @@ export default {
   width: 100vw;
   height: 100vh;
   margin: 0;
+  background: white;
   z-index: 101;
   /* background: url(../public/images/gif/heythatme-cloud.gif) no-repeat center center;
     background-size: cover; */

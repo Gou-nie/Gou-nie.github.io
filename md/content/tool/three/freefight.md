@@ -8,12 +8,3 @@ layout: false
 ---
 
 <FreeFight />
-
-<style>
-body, html {
-  background: #070b18;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-</style>
