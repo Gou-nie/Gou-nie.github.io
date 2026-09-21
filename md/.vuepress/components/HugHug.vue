@@ -74,6 +74,8 @@ export default {
             longitude2InF: 28,
             latitude2InM: 50,
             longitude2InM: 25,
+            latitude2Dir: 'N',
+            longitude2Dir: 'E',
 
             latitudeHome: 31.2304,
             longitudeHome: 121.4737,
@@ -122,8 +124,11 @@ export default {
                 this.longitude2InM = parseInt(match[7], 10);
                 let lonDir = match[8];
 
-                console.log("纬度:", latDegree, latMinute, latSecond, latDir);
-                console.log("经度:", lonDegree, lonMinute, lonSecond, lonDir);
+                this.latitude2Dir = latDir;
+                this.longitude2Dir = lonDir;
+
+                console.log("纬度:", this.latitude2InD, this.latitude2InF, this.latitude2InM, latDir);
+                console.log("经度:", this.longitude2InD, this.longitude2InF, this.longitude2InM, lonDir);
             } else {
                 console.log("无法匹配经纬度");
             }
@@ -133,8 +138,11 @@ export default {
             // console.log('lon:', parseInt(this.longitudeInD), parseInt(this.longitudeInF), parseInt(this.longitudeInM));
             this.latitudeIn = (parseInt(this.latitudeInD) + parseInt(this.latitudeInF) / 60 + parseInt(this.latitudeInM) / 3600);
             this.longitudeIn = (parseInt(this.longitudeInD) + parseInt(this.longitudeInF) / 60 + parseInt(this.longitudeInM) / 3600);
-            this.latitude2In = (parseInt(this.latitude2InD) + parseInt(this.latitude2InF) / 60 + parseInt(this.latitude2InM) / 3600);
-            this.longitude2In = (parseInt(this.longitude2InD) + parseInt(this.longitude2InF) / 60 + parseInt(this.longitude2InM) / 3600);
+
+            const lat2Sign = this.latitude2Dir === 'S' ? -1 : 1;
+            const lon2Sign = this.longitude2Dir === 'W' ? -1 : 1;
+            this.latitude2In = lat2Sign * (parseInt(this.latitude2InD) + parseInt(this.latitude2InF) / 60 + parseInt(this.latitude2InM) / 3600);
+            this.longitude2In = lon2Sign * (parseInt(this.longitude2InD) + parseInt(this.longitude2InF) / 60 + parseInt(this.longitude2InM) / 3600);
 
             // console.log('lat Company:', this.latitude2In );
             // console.log('lon Company:', this.longitude2In );

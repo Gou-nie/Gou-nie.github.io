@@ -146,6 +146,7 @@ export default {
     this.init();
   },
   beforeUnmount() {
+    this._unmounted = true;
     cancelAnimationFrame(this.rafId);
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("click", this.handleClickOutside);
@@ -350,6 +351,7 @@ export default {
       this.ai = new AniAI();
       try {
         await this.ai.loadModel(this.modelUrl);
+        if (this._unmounted) return;
         // 作为配置缓存的分桶标识（GUIPanel 用它区分不同模型的键位配置）
         this.ai.modelName = this.modelUrl.split("/").pop();
         this.scene.add(this.ai.model);
@@ -366,9 +368,11 @@ export default {
         console.error("[AniAI] 模型加载失败", err);
       }
 
+      if (this._unmounted) return;
       this.animate();
     },
     animate() {
+      if (this._unmounted) return;
       this.rafId = requestAnimationFrame(this.animate);
       this.controls?.update();
       this.guiPanel?.update();
@@ -447,6 +451,7 @@ export default {
         } finally {
           URL.revokeObjectURL(url);
         }
+        if (this._unmounted) return;
         ai.modelName = file.name;
         this.ai = ai;
         this.scene.add(this.ai.model);
