@@ -1,4 +1,5 @@
 ---
+date: 2026-01-22
 title: 迭代和闭合
 tags:
   - write

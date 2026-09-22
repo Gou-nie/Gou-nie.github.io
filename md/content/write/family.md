@@ -1,4 +1,5 @@
 ---
+date: 2025-11-17
 title: 爸妈和刘航
 tags:
   - write

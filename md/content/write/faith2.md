@@ -1,4 +1,5 @@
 ---
+date: 2025-06-05
 title: 关于信仰2
 tags:
   - write

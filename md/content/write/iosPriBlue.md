@@ -1,4 +1,5 @@
 ---
+date: 2025-05-13
 title: UQDK-Ble
 tags:
   - technology

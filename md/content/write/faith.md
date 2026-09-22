@@ -1,4 +1,5 @@
 ---
+date: 2025-04-16
 title: 信仰
 tags:
   - write

@@ -1,4 +1,5 @@
 ---
+date: 2025-06-10
 title: 作文
 tags:
   - write

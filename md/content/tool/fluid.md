@@ -1,4 +1,5 @@
 ---
+date: 2025-05-12
 title: 流体动画Demo
 tags:
   - tool

@@ -1,4 +1,5 @@
 ---
+date: 2025-07-14
 title: 每日新闻
 tags:
   - tool

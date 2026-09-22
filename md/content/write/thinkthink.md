@@ -1,4 +1,5 @@
 ---
+date: 2025-11-30
 title: 刚醒随便写写
 tags:
   - write

@@ -1,4 +1,5 @@
 ---
+date: 2025-04-27
 title: 踩坑记录
 tags:
   - bug

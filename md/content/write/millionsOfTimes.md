@@ -1,4 +1,5 @@
 ---
+date: 2026-01-08
 title: 忽略时间的千万次
 tags:
   - write

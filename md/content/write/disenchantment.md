@@ -1,4 +1,5 @@
 ---
+date: 2025-05-25
 title: 关于祛魅
 tags:
   - write

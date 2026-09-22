@@ -1,4 +1,5 @@
 ---
+date: 2026-09-01
 title: AniAI 骨骼操纵工具（M1）
 tags:
   - tool

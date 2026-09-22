@@ -1,3 +1,5 @@
+---
+date: 2025-10-24
 title: 代码片段和一些配置
 star: true
 tags:

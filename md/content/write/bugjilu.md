@@ -1,4 +1,5 @@
 ---
+date: 2026-07-17
 title: bug记录
 tags:
   - write

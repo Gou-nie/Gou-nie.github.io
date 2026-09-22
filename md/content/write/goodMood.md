@@ -1,4 +1,5 @@
 ---
+date: 2025-09-16
 title: 好心情
 tags:
   - write

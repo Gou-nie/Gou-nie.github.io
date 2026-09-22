@@ -1,4 +1,5 @@
 ---
+date: 2025-09-12
 title: 责任的推诿与转移
 tags:
   - write

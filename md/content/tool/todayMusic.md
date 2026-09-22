@@ -1,4 +1,5 @@
 ---
+date: 2026-07-15
 title: 今日音乐
 tags:
   - tool

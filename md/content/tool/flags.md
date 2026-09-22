@@ -1,4 +1,5 @@
 ---
+date: 2025-11-18
 title: Flags
 tags:
   - tool

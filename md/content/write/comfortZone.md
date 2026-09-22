@@ -1,4 +1,5 @@
 ---
+date: 2025-06-12
 title: 舒适圈
 tags:
   - write

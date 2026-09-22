@@ -1,4 +1,5 @@
 ---
+date: 2026-07-15
 title: 忙碌后的闲思
 tags:
   - write

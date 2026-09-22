@@ -1,4 +1,5 @@
 ---
+date: 2025-11-13
 title: 缩写
 tags:
   - use

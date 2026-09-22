@@ -1,4 +1,5 @@
 ---
+date: 2025-11-11
 title: 回小的日子
 tags:
   - write

@@ -1,4 +1,5 @@
 ---
+date: 2025-06-06
 title: 摘抄
 tags:
   - write

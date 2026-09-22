@@ -1,4 +1,5 @@
 ---
+date: 2025-04-28
 title: 坏心情
 tags:
   - write

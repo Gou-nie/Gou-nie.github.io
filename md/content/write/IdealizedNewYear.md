@@ -1,4 +1,5 @@
 ---
+date: 2026-02-25
 title: 理想中的过年
 tags:
   - write

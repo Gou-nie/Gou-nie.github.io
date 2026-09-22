@@ -1,4 +1,5 @@
 ---
+date: 2025-06-17
 title: 计划
 tags:
   - write

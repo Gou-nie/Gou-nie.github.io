@@ -1,4 +1,5 @@
 ---
+date: 2025-09-15
 title: 生命幻想集
 tags:
   - write

@@ -1,4 +1,5 @@
 ---
+date: 2025-08-05
 title: 噩梦
 tags:
   - write

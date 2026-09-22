@@ -1,4 +1,5 @@
 ---
+date: 2025-11-17
 title: 你走之后
 tags:
   - write

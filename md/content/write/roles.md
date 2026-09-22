@@ -1,4 +1,5 @@
 ---
+date: 2025-06-17
 title: 标准&规则思考
 tags:
   - write
