@@ -2,6 +2,12 @@
 // 格式：{ date: 'YYYY-MM-DD', title: '标题', url: 'OSS mp3链接', desc: '简介（可选）' }
 const musicList = [
     {
+        date: '2026-10-12',
+        title: '最爱是谁-卢冠廷',
+        url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E6%9C%80%E7%88%B1%E6%98%AF%E8%B0%81-%E5%8D%A2%E5%86%A0%E5%BB%B7%23fsJ4p.mp3',
+        desc: '卢冠廷用略带沙哑的沧桑嗓音，将林振强的词唱成了岁月深处的独白。没有撕心裂肺的控诉，只有历经千帆后的释然与遗憾，轻柔吉他勾出无处安放的怅惘，道尽感情里最深沉的无解与痴缠。'
+    }, 
+    {
         date: '2026-08-28',
         title: '十点半的地铁-李建',
         url: 'https://aleah.oss-cn-heyuan.aliyuncs.com/music/%E5%8D%81%E7%82%B9%E5%8D%8A%E7%9A%84%E5%9C%B0%E9%93%81.Live.-%E6%9D%8E%E5%81%A5%23f6JL2.mp3',

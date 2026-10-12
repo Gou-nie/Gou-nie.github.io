@@ -81,6 +81,8 @@ const siteCollections = [
       { name: "worldonitor", content: "世界监控", url: "https://www.worldmonitor.app/" },
       { name: "mathnet", content: "数学题收集站", url: "https://mathnet.mit.edu/" },
       { name: "flash档案馆", content: "flash档案馆", url: "https://flash.homes/" },
+      { name: "lucky的博客", content: "lucky的博客", url: "https://rulke.github.io/PersonalSite/" },
+      { name: "私语者", content: "匿名倾诉，随心树洞", url: "https://siyuzhe.com/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
