@@ -8,3 +8,4 @@ md/.vuepress/.cache/
 test.*
 *.log
 test/*
+*.epub
