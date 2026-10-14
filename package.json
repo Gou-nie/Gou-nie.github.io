@@ -37,8 +37,10 @@
         "gsap": "^3.13.0",
         "lil-gui": "^0.21.0",
         "matter-js": "^0.20.0",
+        "onnxruntime-web": "^1.30.0",
         "openai": "^5.0.1",
         "pdfjs-dist": "^5.1.91",
-        "roughjs": "^4.6.6"
+        "roughjs": "^4.6.6",
+        "web-audio-separation": "^0.3.1"
     }
 }

@@ -42,6 +42,10 @@
      link: content/tool/news
      desc: 每日新闻
      icon: /images/icon/news.png
+   - name: 音轨分离
+     link: content/tool/音轨分离
+     desc: 人声伴奏分离
+     icon: /images/svgs/tapePlayer.svg
 
   
 ---
