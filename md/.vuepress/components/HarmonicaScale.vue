@@ -132,8 +132,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-
-const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+import { detectPitch, midiName, fmtCents } from './subComponents/pitch.js'
 
 // 各调式相对 C 调的音高偏移（以 1 孔吹音为基准，C = 0）
 const KEYS = [
@@ -179,10 +178,6 @@ const KIND_META = {
   overdraw: { label: '超吸',   color: '#9b59b6' },
 }
 
-const MIN_FREQ = 120
-const MAX_FREQ = 4000
-const MIN_CLARITY = 0.5
-
 // ── 状态 ──
 const key = ref(0)
 const running = ref(false)
@@ -196,15 +191,8 @@ const keyName = computed(() => KEYS.find(k => k.offset === key.value)?.label || 
 const offset = computed(() => key.value)
 
 // ── 工具函数 ──
-const midiName = (m) => {
-  const name = NOTE_NAMES[((m % 12) + 12) % 12]
-  const oct = Math.floor(m / 12) - 1
-  return name + oct
-}
-
+// midiName / fmtCents 见 subComponents/pitch.js
 const degreeLabel = (d) => (d === 1 ? '半音' : d === 2 ? '全音' : d === 3 ? '1½音' : '')
-
-const fmtCents = (c) => (c > 0 ? '+' : '') + c.toFixed(0) + ' 音分'
 
 // ── 音位数据 ──
 const harp = computed(() =>
@@ -378,64 +366,6 @@ const loop = () => {
   } else {
     detection.value = { freq: 0, noteName: '', cents: 0, entries: [] }
   }
-}
-
-// 自相关法求基频（对复音/泛音丰富的口琴更稳健）
-function detectPitch(samples, sampleRate) {
-  const n = samples.length
-  let mean = 0
-  for (let i = 0; i < n; i++) mean += samples[i]
-  mean /= n
-
-  let sumSq = 0
-  for (let i = 0; i < n; i++) { const d = samples[i] - mean; sumSq += d * d }
-  const variance = sumSq / n
-  const rms = Math.sqrt(variance)
-  if (rms < 0.01) return { freq: -1, clarity: 0 }
-
-  const minLag = Math.max(2, Math.floor(sampleRate / MAX_FREQ))
-  const maxLag = Math.min(Math.floor(sampleRate / MIN_FREQ), n - 2)
-  if (maxLag <= minLag) return { freq: -1, clarity: 0 }
-
-  const corr = new Float32Array(maxLag + 1)
-  let bestLag = -1
-  let bestClarity = -Infinity
-  for (let lag = minLag; lag <= maxLag; lag++) {
-    let s = 0
-    for (let i = 0; i < n - lag; i++) s += (samples[i] - mean) * (samples[i + lag] - mean)
-    const c = (s / (n - lag)) / variance
-    corr[lag] = c
-    if (c > bestClarity) { bestClarity = c; bestLag = lag }
-  }
-
-  if (bestClarity < MIN_CLARITY) return { freq: -1, clarity: bestClarity }
-
-  // 防八度错误：若半周期/三分之一周期处相关度相近，取更短延迟（更高频、更可能是基频）
-  for (const div of [2, 3]) {
-    const l = Math.round(bestLag / div)
-    if (l >= minLag && corr[l] >= 0.9 * bestClarity) {
-      bestLag = l
-      bestClarity = corr[l]
-      break
-    }
-  }
-
-  // 二次插值提高精度
-  let lagF = bestLag
-  if (bestLag > minLag && bestLag < maxLag) {
-    const c0 = corr[bestLag - 1]
-    const c1 = corr[bestLag]
-    const c2 = corr[bestLag + 1]
-    const denom = c0 - 2 * c1 + c2
-    if (denom !== 0) {
-      const delta = 0.5 * (c0 - c2) / denom
-      if (Math.abs(delta) < 1) lagF = bestLag + delta
-    }
-  }
-
-  const freq = sampleRate / lagF
-  if (freq < MIN_FREQ || freq > MAX_FREQ) return { freq: -1, clarity: bestClarity }
-  return { freq, clarity: bestClarity }
 }
 
 // ── 手机端自动横屏 ──
