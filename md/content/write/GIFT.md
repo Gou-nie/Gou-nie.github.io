@@ -10,6 +10,7 @@ category:
 # GIFT[Greater Internet Fuckwad Theroy ]
 
 *网络去抑制效应*
+<!-- more --> 
 
 * 1. [网络去抑制效应](#first)
     * 1.1. [](#firstPOne)

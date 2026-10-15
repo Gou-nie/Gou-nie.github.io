@@ -61,8 +61,8 @@
           :disabled="isLoading"
         >
           <span v-if="isLoading" class="spinner"></span>
-          <span v-else-if="!isPlaying">▶</span>
-          <span v-else>⏸</span>
+          <span v-else-if="!isPlaying" class="icon-play">▶</span>
+          <span v-else class="icon-pause">⏸</span>
         </button>
 
         <div class="progress-wrap">
@@ -427,6 +427,15 @@ const fmt = (t) => {
   transition: opacity 0.2s, transform 0.1s;
   position: relative;
 }
+
+/* 播放/暂停符号：比按钮基准字号大一圈 */
+.icon-play,
+.icon-pause {
+  font-size: 22px;
+  line-height: 1;
+}
+/* ▶ 字形左侧自带留白，右移 1px 才视觉居中；⏸ 本身居中，不用动 */
+.icon-play { transform: translateX(1px); }
 
 .btn-play:hover:not(:disabled) { opacity: 0.85; transform: scale(1.05); }
 .btn-play:active:not(:disabled) { transform: scale(0.96); }

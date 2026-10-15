@@ -14,5 +14,6 @@ category:
 * 1. [吐槽](#first) 
 
 *太多槽点了* 
+<!-- more --> 
 
 ## 1.  <a name='first'></a> 诞生

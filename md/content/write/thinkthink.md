@@ -17,6 +17,7 @@ category:
 * 4. [附件](#firth)  
 
 *时间静止 *
+<!-- more --> 
 
 # 1.  <a name='first'></a> 小动物
 <br>&emsp;&emsp;说下小动物

@@ -15,6 +15,7 @@ category:
 * 1.2. [心理变化](#firstTwo)
 
 *“忘了是怎么开始～”*
+<!-- more --> 
 
 ## 1. <a name='first'></a> 第一部
 

@@ -12,7 +12,7 @@ category:
 * 1. [生活习惯](#first)
 * 2. [脑袋思路](#second)
 
-
+<!-- more --> 
 ## 1. <a name='first'></a>生活习惯
 *所谓缺乏激情*
 *慵懒*

@@ -11,6 +11,7 @@ category:
 
 *本项目是对CoreBluetooth的封装和一些私有实现，采用由使用到细节的方式记录*
 *[关于CoreBluetooth相关文档](https://developer.apple.com/documentation/corebluetooth)*
+<!-- more --> 
 
 * 1. [连接](#first)
    * 1.1. [使用方法](#firstPOne)

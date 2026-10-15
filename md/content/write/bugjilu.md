@@ -14,6 +14,7 @@ category:
 * 1. [NSDateFormatter](#first)
 
 *bug记录*
+<!-- more --> 
 
 ## 1. <a name='first'></a> NSDateFormatter
 

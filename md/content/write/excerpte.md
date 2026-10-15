@@ -19,6 +19,7 @@ category:
 * 2. [句子](#second)
 
 *what and what is checken soup*
+<!-- more --> 
 
 ## 1. <a name='first'></a> 文章
 

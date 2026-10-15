@@ -15,6 +15,7 @@ category:
 * 1.2. [心理变化](#firstTwo)
 
 *打游戏魔怔了*
+<!-- more --> 
 
 ## 1. <a name='first'></a> 街霸6
 

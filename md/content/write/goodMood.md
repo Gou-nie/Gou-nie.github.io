@@ -15,6 +15,7 @@ category:
     * 1.3. [隐形的花香](#firstThree)
 
 *不沉醉于文学之路彼岸的风景 开始正视脚下的深渊*
+<!-- more --> 
 
 ## 1.  <a name='first'></a> 矫揉造作
 ### 1.1. <a name='firstPOne'></a> 风感

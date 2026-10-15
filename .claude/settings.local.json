@@ -18,7 +18,10 @@
       "Bash(git mv *)",
       "Bash(cd *)",
       "Bash(grep -o \"keyboard[=:][^,;]\\\\{0,80\\\\}\" node_modules/lil-gui/dist/lil-gui.esm.js)",
-      "Bash(grep -rn -E \"^\\\\s*\\(body|html\\)[, {]\" md --include=\"*.md\" --include=\"*.vue\" --include=\"*.css\" --include=\"*.styl\")"
+      "Bash(grep -rn -E \"^\\\\s*\\(body|html\\)[, {]\" md --include=\"*.md\" --include=\"*.vue\" --include=\"*.css\" --include=\"*.styl\")",
+      "Bash(git restore *)",
+      "Bash(python3 *)",
+      "Bash(pkill -f \"http.server 8899\")"
     ],
     "deny": []
   }

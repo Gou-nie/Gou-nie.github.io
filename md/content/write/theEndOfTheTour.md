@@ -23,6 +23,7 @@ title: 旅程终点
 <br>
 
 ***DL <=> David Lipsky***
+<!-- more --> 
 
 ![图1](https://aleah.oss-cn-heyuan.aliyuncs.com/images/endTheTurn.webp "the end of the tour")
 

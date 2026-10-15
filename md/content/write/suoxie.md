@@ -14,6 +14,7 @@ category:
 * 1. [缩写](#first)
 
 *对日常碰见的缩写进行记录*
+<!-- more --> 
 
 ## 1. <a name='first'></a> 缩写
 

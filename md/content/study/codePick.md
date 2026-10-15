@@ -16,7 +16,7 @@ category:
     * 1.1. [epubJS](#firstPOne)
 
 *好记性不如烂笔头*
-
+<!-- more --> 
 ## 1.  <a name='first'></a> epubJS配置项
 
 ```

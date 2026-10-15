@@ -10,6 +10,7 @@ category:
 # 操作记录
 
 _踩坑记录_
+<!-- more --> 
 
 - 1. [ios 应用发布 TestFlight](#first)
   - 1.1. [打包](#firstPOne)

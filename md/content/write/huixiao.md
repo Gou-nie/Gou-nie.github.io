@@ -17,6 +17,7 @@ category:
 
 
 *很幸运有这两年的经历* 
+<!-- more --> 
 
 ## 1.  <a name='first'></a> 回小的日子
 ### 1.1.  <a name='firstPOne'></a> 离家
