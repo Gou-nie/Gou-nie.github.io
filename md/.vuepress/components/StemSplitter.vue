@@ -3,7 +3,7 @@
   @Date: 2026-10-14
   @Description: 导入 MP3 → 浏览器本地分离人声/伴奏 → 切换/混合播放
 
-  注意：本组件顶层只 import vue 和两个自己写的轻量模块（它们内部才用动态 import
+  注意：本组件顶层只 import vue 和几个自己写的轻量模块（它们内部才用动态 import
   去拉 onnxruntime-web / web-audio-separation），这样 VuePress 的 SSR 阶段
   完全不会碰到浏览器专用的依赖。
 -->
@@ -69,6 +69,12 @@
       <p class="hint">
         首次使用需下载约 30~67MB 模型，之后由浏览器缓存，不再重复下载。
       </p>
+
+      <!-- 调播放界面用的近路：不导入音频、不跑分离，直接合成一段示例进播放界面 -->
+      <div class="demo-row">
+        <button class="btn-ghost demo-btn" @click="startDemo">▶ 试看播放界面</button>
+        <span class="demo-note">现场合成的示例音频，跳过分离</span>
+      </div>
     </template>
 
     <!-- ② 进度 -->
@@ -152,6 +158,34 @@
              translateX(headPercent%) 就落在 xOf(当前时刻) 上 —— 播放中不碰 canvas -->
         <div class="roll-head" :style="{ left: rollKeyW + 'px' }" aria-hidden="true">
           <div class="roll-head-line" :style="{ transform: `translateX(${headPercent}%)` }"></div>
+        </div>
+
+        <!-- 实时高亮：播放头压着的音符块与对应琴键。几何全由 PianoRoll.activeAt 给，
+             和画布同一套布局；同样是 DOM 覆盖层，播放中不重画 canvas -->
+        <div class="roll-live" :style="{ left: rollKeyW + 'px' }" aria-hidden="true">
+          <div
+            v-for="(b, i) in live.notes"
+            :key="i"
+            class="roll-live-note"
+            :style="boxStyle(b)"
+          ></div>
+        </div>
+        <div
+          class="roll-live-keys"
+          :style="{ width: Math.max(0, rollKeyW - 1) + 'px' }"
+          aria-hidden="true"
+        >
+          <div v-for="k in live.keys" :key="k.row" class="roll-live-key" :style="keyStyle(k)"></div>
+        </div>
+
+        <!-- 音名胶囊跟着播放头走：全长档位下音符块只有一两像素宽，块里的音名
+             画不下，正响的是哪个音只能靠这里读 -->
+        <div class="roll-live-tag" :style="{ left: rollKeyW + 'px' }" aria-hidden="true">
+          <div class="roll-live-anchor" :style="{ transform: `translateX(${headPercent}%)` }">
+            <span v-if="liveNames" class="roll-live-chip" :class="{ flip: headPercent > 65 }">
+              {{ liveNames }}
+            </span>
+          </div>
         </div>
 
         <div v-if="melodyState === 'running'" class="roll-cover">
@@ -275,6 +309,7 @@ import {
   SMALL_MAX,
 } from './StemSplitter/pianoRoll.js'
 import { midiName } from './subComponents/pitch.js'
+import { buildDemo } from './StemSplitter/demo.js'
 import * as separation from './StemSplitter/separation.js'
 
 const STEPS = [
@@ -355,6 +390,10 @@ const rollCanvas = ref(null)
     而琴键宽度看的是 canvas 宽度，两者差一个页面内边距，中间那一段会对不齐。
     这里用和 PianoRoll 完全相同的判据和常量，保证播放头正好落在 xOf(当前时刻) 上。 */
 const rollKeyW = ref(KEY_W)
+/** 画布尺寸变化的计数。只给 live 那个 computed 当依赖用：卷帘自己会重画，但高亮的
+    百分比只有画布变高矮才需要重算，而那一下（暂停着 resize）currentTime / viewStart
+    都不一定会动，得有个显式的信号。值本身没有意义 */
+const rollEpoch = ref(0)
 /** 分析结果：{notes, durationSec, analysisRate, frameRate, tooLong} */
 const melody = ref({ notes: [] })
 /** idle | running | done | empty | error —— empty 同时覆盖「没旋律」和「太长跳过」 */
@@ -422,6 +461,42 @@ const headPercent = computed(() => {
   if (!(vis > 0)) return 0
   return ((currentTime.value - viewStart.value) / vis) * 100
 })
+
+/** activeAt 的空结果。身份固定，没有音符在响时省掉一次多余的渲染 */
+const NO_LIVE = Object.freeze({ notes: [], keys: [] })
+
+/**
+ * 播放头压着的音符 / 琴键。几何只有卷帘自己算得出来（布局的真源在 _layout），
+ * 这里靠 currentTime 每帧重新求值 —— 播放中它每帧都在动，所以高亮是实时的。
+ * 全程不碰 canvas：高亮是 DOM 覆盖层，规矩见 pianoRoll.js 开头。
+ */
+const live = computed(() => {
+  if (melodyState.value !== 'done' || !roll) return NO_LIVE
+  const t = currentTime.value
+  if (!Number.isFinite(t)) return NO_LIVE
+  // 播放头跑到视窗外（用户拖走视窗去翻）就没有高亮可言。这个判据顺带让
+  // viewStart / zoomSpan 成了依赖 —— 暂停着拖动浏览时 currentTime 是不动的
+  const vs = viewStart.value
+  const vis = visibleSpan.value
+  if (!(vis > 0) || t < vs || t > vs + vis) return NO_LIVE
+  // 画布换高矮（跨过窄屏断点）卷帘会重画，百分比得跟着重算
+  void rollEpoch.value
+  return roll.activeAt(t)
+})
+
+/** 正在响的音名，如 "C4"、"C4 E4"。同时响多个就并排列出 */
+const liveNames = computed(() => live.value.keys.map((k) => midiName(k.row)).join(' '))
+
+/** 高亮块的内联样式。几何全是百分比，画布 resize 之后不用重算 */
+const boxStyle = (b) => ({
+  left: b.left + '%',
+  width: b.width + '%',
+  top: b.top + '%',
+  height: b.height + '%',
+})
+
+/** 琴键高亮只有竖直方向要定：横向由 CSS 铺满琴键条 */
+const keyStyle = (k) => ({ top: k.top + '%', height: k.height + '%' })
 
 const melodyRangeText = computed(() => {
   let lo = Infinity
@@ -605,6 +680,53 @@ function describeError(err) {
     return '浏览器的线程环境不支持这次推理，请更新浏览器，或改用桌面版 Chrome / Edge。'
   }
   return '分离失败：' + msg
+}
+
+// ---------------------------------------------------------------- 试看
+
+/**
+ * 试看播放界面：现场合成两轨示例音频和一份音符表，跳过模型下载和推理。
+ *
+ * 走的是和真实分离**同一条**收尾路径（stems → setupPlayer → 卷帘），只有旋律那一
+ * 步不同：音符是照乐谱算的，直接喂给卷帘，不去分析刚合成的音频。
+ */
+async function startDemo() {
+  if (busy.value) return
+  errorMsg.value = ''
+  let demo
+  try {
+    demo = buildDemo()
+  } catch (err) {
+    errorMsg.value = '示例音频合成失败：' + (err?.message || err)
+    return
+  }
+
+  file.value = null
+  stems.value = { vocals: demo.vocals, instrumental: demo.instrumental }
+  duration.value = demo.durationSec
+  elapsedSec.value = 0
+  phase.value = 'done'
+  await nextTick()
+  try {
+    await setupPlayer()
+  } catch (err) {
+    // 合成素材没能挂上播放器（浏览器不支持 Web Audio 之类）：退回选文件那一步，
+    // 别把一个半死的播放界面留在屏幕上
+    console.error('[试看] 失败：', err)
+    errorMsg.value = '试看失败：' + (err?.message || err)
+    phase.value = 'idle'
+    releaseStems()
+    return
+  }
+
+  // 放在 setupPlayer 之后：它开头那次 disposePlayer() 会把上一首的卷帘连音符一起拆掉
+  roll?.setNotes(demo.notes)
+  melody.value = { notes: demo.notes, durationSec: demo.durationSec }
+  melodyState.value = 'done'
+  applyZoom()
+
+  // 直接开播，省得再点一下。浏览器如果没认这个手势就会拒绝，那就安静地停在暂停态
+  player?.toggle().catch(() => {})
 }
 
 // ---------------------------------------------------------------- 旋律卷帘
@@ -815,6 +937,8 @@ async function setupPlayer() {
     rollRO = new ResizeObserver(() => {
       const w = rollCanvas.value?.clientWidth || 0
       rollKeyW.value = w > 0 && w < SMALL_MAX ? KEY_W_SMALL : KEY_W
+      // 跨过窄屏断点时画布会换高矮，行高跟着变，高亮的百分比得重算
+      rollEpoch.value++
     })
     rollRO.observe(rollCanvas.value)
   }
@@ -1073,6 +1197,25 @@ onBeforeUnmount(() => {
 .btn-primary:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* 试看入口：排在主按钮下面一档，别和「开始分离」抢视线 */
+.demo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* .btn-ghost 的 margin-left: auto 是给播放页右上角那个「重新选择」用的 */
+.demo-btn {
+  margin-left: 0;
+}
+
+.demo-note {
+  font-size: 11.5px;
+  color: var(--text-color-light, #aaa);
 }
 
 /* ── 进度 ── */
@@ -1350,6 +1493,75 @@ onBeforeUnmount(() => {
   height: 100%;
   border-left: 1.5px solid var(--theme-color, #3eaf7c);
   will-change: transform;
+}
+
+/* ── 实时高亮 ──
+   和 .roll-head 同一套盒子：left 是琴键宽、right 是 0，所以内层百分比就是图区百分比。
+   位置全部来自 PianoRoll.activeAt，这里一个像素都不自己算 */
+.roll-live,
+.roll-live-tag {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 正在响的音符块：整块换成实心主题色，比周围半透明的块亮一档；
+   1px 外描边还得往外撑一圈 —— 全长档位下块只有一两像素宽，不撑就看不见 */
+.roll-live-note {
+  position: absolute;
+  border-radius: 2px;
+  background: var(--theme-color, #3eaf7c);
+  box-shadow: 0 0 0 1px var(--theme-color, #3eaf7c);
+}
+
+.roll-live-keys {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* 琴键条上对应的那一行。半透明叠在黑键白键上都看得出，像自动钢琴那样亮起来 */
+.roll-live-key {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 1px;
+  background: var(--theme-color, #3eaf7c);
+  opacity: 0.85;
+}
+
+.roll-live-anchor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.roll-live-chip {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%);
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--theme-color, #3eaf7c);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 播放头快贴到右边时把音名甩到线左边，否则会被 .roll-live-tag 裁掉 */
+.roll-live-chip.flip {
+  left: -6px;
+  transform: translateY(-50%) translateX(-100%);
 }
 
 .roll-cover {

@@ -263,6 +263,60 @@ export class PianoRoll {
     return (t - this.viewStart) / vis
   }
 
+  /**
+   * 当前时刻正在发声的音符在屏幕上的位置，给 Vue 那边的 DOM 高亮层用。
+   *
+   * 位置一律给**百分比**：x 相对图区宽度，y 相对画布高度。两个覆盖层就是按这个
+   * 口径铺的（`.roll-live` 是 left: 琴键宽 / right: 0，`.roll-live-keys` 宽度是
+   * 琴键宽），所以画布 resize 之后不用再通知谁，高亮自己就对齐了。
+   *
+   * 为什么不干脆重画 canvas 把高亮画上去：文件开头第一条规矩就是播放中不重画
+   * （全长档位下一屏上千个音符）。高亮和播放头走同一条路子 —— DOM 覆盖层。
+   *
+   * @param {number} t 当前时刻（秒）
+   * @returns {{notes: {row: number, left: number, width: number, top: number, height: number}[],
+   *            keys: {row: number, top: number, height: number}[]}}
+   *          notes 是发声中的音符块（百分比盒），keys 是它们落在琴键条上的行
+   *          （已按音高升序去重）。没有音符在响时两个数组都是空的。
+   */
+  activeAt(t) {
+    const none = { notes: [], keys: [] }
+    if (!Number.isFinite(t) || !this.notes.length) return none
+    const w = this.canvas.clientWidth
+    const h = this.canvas.clientHeight
+    // 还没布局（宽度为 0）时没有可用的换算，整趟跳过
+    if (!(w > 0) || !(h > 0)) return none
+    const L = this._layout(w, h)
+    const vis = L.vis
+    if (!(vis > 0) || !(L.rollW > 0)) return none
+
+    // 竖直方向有两套口径，别抄错：音符块在行里居中、比行矮 1px（见 _drawNotes），
+    // 琴键铺满整行（见 _drawKeys）
+    const noteH = Math.max(2, L.rowH - 1)
+    const notes = []
+    const keys = []
+    const seen = new Set()
+    for (const n of this.notes) {
+      if (!Number.isFinite(n.row)) continue
+      // 端点算「还在响」：块画到哪儿就亮到哪儿，边界那一帧不会闪
+      if (t < n.start || t > n.end) continue
+      const y = L.yOf(n.row)
+      notes.push({
+        row: n.row,
+        left: ((n.start - this.viewStart) / vis) * 100,
+        width: ((n.end - n.start) / vis) * 100,
+        top: ((y + (L.rowH - noteH) / 2) / h) * 100,
+        height: (noteH / h) * 100,
+      })
+      if (seen.has(n.row)) continue
+      seen.add(n.row)
+      keys.push({ row: n.row, top: (y / h) * 100, height: (L.rowH / h) * 100 })
+    }
+    // 音高升序：DOM 顺序稳定，换音区时 v-for 不会白白重排
+    keys.sort((a, b) => a.row - b.row)
+    return { notes, keys }
+  }
+
   // ------------------------------------------------------------------ 布局
 
   _clampView(v) {

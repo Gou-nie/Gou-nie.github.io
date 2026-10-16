@@ -21,7 +21,11 @@
       "Bash(grep -rn -E \"^\\\\s*\\(body|html\\)[, {]\" md --include=\"*.md\" --include=\"*.vue\" --include=\"*.css\" --include=\"*.styl\")",
       "Bash(git restore *)",
       "Bash(python3 *)",
-      "Bash(pkill -f \"http.server 8899\")"
+      "Bash(pkill -f \"http.server 8899\")",
+      "Bash(lsof -ti:8080)",
+      "Bash(lsof -i:8080 -sTCP:LISTEN -P -n)",
+      "Bash(npx vuepress *)",
+      "Bash(echo \"exit=$?\")"
     ],
     "deny": []
   }
