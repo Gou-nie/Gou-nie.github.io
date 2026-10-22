@@ -16,6 +16,52 @@
       </button>
     </div>
 
+    <!-- 节拍器 -->
+    <div class="metronome">
+      <div class="metro-head">
+        <button class="metro-toggle" :class="{ on: metroRunning }" @click="toggleMetro">
+          <span class="metro-icon">{{ metroRunning ? '■' : '▶' }}</span>
+          <span>{{ metroRunning ? '停止节拍器' : '节拍器' }}</span>
+        </button>
+
+        <div class="metro-beats" :class="{ dense: beatsPerBar > 8 }">
+          <span
+            v-for="i in beatsPerBar"
+            :key="i"
+            class="beat-dot"
+            :class="{ accent: i === 1, on: metroRunning && currentBeat === i - 1 }"
+          ></span>
+        </div>
+      </div>
+
+      <div class="metro-row">
+        <div class="metro-field bpm-field">
+          <span class="metro-label">速度</span>
+          <input class="bpm-range" type="range" min="40" max="240" step="1" v-model.number="bpm" aria-label="每分钟拍数" />
+          <input class="bpm-number" type="number" min="40" max="240" step="1" v-model.number="bpm" @change="clampBpm" aria-label="BPM" />
+          <span class="bpm-unit">BPM</span>
+        </div>
+
+        <div class="metro-field">
+          <span class="metro-label">拍号</span>
+          <select v-model="timeSig" class="metro-select" aria-label="拍号">
+            <option v-for="t in TIME_SIGS" :key="t.label" :value="t.label">{{ t.label }}</option>
+          </select>
+        </div>
+
+        <button class="tap-btn" @click="tapTempo" title="连续点击以测速">TAP</button>
+
+        <div class="metro-field">
+          <span class="metro-label">音量</span>
+          <input class="vol-range" type="range" min="0" max="1" step="0.05" v-model.number="volume" aria-label="节拍器音量" />
+        </div>
+      </div>
+
+      <div v-if="running && metroRunning" class="metro-tip">
+        ⓘ 节拍声可能被麦克风拾取，练习时建议戴耳机
+      </div>
+    </div>
+
     <!-- 手机竖屏：自动尝试横屏，失败则显示按钮 -->
     <button v-if="needsLandscape" class="portrait-hint" @click="enterLandscape">🔄 点击进入横屏</button>
 
@@ -131,7 +177,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { detectPitch, midiName, fmtCents } from './subComponents/pitch.js'
 
 // 各调式相对 C 调的音高偏移（以 1 孔吹音为基准，C = 0）
@@ -368,6 +414,133 @@ const loop = () => {
   }
 }
 
+// ── 节拍器 ──
+// 拍号按「每小节拍数」计时：x/4 与 x/8 分别以四分、八分音符为一拍
+const TIME_SIGS = [
+  { label: '1/4', beats: 1 },
+  { label: '2/4', beats: 2 },
+  { label: '3/4', beats: 3 },
+  { label: '4/4', beats: 4 },
+  { label: '5/4', beats: 5 },
+  { label: '6/4', beats: 6 },
+  { label: '2/2', beats: 2 },
+  { label: '3/2', beats: 3 },
+  { label: '3/8', beats: 3 },
+  { label: '5/8', beats: 5 },
+  { label: '6/8', beats: 6 },
+  { label: '7/8', beats: 7 },
+  { label: '9/8', beats: 9 },
+  { label: '12/8', beats: 12 },
+]
+
+const bpm = ref(90)
+const timeSig = ref('4/4')
+const volume = ref(0.6)
+const metroRunning = ref(false)
+const currentBeat = ref(-1)
+
+const beatsPerBar = computed(() =>
+  TIME_SIGS.find(t => t.label === timeSig.value)?.beats || 4
+)
+
+const safeBpm = computed(() => {
+  const v = Number(bpm.value)
+  return Math.min(240, Math.max(40, Number.isFinite(v) && v > 0 ? v : 90))
+})
+
+const clampBpm = () => { bpm.value = Math.round(safeBpm.value) }
+
+let metroCtx = null
+let metroGain = null
+let metroTimer = null
+let nextBeatTime = 0
+let nextBeatIndex = 0
+let beatTimeouts = []
+const METRO_INTERVAL = 25   // 调度器轮询间隔 (ms)
+const METRO_AHEAD = 0.12    // 提前调度的时长 (s)
+
+// 短促的木鱼式 click：首拍更高更响
+const scheduleClick = (time, accent) => {
+  const osc = metroCtx.createOscillator()
+  const env = metroCtx.createGain()
+  osc.type = 'sine'
+  osc.frequency.setValueAtTime(accent ? 1760 : 1174.66, time)
+  env.gain.setValueAtTime(0.0001, time)
+  env.gain.exponentialRampToValueAtTime(accent ? 0.9 : 0.55, time + 0.002)
+  env.gain.exponentialRampToValueAtTime(0.0001, time + 0.05)
+  osc.connect(env)
+  env.connect(metroGain)
+  osc.start(time)
+  osc.stop(time + 0.06)
+}
+
+const metroScheduler = () => {
+  if (!metroCtx) return
+  while (nextBeatTime < metroCtx.currentTime + METRO_AHEAD) {
+    const idx = nextBeatIndex
+    scheduleClick(nextBeatTime, idx === 0)
+    const delay = Math.max(0, (nextBeatTime - metroCtx.currentTime) * 1000)
+    const t = setTimeout(() => {
+      currentBeat.value = idx
+      beatTimeouts = beatTimeouts.filter(x => x !== t)
+    }, delay)
+    beatTimeouts.push(t)
+    nextBeatTime += 60 / safeBpm.value
+    nextBeatIndex = (nextBeatIndex + 1) % Math.max(1, beatsPerBar.value)
+  }
+}
+
+const stopMetro = () => {
+  metroRunning.value = false
+  currentBeat.value = -1
+  if (metroTimer) { clearInterval(metroTimer); metroTimer = null }
+  beatTimeouts.forEach(clearTimeout)
+  beatTimeouts = []
+  if (metroCtx) { metroCtx.close().catch(() => {}); metroCtx = null }
+  metroGain = null
+}
+
+const toggleMetro = async () => {
+  if (metroRunning.value) { stopMetro(); return }
+  const AC = (typeof window !== 'undefined' && (window.AudioContext || window.webkitAudioContext))
+  if (!AC) return
+  try {
+    metroCtx = new AC()
+    await metroCtx.resume()
+    metroGain = metroCtx.createGain()
+    metroGain.gain.value = volume.value
+    metroGain.connect(metroCtx.destination)
+    nextBeatIndex = 0
+    nextBeatTime = metroCtx.currentTime + 0.06
+    currentBeat.value = -1
+    metroRunning.value = true
+    metroScheduler()
+    metroTimer = setInterval(metroScheduler, METRO_INTERVAL)
+  } catch (e) {
+    console.warn('[HarmonicaScale] 节拍器启动失败', e)
+    stopMetro()
+  }
+}
+
+// TAP 测速：取最近几次点击的平均间隔
+let tapTimes = []
+const tapTempo = () => {
+  const now = performance.now()
+  if (tapTimes.length && now - tapTimes[tapTimes.length - 1] > 2000) tapTimes = []
+  tapTimes.push(now)
+  if (tapTimes.length > 5) tapTimes.shift()
+  if (tapTimes.length < 2) return
+  const intervals = tapTimes.slice(1).map((t, i) => t - tapTimes[i])
+  const avg = intervals.reduce((a, b) => a + b, 0) / intervals.length
+  bpm.value = Math.min(240, Math.max(40, Math.round(60000 / avg)))
+}
+
+watch(volume, v => { if (metroGain) metroGain.gain.value = v })
+watch(timeSig, () => {
+  nextBeatIndex = 0
+  currentBeat.value = -1
+})
+
 // ── 手机端自动横屏 ──
 const needsLandscape = ref(false)
 
@@ -410,6 +583,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   stopMic()
+  stopMetro()
   window.removeEventListener('orientationchange', checkOrientation)
   window.removeEventListener('resize', checkOrientation)
 })
@@ -496,6 +670,153 @@ onBeforeUnmount(() => {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
+}
+
+/* ── 节拍器 ── */
+.metronome {
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: var(--bg-color-secondary, #f5f5f5);
+  border: 1.5px solid var(--border-color, #e5e5e5);
+}
+
+.metro-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.metro-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color, #ddd);
+  background: transparent;
+  color: var(--text-color, #2c3e50);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+}
+.metro-toggle:hover { border-color: var(--theme-color, #3eaf7c); }
+.metro-toggle:active { transform: scale(0.97); }
+.metro-toggle.on {
+  background: var(--theme-color, #3eaf7c);
+  border-color: transparent;
+  color: #fff;
+}
+
+.metro-icon { font-size: 11px; line-height: 1; }
+
+.metro-beats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+  max-width: 100%;
+}
+
+/* 拍数多（如 9/8、12/8）时缩小指示灯 */
+.metro-beats.dense { gap: 6px; }
+.metro-beats.dense .beat-dot { width: 7px; height: 7px; }
+.metro-beats.dense .beat-dot.accent { width: 9px; height: 9px; }
+
+.beat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-color, #ddd);
+  transition: background 0.08s, transform 0.08s, box-shadow 0.08s;
+}
+.beat-dot.accent { width: 12px; height: 12px; }
+.beat-dot.on {
+  background: var(--theme-color, #3eaf7c);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(62, 175, 124, 0.55);
+}
+.beat-dot.accent.on {
+  background: #f39c12;
+  box-shadow: 0 0 10px rgba(243, 156, 18, 0.55);
+}
+
+.metro-row {
+  display: flex;
+  align-items: center;
+  gap: 14px 18px;
+  flex-wrap: wrap;
+}
+
+.metro-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metro-label {
+  font-size: 12px;
+  color: var(--text-color-light, #999);
+  white-space: nowrap;
+}
+
+.bpm-field { flex: 1 1 240px; }
+.bpm-range { flex: 1; min-width: 90px; accent-color: var(--theme-color, #3eaf7c); cursor: pointer; }
+.vol-range { width: 76px; accent-color: var(--theme-color, #3eaf7c); cursor: pointer; }
+
+.bpm-number {
+  width: 58px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color, #ddd);
+  background: var(--bg-color, #fff);
+  color: var(--text-color, #2c3e50);
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+}
+.bpm-number:focus { border-color: var(--theme-color, #3eaf7c); }
+
+.bpm-unit { font-size: 11px; color: var(--text-color-light, #999); }
+
+.metro-select {
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color, #ddd);
+  background: var(--bg-color-secondary, #f5f5f5);
+  color: var(--text-color, #2c3e50);
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+.metro-select:focus { border-color: var(--theme-color, #3eaf7c); }
+
+.tap-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1.5px dashed var(--border-color, #ccc);
+  background: transparent;
+  color: var(--text-color-light, #888);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s, color 0.15s, transform 0.1s;
+}
+.tap-btn:hover { border-color: var(--theme-color, #3eaf7c); color: var(--theme-color, #3eaf7c); }
+.tap-btn:active { transform: scale(0.94); background: rgba(62, 175, 124, 0.1); }
+
+.metro-tip {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-color-light, #999);
 }
 
 .error {
@@ -830,5 +1151,11 @@ onBeforeUnmount(() => {
   .cell { height: 46px; }
   .cell.over,
   .cell.bend { height: 30px; }
+
+  .metronome {
+    padding: 10px 14px;
+    margin-bottom: 12px;
+  }
+  .metro-head { margin-bottom: 8px; }
 }
 </style>

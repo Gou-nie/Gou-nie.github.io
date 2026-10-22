@@ -25,7 +25,11 @@
       "Bash(lsof -ti:8080)",
       "Bash(lsof -i:8080 -sTCP:LISTEN -P -n)",
       "Bash(npx vuepress *)",
-      "Bash(echo \"exit=$?\")"
+      "Bash(echo \"exit=$?\")",
+      "Bash(grep -iE \"playwright|puppeteer|^canvas$|sharp\")",
+      "Bash(echo \"exit:$?\")",
+      "Read(//Users/mac/Library/Caches/**)",
+      "Bash(npm *)"
     ],
     "deny": []
   }
