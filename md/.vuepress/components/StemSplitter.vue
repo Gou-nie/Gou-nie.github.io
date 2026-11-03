@@ -11,6 +11,7 @@
   <div class="stem-splitter">
     <p class="intro">
       导入本地音频，用 AI 把人声和伴奏拆成两轨，可切换、混合播放，也能降速跟练。
+      人声旋律还会画成卷帘，可以导出成 MIDI 或五线谱带走。
       <strong>音频不会上传</strong>，全部在本机浏览器里计算。
     </p>
 
@@ -282,6 +283,51 @@
         <a class="btn-dl" :href="stems.instrumental" :download="baseName + '-伴奏.wav'">下载伴奏</a>
       </div>
 
+      <!-- 乐谱导出：MIDI 进 DAW，MusicXML 进打谱软件。两者都取自卷帘上的旋律 -->
+      <div class="row score-row">
+        <span class="field-label">导出乐谱</span>
+        <button
+          class="btn-dl"
+          :disabled="!scoreReady"
+          title="单声部旋律，可导入 DAW / 打谱软件"
+          @click="exportScore('midi')"
+        >
+          MIDI
+        </button>
+        <button
+          class="btn-dl"
+          :disabled="!scoreReady"
+          title="五线谱文件，打谱软件可直接打开"
+          @click="exportScore('musicxml')"
+        >
+          MusicXML
+        </button>
+        <label class="bpm-field">
+          节拍
+          <input
+            v-model.number="scoreBpm"
+            class="bpm-input"
+            type="number"
+            min="20"
+            max="400"
+            step="1"
+            :disabled="!scoreReady"
+          />
+          BPM
+        </label>
+        <label class="check">
+          <input v-model="scoreQuantize" type="checkbox" :disabled="!scoreReady" />
+          量化到 1/16
+        </label>
+      </div>
+      <p class="hint score-hint">
+        <template v-if="scoreReady">
+          按 4/4 拍、C 大调记谱，可在打谱软件里继续调整；节拍和量化只影响谱面，不动音频。
+        </template>
+        <template v-else-if="melodyState === 'running'">旋律分析完成后才能导出乐谱。</template>
+        <template v-else>暂时没有可导出的旋律。</template>
+      </p>
+
       <details class="debug">
         <summary>同步状态</summary>
         <div class="debug-body" :class="{ bad: Math.abs(driftMs) > 50 }">
@@ -310,6 +356,7 @@ import {
 } from './StemSplitter/pianoRoll.js'
 import { midiName } from './subComponents/pitch.js'
 import { buildDemo } from './StemSplitter/demo.js'
+import { buildMidi, buildMusicXml, DEFAULT_BPM } from './StemSplitter/score.js'
 import * as separation from './StemSplitter/separation.js'
 
 const STEPS = [
@@ -407,6 +454,9 @@ const zoomSpan = ref(0)
 const viewStart = ref(0)
 /** 拖动浏览后先别让跟随把视窗拽回去，直到用户按播放或换档位 */
 const followPaused = ref(false)
+/** 乐谱导出的节拍与量化。只影响谱面，不影响音频 */
+const scoreBpm = ref(DEFAULT_BPM)
+const scoreQuantize = ref(true)
 
 let player = null
 let stallTimer = 0
@@ -445,6 +495,10 @@ const zoomOptions = computed(() => {
 /** 有音符、有曲长才谈得上缩放和拖动 */
 const canPan = computed(
   () => melodyState.value === 'done' && melody.value.notes.length > 0 && duration.value > 0
+)
+/** 分析出旋律之后才谈得上导出乐谱 */
+const scoreReady = computed(
+  () => melodyState.value === 'done' && melody.value.notes.length > 0
 )
 /** 视窗实际覆盖的时长。档位超过曲长时按曲长算，和 PianoRoll 里的口径一致 */
 const visibleSpan = computed(() => {
@@ -897,6 +951,47 @@ function onRollSeek(e) {
   if (t === null) return
   player.seek(t)
   currentTime.value = t
+}
+
+// ---------------------------------------------------------------- 乐谱导出
+
+/**
+ * 触发一次浏览器下载。object URL 延迟撤销 —— 立刻撤销在部分浏览器上会让下载
+ * 线程还没读完数据就 404，尤其是 Safari。
+ */
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.style.display = 'none'
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
+
+/**
+ * 导出人声旋律的乐谱。MIDI 给 DAW，MusicXML 给打谱软件（五线谱）。
+ * 导出的只是旋律单声部，和卷帘上看到的是同一份音符。
+ */
+function exportScore(format) {
+  const notes = melody.value.notes
+  if (!scoreReady.value || !notes.length) return
+
+  // 手输的节拍可能是空的或越界的，导出前夹到合理范围，并把输入框同步回去
+  const bpm = Math.min(400, Math.max(20, Math.round(Number(scoreBpm.value)) || DEFAULT_BPM))
+  scoreBpm.value = bpm
+  const opt = { bpm, quantize: scoreQuantize.value, title: `${baseName.value} 旋律` }
+  const name = `${baseName.value}-旋律`
+
+  try {
+    if (format === 'midi') downloadBlob(buildMidi(notes, opt), name + '.mid')
+    else downloadBlob(buildMusicXml(notes, opt), name + '.musicxml')
+  } catch (err) {
+    console.error('[乐谱导出] 失败：', err)
+    errorMsg.value = '乐谱导出失败：' + (err?.message || err)
+  }
 }
 
 // ---------------------------------------------------------------- 播放
@@ -1731,16 +1826,58 @@ onBeforeUnmount(() => {
 .btn-dl {
   padding: 6px 13px;
   font-size: 12.5px;
+  font-family: inherit;
   border-radius: 8px;
   border: 1.5px solid var(--border-color, #ddd);
+  background: transparent;
   color: var(--text-color-light, #888);
   text-decoration: none;
+  cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
 }
 
-.btn-dl:hover {
+.btn-dl:hover:not(:disabled) {
   border-color: var(--theme-color, #3eaf7c);
   color: var(--theme-color, #3eaf7c);
+}
+
+.btn-dl:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── 乐谱导出 ── */
+.score-row {
+  margin-top: 2px;
+}
+
+.bpm-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--text-color-light, #888);
+}
+
+.bpm-input {
+  width: 58px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-color, #ddd);
+  background: var(--bg-color, #fff);
+  color: var(--text-color, #2c3e50);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bpm-input:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.score-hint {
+  margin: 0 0 10px;
 }
 
 .debug {
