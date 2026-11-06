@@ -83,6 +83,8 @@ const siteCollections = [
       { name: "flash档案馆", content: "flash档案馆", url: "https://flash.homes/" },
       { name: "lucky的博客", content: "lucky的博客", url: "https://rulke.github.io/PersonalSite/" },
       { name: "私语者", content: "匿名倾诉，随心树洞", url: "https://siyuzhe.com/" },
+      { name: "anna", content: "anna的档案", url: "https://zh.annasarchive.io/" },
+      { name: "zlibrary", content: "zlibrary", url: "https://zh.z-library.sk/" },
       { name: "", content: "", url: "" },
       { name: "", content: "", url: "" },
 
