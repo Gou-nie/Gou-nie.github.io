@@ -9,14 +9,23 @@
 -->
 <template>
   <div class="stem-splitter">
-    <p class="intro">
+    <p v-if="!demo" class="intro">
       导入本地音频，用 AI 把人声和伴奏拆成两轨，可切换、混合播放，也能降速跟练。
-      人声旋律还会画成卷帘，可以导出成 MIDI 或五线谱带走。
+      人声旋律还会画成卷帘，可以导出成 MIDI、五线谱或简谱带走。
       <strong>音频不会上传</strong>，全部在本机浏览器里计算。
     </p>
 
-    <!-- ① 选文件 -->
-    <template v-if="phase === 'idle' || phase === 'ready'">
+    <!-- 示例页直接导出：示例音符是现成的，不用等播放器合成好 -->
+    <div v-if="demo" class="row score-row demo-export-row">
+      <span class="field-label">导出示例乐谱</span>
+      <button class="btn-dl" @click="exportDemoScore('midi')">MIDI</button>
+      <button class="btn-dl" @click="exportDemoScore('musicxml')">五线谱</button>
+      <button class="btn-dl" @click="exportDemoScore('jianpu')">简谱</button>
+      <span class="demo-note">120 BPM · 4/4 拍 · C 大调</span>
+    </div>
+
+    <!-- ① 选文件：独立示例页跳过这一整块 -->
+    <template v-if="!demo && (phase === 'idle' || phase === 'ready')">
       <div
         class="drop-zone"
         :class="{ over: dragOver, has: !!file }"
@@ -71,9 +80,11 @@
         首次使用需下载约 30~67MB 模型，之后由浏览器缓存，不再重复下载。
       </p>
 
-      <!-- 调播放界面用的近路：不导入音频、不跑分离，直接合成一段示例进播放界面 -->
+      <!-- 示例现在单独占一个页面，这里只做跳转 -->
       <div class="demo-row">
-        <button class="btn-ghost demo-btn" @click="startDemo">▶ 试看播放界面</button>
+        <a class="btn-ghost demo-btn demo-link" href="/content/tool/音轨分离示例.html">
+          ▶ 试看示例
+        </a>
         <span class="demo-note">现场合成的示例音频，跳过分离</span>
       </div>
     </template>
@@ -110,18 +121,30 @@
       <p class="hint">分离过程中请保持本页面在前台，不要关闭标签页。</p>
     </div>
 
+    <!-- 示例页：合成中或合成失败。示例页没有选文件这一步，进页面就开始合成 -->
+    <div v-else-if="demo && phase !== 'done'" class="progress-panel">
+      <p class="hint">
+        <template v-if="errorMsg">示例没有加载成功，可以重试。</template>
+        <template v-else>正在合成示例音频…</template>
+      </p>
+      <button class="btn-primary" @click="startDemo">重试</button>
+    </div>
+
     <!-- ③ 播放 -->
     <div v-else class="player-panel">
       <div class="done-head">
-        <span class="done-badge">✓ 分离完成</span>
-        <span v-if="elapsedSec" class="done-meta">用时 {{ fmt(elapsedSec) }}</span>
-        <button class="btn-ghost" @click="reset">重新选择</button>
+        <span class="done-badge">{{ demo ? '✓ 示例已就绪' : '✓ 分离完成' }}</span>
+        <span v-if="elapsedSec && !demo" class="done-meta">用时 {{ fmt(elapsedSec) }}</span>
+        <a v-if="demo" class="btn-ghost demo-link" href="/content/tool/音轨分离.html">
+          去分离自己的音频
+        </a>
+        <button v-else class="btn-ghost" @click="reset">重新选择</button>
       </div>
 
       <div class="controls">
         <button class="btn-play" :aria-label="playing ? '暂停' : '播放'" @click="togglePlay">
-          <span v-if="playing">⏸</span>
-          <span v-else>▶</span>
+          <span v-if="playing" class="icon-pause" >⏸</span>
+          <span v-else class="icon-play">▶</span>
         </button>
         <div class="progress-wrap">
           <div class="progress-track">
@@ -283,8 +306,9 @@
         <a class="btn-dl" :href="stems.instrumental" :download="baseName + '-伴奏.wav'">下载伴奏</a>
       </div>
 
-      <!-- 乐谱导出：MIDI 进 DAW，MusicXML 进打谱软件。两者都取自卷帘上的旋律 -->
-      <div class="row score-row">
+      <!-- 乐谱导出：MIDI 进 DAW，五线谱（MusicXML）进打谱软件，简谱（SVG）直接看 -->
+      <!-- 示例页已经有一排固定参数的直接导出，这里不再重复 -->
+      <div v-if="!demo" class="row score-row">
         <span class="field-label">导出乐谱</span>
         <button
           class="btn-dl"
@@ -297,10 +321,18 @@
         <button
           class="btn-dl"
           :disabled="!scoreReady"
-          title="五线谱文件，打谱软件可直接打开"
+          title="MusicXML 五线谱文件，打谱软件可直接打开"
           @click="exportScore('musicxml')"
         >
-          MusicXML
+          五线谱
+        </button>
+        <button
+          class="btn-dl"
+          :disabled="!scoreReady"
+          title="SVG 简谱谱面，浏览器可直接查看、打印"
+          @click="exportScore('jianpu')"
+        >
+          简谱
         </button>
         <label class="bpm-field">
           节拍
@@ -322,7 +354,7 @@
       </div>
       <p class="hint score-hint">
         <template v-if="scoreReady">
-          按 4/4 拍、C 大调记谱，可在打谱软件里继续调整；节拍和量化只影响谱面，不动音频。
+          五线谱导出 MusicXML，简谱导出 SVG；都按 4/4 拍、C 大调记谱，节拍和量化只影响谱面，不动音频。
         </template>
         <template v-else-if="melodyState === 'running'">旋律分析完成后才能导出乐谱。</template>
         <template v-else>暂时没有可导出的旋律。</template>
@@ -355,9 +387,14 @@ import {
   SMALL_MAX,
 } from './StemSplitter/pianoRoll.js'
 import { midiName } from './subComponents/pitch.js'
-import { buildDemo } from './StemSplitter/demo.js'
-import { buildMidi, buildMusicXml, DEFAULT_BPM } from './StemSplitter/score.js'
+import { buildDemo, buildDemoScore } from './StemSplitter/demo.js'
+import { buildMidi, buildMusicXml, buildJianpuSvg, DEFAULT_BPM } from './StemSplitter/score.js'
 import * as separation from './StemSplitter/separation.js'
+
+const props = defineProps({
+  /** 独立示例页：跳过选文件和分离，进页面直接合成示例 */
+  demo: { type: Boolean, default: false },
+})
 
 const STEPS = [
   { key: 'loading-model', label: '载入模型', hint: '首次约 30~67MB，仅此一次' },
@@ -736,16 +773,19 @@ function describeError(err) {
   return '分离失败：' + msg
 }
 
-// ---------------------------------------------------------------- 试看
+// ---------------------------------------------------------------- 示例页
 
 /**
- * 试看播放界面：现场合成两轨示例音频和一份音符表，跳过模型下载和推理。
+ * 独立示例页：现场合成两轨示例音频和一份音符表，跳过模型下载和推理。
  *
  * 走的是和真实分离**同一条**收尾路径（stems → setupPlayer → 卷帘），只有旋律那一
  * 步不同：音符是照乐谱算的，直接喂给卷帘，不去分析刚合成的音频。
  */
 async function startDemo() {
   if (busy.value) return
+  // 重试时先把上一次的播放器和合成素材收掉
+  disposePlayer()
+  releaseStems()
   errorMsg.value = ''
   let demo
   try {
@@ -766,8 +806,8 @@ async function startDemo() {
   } catch (err) {
     // 合成素材没能挂上播放器（浏览器不支持 Web Audio 之类）：退回选文件那一步，
     // 别把一个半死的播放界面留在屏幕上
-    console.error('[试看] 失败：', err)
-    errorMsg.value = '试看失败：' + (err?.message || err)
+    console.error('[示例页] 失败：', err)
+    errorMsg.value = '示例加载失败：' + (err?.message || err)
     phase.value = 'idle'
     releaseStems()
     return
@@ -778,9 +818,7 @@ async function startDemo() {
   melody.value = { notes: demo.notes, durationSec: demo.durationSec }
   melodyState.value = 'done'
   applyZoom()
-
-  // 直接开播，省得再点一下。浏览器如果没认这个手势就会拒绝，那就安静地停在暂停态
-  player?.toggle().catch(() => {})
+  // 示例页是从路由跳转进来的，没有用户手势，不尝试自动播放
 }
 
 // ---------------------------------------------------------------- 旋律卷帘
@@ -971,8 +1009,15 @@ function downloadBlob(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
+/** 三种乐谱格式共用的下载分支 */
+function saveScore(notes, format, opt, name) {
+  if (format === 'midi') downloadBlob(buildMidi(notes, opt), name + '.mid')
+  else if (format === 'jianpu') downloadBlob(buildJianpuSvg(notes, opt), name + '-简谱.svg')
+  else downloadBlob(buildMusicXml(notes, opt), name + '-五线谱.musicxml')
+}
+
 /**
- * 导出人声旋律的乐谱。MIDI 给 DAW，MusicXML 给打谱软件（五线谱）。
+ * 导出人声旋律的乐谱。MIDI 给 DAW，五线谱给打谱软件，简谱是可直接查看的 SVG。
  * 导出的只是旋律单声部，和卷帘上看到的是同一份音符。
  */
 function exportScore(format) {
@@ -986,11 +1031,27 @@ function exportScore(format) {
   const name = `${baseName.value}-旋律`
 
   try {
-    if (format === 'midi') downloadBlob(buildMidi(notes, opt), name + '.mid')
-    else downloadBlob(buildMusicXml(notes, opt), name + '.musicxml')
+    saveScore(notes, format, opt, name)
   } catch (err) {
     console.error('[乐谱导出] 失败：', err)
     errorMsg.value = '乐谱导出失败：' + (err?.message || err)
+  }
+}
+
+/**
+ * 示例页的直接导出。示例音符是现成的，和合成音频共用同一份，
+ * 不用等播放器就绪，固定按 120 BPM 记谱。
+ */
+function exportDemoScore(format) {
+  const { notes } = buildDemoScore()
+  const opt = { bpm: DEFAULT_BPM, quantize: true, title: '示例旋律' }
+  const name = '示例旋律'
+
+  try {
+    saveScore(notes, format, opt, name)
+  } catch (err) {
+    console.error('[示例乐谱导出] 失败：', err)
+    errorMsg.value = '示例乐谱导出失败：' + (err?.message || err)
   }
 }
 
@@ -1135,6 +1196,7 @@ const onVisibility = () => {
 onMounted(() => {
   webgpu.value = separation.hasWebGPU()
   document.addEventListener('visibilitychange', onVisibility)
+  if (props.demo) startDemo()
 })
 
 onBeforeUnmount(() => {
@@ -1294,7 +1356,7 @@ onBeforeUnmount(() => {
   cursor: not-allowed;
 }
 
-/* 试看入口：排在主按钮下面一档，别和「开始分离」抢视线 */
+/* 示例入口：排在主按钮下面一档，别和「开始分离」抢视线 */
 .demo-row {
   display: flex;
   align-items: center;
@@ -1306,6 +1368,11 @@ onBeforeUnmount(() => {
 /* .btn-ghost 的 margin-left: auto 是给播放页右上角那个「重新选择」用的 */
 .demo-btn {
   margin-left: 0;
+}
+
+/* btn-ghost 用在 <a> 上时去掉下划线（示例跳转、返回分离页） */
+.demo-link {
+  text-decoration: none;
 }
 
 .demo-note {
@@ -1439,12 +1506,12 @@ onBeforeUnmount(() => {
   border: none;
   background: var(--theme-color, #3eaf7c);
   color: #fff;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.1s; 
 }
 
 .btn-play:hover {
@@ -1454,6 +1521,21 @@ onBeforeUnmount(() => {
 
 .btn-play:active {
   transform: scale(0.96);
+}
+
+.btn-play > span {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* ▶ 视觉重心偏左，往右推一点 */
+.btn-play .icon-play {
+  transform: translateX(2px);
+}
+
+/* ⏸ 一般本身居中，保持不动；如仍偏可微调 */
+.btn-play .icon-pause {
+  transform: translateX(0);
 }
 
 /* flex: 1 在列方向的父元素里会变成纵向拉伸，所以这里用 width 撑满 */

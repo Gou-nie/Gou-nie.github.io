@@ -125,17 +125,18 @@ function toWav(pcm, sampleRate) {
  *          vocals / instrumental 是 WAV 的 blob URL，撤 URL 是调用方的事
  *          （和分离出来的两轨走同一条 release 路径）
  */
-export function buildDemo() {
-  const frames = Math.round(DEMO_SECONDS * SAMPLE_RATE)
-  const lead = new Float32Array(frames)
-  const pad = new Float32Array(frames)
-
+/**
+ * 示例旋律的音符表。合成音频和「直接导出乐谱」共用这一份，
+ * 保证听到的和导出的永远是同一段。
+ *
+ * @returns {{notes: object[], durationSec: number}}
+ */
+export function buildDemoScore() {
   const notes = []
   let at = 0
   for (let i = 0; i < LEAD.length; i++) {
     const [midi, beats] = LEAD[i]
     const span = beats * BEAT_SEC
-    addTone(lead, midi, at, span * GATE, 0.8, [1, 0.32, 0.14, 0.06])
     notes.push({
       row: midi,
       start: at,
@@ -144,6 +145,19 @@ export function buildDemo() {
       clarity: 0.66 + (i % 4) * 0.1,
     })
     at += span
+  }
+  return { notes, durationSec: DEMO_SECONDS }
+}
+
+export function buildDemo() {
+  const { notes } = buildDemoScore()
+  const frames = Math.round(DEMO_SECONDS * SAMPLE_RATE)
+  const lead = new Float32Array(frames)
+  const pad = new Float32Array(frames)
+
+  // 直接用音符表发声，音频和导出谱面的时间轴不会各算各的
+  for (const n of notes) {
+    addTone(lead, n.row, n.start, n.end - n.start, 0.8, [1, 0.32, 0.14, 0.06])
   }
 
   let bat = 0
