@@ -31,7 +31,10 @@
       "Read(//Users/mac/Library/Caches/**)",
       "Bash(npm *)",
       "Bash(cp *)",
-      "Bash(CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --dump-dom 'http://localhost:8080/content/tool/%E9%9F%B3%E8%BD%A8%E5%88%86%E7%A6%BB.html' > /tmp/main-dom.html 2>/dev/null; grep -o 'href=\"[^\"]*音轨分离[^\"]*\"' /tmp/main-dom.html | sort | uniq -c; grep -c '试看示例' /tmp/main-dom.html)"
+      "Bash(CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --dump-dom 'http://localhost:8080/content/tool/%E9%9F%B3%E8%BD%A8%E5%88%86%E7%A6%BB.html' > /tmp/main-dom.html 2>/dev/null; grep -o 'href=\"[^\"]*音轨分离[^\"]*\"' /tmp/main-dom.html | sort | uniq -c; grep -c '试看示例' /tmp/main-dom.html)",
+      "Bash(grep -E \"^\\(jsdom|playwright|puppeteer|happy-dom\\)$\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8123/__staff_test.html)",
+      "Bash(sleep *)"
     ],
     "deny": []
   }

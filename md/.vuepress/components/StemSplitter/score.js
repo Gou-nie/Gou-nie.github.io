@@ -1,7 +1,7 @@
 /*
  * @Autor: LXS
  * @Date: 2026-10-23
- * @Description: 人声旋律音符 → 可下载的乐谱（MIDI / MusicXML / 简谱 SVG）
+ * @Description: 人声旋律音符 → 可下载的乐谱（MIDI / MusicXML / 五线谱 SVG / 简谱 SVG）
  *
  * 输入是 melody.js / demo.js 产出的 {row, start, end, clarity}（秒），单声部假设，
  * 和 extractMelody 一致。
@@ -18,7 +18,7 @@
 
 import { NOTE_NAMES } from '../subComponents/pitch.js'
 
-/** 每四分音符的 tick 数。MIDI、MusicXML、简谱共用一套时间轴 */
+/** 每四分音符的 tick 数。MIDI、MusicXML、五线谱/简谱 SVG 共用一套时间轴 */
 export const DIVISIONS = 480
 /** 默认量化网格：十六分音符 */
 const GRID = DIVISIONS / 4
@@ -571,4 +571,261 @@ export function buildJianpuSvg(notes, opt) {
   add('</svg>')
   const svg = '<?xml version="1.0" encoding="UTF-8"?>\n' + parts.join('') + '\n'
   return new Blob([svg], { type: 'image/svg+xml' })
+}
+
+// ──────────────────────────────────────────────────────────── 五线谱（SVG）
+
+/**
+ * 十六分音符格 → VexFlow 时值。附点用 'd' 后缀（VexFlow 会同时算进 tick），
+ * 休止符再加 'r'。格数和简谱共用同一套 NOTE_UNITS 拆分。
+ */
+const UNIT_DURATION = {
+  16: { base: 'w', dots: 0 },
+  12: { base: 'h', dots: 1 },
+  8: { base: 'h', dots: 0 },
+  6: { base: 'q', dots: 1 },
+  4: { base: 'q', dots: 0 },
+  3: { base: '8', dots: 1 },
+  2: { base: '8', dots: 0 },
+  1: { base: '16', dots: 0 },
+}
+
+/** MIDI 编号 → VexFlow 的 key（如 61 → 'c#/4'）。和简谱一样一律按升号拼写 */
+function vexKey(row) {
+  return NOTE_NAMES[((row % 12) + 12) % 12].toLowerCase() + '/' + (Math.floor(row / 12) - 1)
+}
+
+/**
+ * 把量化后的音符排到每小节 16 格上：音符按标准时值拆开，空隙补休止。
+ * 返回的块是 { kind: 'note'|'rest', slot, slots, row?, noteId? }。
+ * noteId 指向原始音符，五线谱靠它把拆开的段用连音线接起来。
+ */
+function layoutSlots(evs, measureTicks) {
+  const last = evs.length ? evs[evs.length - 1].end : 0
+  const measureCount = Math.max(1, Math.ceil(last / measureTicks))
+  const byMeasure = Array.from({ length: measureCount }, () => [])
+  for (const seg of splitAtMeasures(evs, measureTicks)) {
+    const m = Math.floor(seg.start / measureTicks)
+    if (m >= 0 && m < measureCount) byMeasure[m].push(seg)
+  }
+
+  // 休止符尽量用整拍/整小节的写法；填不整的零头从短时值往下拆
+  const addRests = (into, from, to) => {
+    let p = from
+    while (p < to) {
+      const rem = to - p
+      let u = 1
+      if (p % 16 === 0 && rem >= 16) u = 16
+      else if (p % 8 === 0 && rem >= 12) u = 12
+      else if (p % 8 === 0 && rem >= 8) u = 8
+      else if (p % 4 === 0 && rem >= 6) u = 6
+      else if (p % 4 === 0 && rem >= 4) u = 4
+      else if (p % 4 === 0 && rem >= 3) u = 3
+      else if (p % 2 === 0 && rem >= 2) u = 2
+      into.push({ kind: 'rest', slot: p, slots: u })
+      p += u
+    }
+  }
+
+  for (let m = 0; m < measureCount; m++) {
+    const mStart = m * measureTicks
+    const chunks = []
+    let cursor = 0
+    for (const seg of byMeasure[m].sort((a, b) => a.start - b.start)) {
+      if (cursor >= SLOTS_PER_MEASURE) break
+      // 不量化时 tick 可能落在格子中间，按最近格摆放；先保证和上一个音不重叠
+      let s = Math.max(cursor, Math.round((seg.start - mStart) / SLOT_TICKS))
+      let e = Math.round((seg.end - mStart) / SLOT_TICKS)
+      s = Math.min(s, SLOTS_PER_MEASURE - 1)
+      e = Math.min(Math.max(e, s + 1), SLOTS_PER_MEASURE)
+      if (s > cursor) addRests(chunks, cursor, s)
+      for (const u of splitUnits(e - s, NOTE_UNITS)) {
+        chunks.push({ kind: 'note', slot: s, slots: u, row: seg.row, noteId: seg.noteId })
+        s += u
+      }
+      cursor = e
+    }
+    if (cursor < SLOTS_PER_MEASURE) addRests(chunks, cursor, SLOTS_PER_MEASURE)
+    byMeasure[m] = chunks
+  }
+
+  return { measureCount, byMeasure }
+}
+
+/** 五线谱里文字的统一字体。中文标题和速度行都靠系统字体渲染 */
+const SVG_FONT = "'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif"
+
+/**
+ * 生成五线谱 SVG。和简谱共用量化后的音符、4/4 拍、C 大调、高音谱号。
+ *
+ * VexFlow 按需加载：只有点「五线谱」导出时才下载这块代码，不拖慢页面。
+ * VexFlow 的 SVG 后端需要一个真实 DOM 节点来量文字宽度，所以临时挂一个
+ * 屏幕外容器，画完序列化再删掉。音高字形是 path，导出的文件自带全部轮廓。
+ *
+ * @param {{row: number, start: number, end: number}[]} notes 秒为单位
+ * @param {{bpm?: number, quantize?: boolean, title?: string}} [opt]
+ * @returns {Promise<Blob>}
+ */
+export async function buildStaffSvg(notes, opt) {
+  const {
+    Renderer,
+    Stave,
+    StaveNote,
+    Voice,
+    Formatter,
+    Beam,
+    Accidental,
+    Dot,
+    StaveTie,
+    Barline,
+    Fraction,
+  } = await import('vexflow/bravura')
+
+  const { bpm = DEFAULT_BPM, quantize = true, title = 'Melody' } = opt || {}
+  const tempo = clampBpm(bpm)
+  const evs = toScoreNotes(notes, { bpm: tempo, quantize })
+
+  const measureTicks = DIVISIONS * BEATS_PER_MEASURE
+  const { measureCount, byMeasure } = layoutSlots(evs, measureTicks)
+
+  const WIDTH = 1600
+  const MARGIN = 90
+  const PER_SYSTEM = 4
+  const HEADER_H = 150
+  const SYSTEM_H = 170
+  const CLEF_W = 42
+  const systems = Math.ceil(measureCount / PER_SYSTEM)
+  // 均分到各行（5 小节排成 3+2，而不是 4+1）
+  const baseRow = Math.floor(measureCount / systems)
+  const extraRows = measureCount % systems
+  const rowCounts = Array.from(
+    { length: systems },
+    (_, i) => baseRow + (i < extraRows ? 1 : 0)
+  )
+  const height = HEADER_H + systems * SYSTEM_H + 30
+
+  const host = document.createElement('div')
+  host.style.cssText = 'position:absolute;left:-10000px;top:0;'
+  document.body.appendChild(host)
+
+  try {
+    const renderer = new Renderer(host, Renderer.Backends.SVG)
+    renderer.resize(WIDTH, height)
+    const ctx = renderer.getContext()
+
+    // 白底：下载后用浏览器打开，深色主题下也能看清
+    ctx.save()
+    ctx.setFillStyle('#fff')
+    ctx.fillRect(0, 0, WIDTH, height)
+    ctx.restore()
+
+    ctx.setFillStyle('#1a1a1a')
+    ctx.setFont(SVG_FONT, '34px', '600')
+    const titleWidth = ctx.measureText(title).width
+    ctx.fillText(title, WIDTH / 2 - titleWidth / 2, 62)
+    ctx.setFillStyle('#555')
+    ctx.setFont(SVG_FONT, '20px')
+    const subtitle = `4/4　C 大调　♩ = ${Math.round(tempo)}`
+    const subtitleWidth = ctx.measureText(subtitle).width
+    ctx.fillText(subtitle, WIDTH / 2 - subtitleWidth / 2, 100)
+
+    // noteId → 按出现顺序排列的 StaveNote。同一原始音符被拆成几段时靠它画连音线
+    const notesById = new Map()
+    const beams = []
+    let first = 0
+
+    for (let sys = 0; sys < systems; sys++) {
+      const rowCount = rowCounts[sys]
+      const staveY = HEADER_H + sys * SYSTEM_H
+      // 每行第一个小节要画谱号，匀一点宽度给它，其余小节均分
+      const rowWidth = (WIDTH - MARGIN * 2) / rowCount
+      const widths = Array.from({ length: rowCount }, () => rowWidth)
+      if (rowCount > 1) {
+        widths[0] += CLEF_W
+        for (let i = 1; i < rowCount; i++) widths[i] -= CLEF_W / (rowCount - 1)
+      }
+
+      let x = MARGIN
+      for (let i = 0; i < rowCount; i++) {
+        const m = first + i
+        const stave = new Stave(x, staveY, widths[i])
+        if (i === 0) stave.addClef('treble')
+        if (sys === 0 && i === 0) stave.addTimeSignature('4/4')
+        // 全曲最后一小节用终止线收尾
+        if (sys === systems - 1 && i === rowCount - 1) stave.setEndBarType(Barline.type.END)
+        stave.setContext(ctx).draw()
+
+        const tickables = []
+        for (const c of byMeasure[m]) {
+          const unit = UNIT_DURATION[c.slots]
+          const isRest = c.kind === 'rest'
+          const duration = unit.base + (unit.dots ? 'd' : '') + (isRest ? 'r' : '')
+          const note = new StaveNote({
+            keys: [isRest ? 'b/4' : vexKey(c.row)],
+            duration,
+            auto_stem: !isRest,
+          })
+          if (unit.dots) Dot.buildAndAttach([note], { all: true })
+          tickables.push(note)
+
+          if (!isRest) {
+            if (!notesById.has(c.noteId)) notesById.set(c.noteId, [])
+            notesById.get(c.noteId).push(note)
+          }
+        }
+
+        const voice = new Voice({ num_beats: BEATS_PER_MEASURE, beat_value: 4 })
+        voice.addTickables(tickables)
+        Accidental.applyAccidentals([voice], 'C')
+
+        // 每拍一组符杠；休止符不参与（默认行为）。符杠会统一起这一组音的方向，
+        // 所以要在 format / draw 之前生成
+        beams.push(
+          ...Beam.generateBeams(tickables, {
+            groups: [new Fraction(1, 4)],
+            maintain_stem_directions: false,
+          })
+        )
+
+        new Formatter().joinVoices([voice]).formatToStave([voice], stave)
+        voice.draw(ctx, stave)
+
+        x += widths[i]
+      }
+      first += rowCount
+    }
+
+    for (const beam of beams) beam.setContext(ctx).draw()
+
+    // 同一原始音符拆出来的相邻段用连音线接起来。跨行时两端各画一小段
+    for (const list of notesById.values()) {
+      for (let i = 1; i < list.length; i++) {
+        const a = list[i - 1]
+        const b = list[i]
+        const indices = { first_indices: [0], last_indices: [0] }
+        // 同一行相邻小节可以直接连；换行时才拆成行尾/行首两小段
+        const sameSystem = a.getStave().getY() === b.getStave().getY()
+        if (sameSystem) {
+          new StaveTie({ first_note: a, last_note: b, ...indices })
+            .setContext(ctx)
+            .draw()
+        } else {
+          new StaveTie({ first_note: a, last_note: null, ...indices })
+            .setContext(ctx)
+            .draw()
+          new StaveTie({ first_note: null, last_note: b, ...indices })
+            .setContext(ctx)
+            .draw()
+        }
+      }
+    }
+
+    const svg = host.querySelector('svg')
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    const xml =
+      '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg)
+    return new Blob([xml], { type: 'image/svg+xml' })
+  } finally {
+    host.remove()
+  }
 }

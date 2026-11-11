@@ -11,16 +11,18 @@
   <div class="stem-splitter">
     <p v-if="!demo" class="intro">
       导入本地音频，用 AI 把人声和伴奏拆成两轨，可切换、混合播放，也能降速跟练。
-      人声旋律还会画成卷帘，可以导出成 MIDI、五线谱或简谱带走。
+      人声旋律还会画成卷帘，可以导出成 MIDI、五线谱、简谱或 MusicXML 带走，
+      五线谱和简谱还能先预览再下载。
       <strong>音频不会上传</strong>，全部在本机浏览器里计算。
     </p>
 
-    <!-- 示例页直接导出：示例音符是现成的，不用等播放器合成好 -->
+    <!-- 示例页的固定参数导出：示例音符是现成的，不用等播放器合成好 -->
     <div v-if="demo" class="row score-row demo-export-row">
       <span class="field-label">导出示例乐谱</span>
       <button class="btn-dl" @click="exportDemoScore('midi')">MIDI</button>
-      <button class="btn-dl" @click="exportDemoScore('musicxml')">五线谱</button>
-      <button class="btn-dl" @click="exportDemoScore('jianpu')">简谱</button>
+      <button class="btn-dl" title="弹出五线谱预览，可在预览里下载 SVG" @click="exportDemoScore('staffsvg')">五线谱</button>
+      <button class="btn-dl" title="弹出简谱预览，可在预览里下载 SVG" @click="exportDemoScore('jianpu')">简谱</button>
+      <button class="btn-dl" title="MusicXML 文件，打谱软件可直接打开编辑" @click="exportDemoScore('musicxml')">MusicXML</button>
       <span class="demo-note">120 BPM · 4/4 拍 · C 大调</span>
     </div>
 
@@ -306,8 +308,8 @@
         <a class="btn-dl" :href="stems.instrumental" :download="baseName + '-伴奏.wav'">下载伴奏</a>
       </div>
 
-      <!-- 乐谱导出：MIDI 进 DAW，五线谱（MusicXML）进打谱软件，简谱（SVG）直接看 -->
-      <!-- 示例页已经有一排固定参数的直接导出，这里不再重复 -->
+      <!-- 乐谱导出：MIDI 进 DAW，五线谱/简谱先预览再下载 SVG，MusicXML 进打谱软件编辑 -->
+      <!-- 示例页已经有一排固定参数的导出，这里不再重复 -->
       <div v-if="!demo" class="row score-row">
         <span class="field-label">导出乐谱</span>
         <button
@@ -321,18 +323,26 @@
         <button
           class="btn-dl"
           :disabled="!scoreReady"
-          title="MusicXML 五线谱文件，打谱软件可直接打开"
-          @click="exportScore('musicxml')"
+          title="弹出五线谱预览，可在预览里下载 SVG"
+          @click="exportScore('staffsvg')"
         >
           五线谱
         </button>
         <button
           class="btn-dl"
           :disabled="!scoreReady"
-          title="SVG 简谱谱面，浏览器可直接查看、打印"
+          title="弹出简谱预览，可在预览里下载 SVG"
           @click="exportScore('jianpu')"
         >
           简谱
+        </button>
+        <button
+          class="btn-dl"
+          :disabled="!scoreReady"
+          title="MusicXML 文件，打谱软件可直接打开编辑"
+          @click="exportScore('musicxml')"
+        >
+          MusicXML
         </button>
         <label class="bpm-field">
           节拍
@@ -354,7 +364,7 @@
       </div>
       <p class="hint score-hint">
         <template v-if="scoreReady">
-          五线谱导出 MusicXML，简谱导出 SVG；都按 4/4 拍、C 大调记谱，节拍和量化只影响谱面，不动音频。
+          五线谱和简谱会先弹出预览，可在预览里下载 SVG；MusicXML 留给打谱软件编辑。都按 4/4 拍、C 大调记谱，节拍和量化只影响谱面，不动音频。
         </template>
         <template v-else-if="melodyState === 'running'">旋律分析完成后才能导出乐谱。</template>
         <template v-else>暂时没有可导出的旋律。</template>
@@ -372,11 +382,41 @@
 
     <!-- 隐藏的 <audio> 元素挂载点（由 StemPlayer 命令式创建并挂进来） -->
     <div ref="mountEl" class="audio-mount"></div>
+
+    <!-- 乐谱预览弹窗：不跳页，直接在音轨分离页里看谱、下载 -->
+    <Teleport to="body">
+      <div v-if="previewData" class="score-preview-mask" @click.self="closeScorePreview">
+        <div
+          ref="previewDialogEl"
+          class="score-preview-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="score-preview-title"
+          tabindex="-1"
+        >
+          <div class="score-preview-head">
+            <span id="score-preview-title" class="score-preview-title">乐谱预览</span>
+            <span class="score-preview-sub">{{ previewData.name }}</span>
+            <button
+              type="button"
+              class="score-preview-close"
+              aria-label="关闭预览"
+              @click="closeScorePreview"
+            >
+              ×
+            </button>
+          </div>
+          <div class="score-preview-body">
+            <ScorePreview :key="previewKey" :initial="previewData" embedded />
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, shallowRef, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { StemPlayer, RATE_PRESETS } from './StemSplitter/player.js'
 import { extractMelody, MAX_ANALYZE_SEC } from './StemSplitter/melody.js'
 import {
@@ -388,7 +428,8 @@ import {
 } from './StemSplitter/pianoRoll.js'
 import { midiName } from './subComponents/pitch.js'
 import { buildDemo, buildDemoScore } from './StemSplitter/demo.js'
-import { buildMidi, buildMusicXml, buildJianpuSvg, DEFAULT_BPM } from './StemSplitter/score.js'
+import ScorePreview from './ScorePreview.vue'
+import { buildMidi, buildMusicXml, DEFAULT_BPM } from './StemSplitter/score.js'
 import * as separation from './StemSplitter/separation.js'
 
 const props = defineProps({
@@ -1009,15 +1050,70 @@ function downloadBlob(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
-/** 三种乐谱格式共用的下载分支 */
+/** MIDI / MusicXML 直接下载；五线谱和简谱走弹窗，SVG 在弹窗里下载 */
 function saveScore(notes, format, opt, name) {
   if (format === 'midi') downloadBlob(buildMidi(notes, opt), name + '.mid')
-  else if (format === 'jianpu') downloadBlob(buildJianpuSvg(notes, opt), name + '-简谱.svg')
-  else downloadBlob(buildMusicXml(notes, opt), name + '-五线谱.musicxml')
+  else if (format === 'musicxml') downloadBlob(buildMusicXml(notes, opt), name + '.musicxml')
+}
+
+// ---------------------------------------------------------------- 乐谱预览弹窗
+
+const previewData = shallowRef(null)
+/** 每次打开换 key，让 ScorePreview 重新初始化，不受上一份谱子的状态影响 */
+const previewKey = ref(0)
+const previewDialogEl = ref(null)
+let previewPrevOverflow = ''
+let previewScrollLocked = false
+
+function onPreviewKeydown(e) {
+  if (e.key === 'Escape') closeScorePreview()
+}
+
+function closeScorePreview() {
+  if (!previewData.value) return
+  previewData.value = null
+  if (typeof window === 'undefined') return
+  window.removeEventListener('keydown', onPreviewKeydown)
+  if (previewScrollLocked) {
+    document.body.style.overflow = previewPrevOverflow
+    previewScrollLocked = false
+  }
 }
 
 /**
- * 导出人声旋律的乐谱。MIDI 给 DAW，五线谱给打谱软件，简谱是可直接查看的 SVG。
+ * 打开五线谱 / 简谱预览弹窗。返回 false 表示这个格式不走预览。
+ * 音符直接通过 props 传给面板，不经过存储或新标签页。
+ */
+function showScorePreview(notes, format, opt, name, source) {
+  if (format !== 'staffsvg' && format !== 'jianpu') return false
+
+  previewData.value = {
+    notes,
+    title: opt.title,
+    name,
+    bpm: opt.bpm,
+    quantize: opt.quantize,
+    format: format === 'jianpu' ? 'jianpu' : 'staff',
+    source,
+  }
+  previewKey.value += 1
+
+  if (typeof window !== 'undefined') {
+    // 弹窗打开时锁住页面滚动，避免滚轮穿透到后面的音轨分离界面
+    if (!previewScrollLocked) {
+      previewPrevOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      previewScrollLocked = true
+    }
+    window.addEventListener('keydown', onPreviewKeydown)
+    // 焦点移进弹窗，Esc / Tab 都在弹窗内起作用；容器本身不需要焦点框
+    nextTick(() => previewDialogEl.value?.focus())
+  }
+  return true
+}
+
+/**
+ * 导出人声旋律的乐谱。MIDI 给 DAW，五线谱 / 简谱弹窗预览后下载，MusicXML 进打谱软件编辑。
  * 导出的只是旋律单声部，和卷帘上看到的是同一份音符。
  */
 function exportScore(format) {
@@ -1031,6 +1127,7 @@ function exportScore(format) {
   const name = `${baseName.value}-旋律`
 
   try {
+    if (showScorePreview(notes, format, opt, name, 'audio')) return
     saveScore(notes, format, opt, name)
   } catch (err) {
     console.error('[乐谱导出] 失败：', err)
@@ -1039,7 +1136,7 @@ function exportScore(format) {
 }
 
 /**
- * 示例页的直接导出。示例音符是现成的，和合成音频共用同一份，
+ * 示例页的导出。示例音符是现成的，和合成音频共用同一份，
  * 不用等播放器就绪，固定按 120 BPM 记谱。
  */
 function exportDemoScore(format) {
@@ -1048,6 +1145,7 @@ function exportDemoScore(format) {
   const name = '示例旋律'
 
   try {
+    if (showScorePreview(notes, format, opt, name, 'demo')) return
     saveScore(notes, format, opt, name)
   } catch (err) {
     console.error('[示例乐谱导出] 失败：', err)
@@ -1202,6 +1300,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearTimeout(stallTimer)
   document.removeEventListener('visibilitychange', onVisibility)
+  // 预览弹窗会把 body 锁成不滚动，切页面时必须还原
+  closeScorePreview()
   disposePlayer()
   releaseStems()
   // 注意：不释放分离器里的 ONNX 会话，否则来回切路由就要重新下载模型
@@ -1981,6 +2081,79 @@ onBeforeUnmount(() => {
   color: #e74c3c;
 }
 
+/* ── 乐谱预览弹窗 ── */
+.score-preview-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(20, 24, 31, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.score-preview-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(1500px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--bg-color, #fff);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.score-preview-dialog:focus {
+  outline: none;
+}
+
+.score-preview-head {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.score-preview-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color, #2c3e50);
+}
+
+.score-preview-sub {
+  font-size: 12px;
+  color: var(--text-color-light, #999);
+}
+
+.score-preview-close {
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-color-light, #888);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.score-preview-close:hover {
+  background: var(--bg-color-secondary, rgba(0, 0, 0, 0.05));
+  color: var(--text-color, #2c3e50);
+}
+
+.score-preview-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 14px 18px 18px;
+}
+
 /* ── 错误 ── */
 .error-msg {
   width: 100%;
@@ -1991,6 +2164,24 @@ onBeforeUnmount(() => {
   background: rgba(231, 76, 60, 0.08);
   border-radius: 8px;
   margin-top: 14px;
+}
+
+@media (max-width: 719px) {
+  /* 手机上让预览占满整屏，否则谱面缩放后太小 */
+  .score-preview-mask {
+    padding: 0;
+  }
+
+  .score-preview-dialog {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .score-preview-body {
+    padding: 10px 12px 14px;
+  }
 }
 
 @media (max-width: 480px) {

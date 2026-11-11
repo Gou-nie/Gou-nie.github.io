@@ -41,6 +41,7 @@
         "openai": "^5.0.1",
         "pdfjs-dist": "^5.1.91",
         "roughjs": "^4.6.6",
+        "vexflow": "^4.2.5",
         "web-audio-separation": "^0.3.1"
     }
 }
