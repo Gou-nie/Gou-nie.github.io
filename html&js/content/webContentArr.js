@@ -55,6 +55,7 @@ const siteCollections = [
   {
     tab: "站点",
     links: [
+      { name: "麦田音乐网", content: "我没法再像个农民那样善良，只是麦子还在对着太阳愤怒生长", url: "https://www.mtyyw.com" },
       { name: "中国植物志", content: "中国植物百科", url: "https://ppbc.iplant.cn" },
       { name: "鸟站", content: "To see and understand", url: "https://yihanphotos.eth.sucks/" },
       { name: "数字花园", content: "前端知识讲解", url: "https://garden.bradwoods.io/" },
