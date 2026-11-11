@@ -347,6 +347,134 @@ const bookArr = [
     isShow: true
   }, 
   {
+    fileUrl: commonFileUrl,
+    name: "桂花风来吹又吹",
+    url: "content/write/meetby260919",
+    title: "桂花风来吹又吹",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "舒适圈",
+    url: "content/write/comfortZone",
+    title: "舒适圈",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "计划",
+    url: "content/write/plan",
+    title: "计划",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "噩梦",
+    url: "content/write/evilDream",
+    title: "噩梦",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "责任的推诿与转移",
+    url: "content/write/stopTheBlame",
+    title: "责任的推诿与转移",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "生命幻想集",
+    url: "content/write/lifeFantasy",
+    title: "生命幻想集",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "上班路上",
+    url: "content/write/goToWork",
+    title: "上班路上",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "回小的日子",
+    url: "content/write/huixiao",
+    title: "回小的日子",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "缩写",
+    url: "content/write/suoxie",
+    title: "缩写",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "你走之后",
+    url: "content/write/afterYouGo",
+    title: "你走之后",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "焦虑",
+    url: "content/write/anxiety",
+    title: "焦虑",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "忙碌后的闲思",
+    url: "content/write/freeThinkByBusy",
+    title: "忙碌后的闲思",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "放松",
+    url: "content/write/relax",
+    title: "放松",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "bug记录",
+    url: "content/write/bugjilu",
+    title: "bug记录",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "工作焦虑",
+    url: "content/write/workAnxiety",
+    title: "工作焦虑",
+    locked: true,
+    isShow: true
+  },
+  {
+    fileUrl: commonFileUrl,
+    name: "上海乐器展游记",
+    url: "content/write/26MIE",
+    title: "上海乐器展游记",
+    locked: true,
+    isShow: true
+  },
+  {
 
     fileUrl: commonFileUrl,
     name: "booklast",
