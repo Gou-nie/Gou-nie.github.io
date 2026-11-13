@@ -169,6 +169,11 @@ export default hopeTheme({
         spoiler: true,
     },
     plugins: {
+        // 评论服务端在 yytzb/comment/，部署在 radio 域的子路径下
+        comment: {
+            provider: "Waline",
+            serverURL: "https://radio.aleahquagef.top/comment",
+        },
         blog: {
             getInfo: ({ frontmatter, title, path }) => ({
                 title,

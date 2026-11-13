@@ -145,8 +145,13 @@
 
       <div class="controls">
         <button class="btn-play" :aria-label="playing ? '暂停' : '播放'" @click="togglePlay">
-          <span v-if="playing" class="icon-pause" >⏸</span>
-          <span v-else class="icon-play">▶</span>
+          <svg v-if="playing" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+            <rect x="6" y="5" width="4" height="14" rx="1" />
+            <rect x="14" y="5" width="4" height="14" rx="1" />
+          </svg>
+          <svg v-else viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
         </button>
         <div class="progress-wrap">
           <div class="progress-track">
@@ -1598,24 +1603,25 @@ onBeforeUnmount(() => {
   margin-bottom: 16px;
 }
 
+/* 无底色图标按钮：去掉外圈，只留主题色图形，几何中心对齐 */
 .btn-play {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  padding: 0;
   border: none;
-  background: var(--theme-color, #3eaf7c);
-  color: #fff;
-  font-size: 20px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-color, #3eaf7c);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s, transform 0.1s; 
+  transition: opacity 0.2s, transform 0.1s;
 }
 
 .btn-play:hover {
-  opacity: 0.85;
+  opacity: 0.75;
   transform: scale(1.05);
 }
 
@@ -1623,19 +1629,8 @@ onBeforeUnmount(() => {
   transform: scale(0.96);
 }
 
-.btn-play > span {
-  display: inline-block;
-  line-height: 1;
-}
-
-/* ▶ 视觉重心偏左，往右推一点 */
-.btn-play .icon-play {
-  transform: translateX(2px);
-}
-
-/* ⏸ 一般本身居中，保持不动；如仍偏可微调 */
-.btn-play .icon-pause {
-  transform: translateX(0);
+.btn-play svg {
+  display: block;
 }
 
 /* flex: 1 在列方向的父元素里会变成纵向拉伸，所以这里用 width 撑满 */
