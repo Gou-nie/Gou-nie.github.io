@@ -169,10 +169,11 @@ export default hopeTheme({
         spoiler: true,
     },
     plugins: {
-        // 评论服务端在 yytzb/comment/，部署在 radio 域的子路径下
+        // 评论服务端在 yytzb/comment/，域名被阿里云备案拦截，改用 IP 直连。
+        // 博客是 HTTPS，接口也必须是 HTTPS，IP 证书配置见 comment/README.md
         comment: {
             provider: "Waline",
-            serverURL: "https://radio.aleahquagef.top/comment",
+            serverURL: "https://106.15.159.146/comment",
         },
         blog: {
             getInfo: ({ frontmatter, title, path }) => ({
